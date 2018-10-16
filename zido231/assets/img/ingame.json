@@ -1,0 +1,260 @@
+{"frames": [
+
+{
+	"filename": "ingame/ammar-cheers",
+	"frame": {"x":608,"y":515,"w":83,"h":147},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":83,"h":147},
+	"sourceSize": {"w":83,"h":147}
+},
+{
+	"filename": "ingame/ammar-idle",
+	"frame": {"x":691,"y":515,"w":72,"h":147},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":72,"h":147},
+	"sourceSize": {"w":72,"h":147}
+},
+{
+	"filename": "ingame/arrow",
+	"frame": {"x":52,"y":0,"w":54,"h":49},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":54,"h":49},
+	"sourceSize": {"w":54,"h":49}
+},
+{
+	"filename": "ingame/box-01",
+	"frame": {"x":685,"y":856,"w":210,"h":235},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":210,"h":235},
+	"sourceSize": {"w":210,"h":235}
+},
+{
+	"filename": "ingame/box-02",
+	"frame": {"x":438,"y":856,"w":247,"h":204},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":247,"h":204},
+	"sourceSize": {"w":247,"h":204}
+},
+{
+	"filename": "ingame/btn-retry",
+	"frame": {"x":81,"y":104,"w":118,"h":120},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":118,"h":120},
+	"sourceSize": {"w":118,"h":120}
+},
+{
+	"filename": "ingame/bush",
+	"frame": {"x":678,"y":1091,"w":148,"h":529},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":148,"h":529},
+	"sourceSize": {"w":148,"h":529}
+},
+{
+	"filename": "ingame/coin-big",
+	"frame": {"x":199,"y":104,"w":114,"h":121},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":114,"h":121},
+	"sourceSize": {"w":114,"h":121}
+},
+{
+	"filename": "ingame/coin",
+	"frame": {"x":259,"y":0,"w":80,"h":85},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":80,"h":85},
+	"sourceSize": {"w":80,"h":85}
+},
+{
+	"filename": "ingame/congrats-title",
+	"frame": {"x":0,"y":856,"w":438,"h":195},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":438,"h":195},
+	"sourceSize": {"w":438,"h":195}
+},
+{
+	"filename": "ingame/distance-bar",
+	"frame": {"x":381,"y":1091,"w":42,"h":267},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":42,"h":267},
+	"sourceSize": {"w":42,"h":267}
+},
+{
+	"filename": "ingame/distance-indicator",
+	"frame": {"x":16,"y":0,"w":36,"h":39},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":36,"h":39},
+	"sourceSize": {"w":36,"h":39}
+},
+{
+	"filename": "ingame/dizzy",
+	"frame": {"x":604,"y":662,"w":164,"h":194},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":164,"h":194},
+	"sourceSize": {"w":164,"h":194}
+},
+{
+	"filename": "ingame/finish",
+	"frame": {"x":502,"y":104,"w":224,"h":129},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":224,"h":129},
+	"sourceSize": {"w":224,"h":129}
+},
+{
+	"filename": "ingame/img-01",
+	"frame": {"x":0,"y":1091,"w":381,"h":253},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":381,"h":253},
+	"sourceSize": {"w":381,"h":253}
+},
+{
+	"filename": "ingame/khalid-cheers",
+	"frame": {"x":400,"y":104,"w":102,"h":124},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":102,"h":124},
+	"sourceSize": {"w":102,"h":124}
+},
+{
+	"filename": "ingame/khalid-idle",
+	"frame": {"x":313,"y":104,"w":87,"h":124},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":87,"h":124},
+	"sourceSize": {"w":87,"h":124}
+},
+{
+	"filename": "ingame/next-arrow",
+	"frame": {"x":0,"y":0,"w":16,"h":18},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":18},
+	"sourceSize": {"w":16,"h":18}
+},
+{
+	"filename": "ingame/road-1",
+	"frame": {"x":423,"y":1091,"w":255,"h":429},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":255,"h":429},
+	"sourceSize": {"w":255,"h":429}
+},
+{
+	"filename": "ingame/rock",
+	"frame": {"x":0,"y":662,"w":154,"h":159},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":154,"h":159},
+	"sourceSize": {"w":154,"h":159}
+},
+{
+	"filename": "ingame/run-01",
+	"frame": {"x":154,"y":662,"w":150,"h":164},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":150,"h":164},
+	"sourceSize": {"w":150,"h":164}
+},
+{
+	"filename": "ingame/run-02",
+	"frame": {"x":454,"y":662,"w":150,"h":180},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":150,"h":180},
+	"sourceSize": {"w":150,"h":180}
+},
+{
+	"filename": "ingame/run-03",
+	"frame": {"x":304,"y":662,"w":150,"h":168},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":150,"h":168},
+	"sourceSize": {"w":150,"h":168}
+},
+{
+	"filename": "ingame/sammi-cheers",
+	"frame": {"x":0,"y":104,"w":81,"h":110},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":81,"h":110},
+	"sourceSize": {"w":81,"h":110}
+},
+{
+	"filename": "ingame/sammi-idle",
+	"frame": {"x":777,"y":0,"w":79,"h":104},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":79,"h":104},
+	"sourceSize": {"w":79,"h":104}
+},
+{
+	"filename": "ingame/scorebox",
+	"frame": {"x":339,"y":0,"w":438,"h":89},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":438,"h":89},
+	"sourceSize": {"w":438,"h":89}
+},
+{
+	"filename": "ingame/star-particle",
+	"frame": {"x":176,"y":0,"w":83,"h":78},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":83,"h":78},
+	"sourceSize": {"w":83,"h":78}
+},
+{
+	"filename": "ingame/tutor1",
+	"frame": {"x":0,"y":374,"w":608,"h":141},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":608,"h":141},
+	"sourceSize": {"w":608,"h":141}
+},
+{
+	"filename": "ingame/tutor2",
+	"frame": {"x":0,"y":233,"w":608,"h":141},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":608,"h":141},
+	"sourceSize": {"w":608,"h":141}
+},
+{
+	"filename": "ingame/tutor3",
+	"frame": {"x":0,"y":515,"w":608,"h":141},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":608,"h":141},
+	"sourceSize": {"w":608,"h":141}
+},
+{
+	"filename": "ingame/zido-logo",
+	"frame": {"x":106,"y":0,"w":70,"h":54},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":70,"h":54},
+	"sourceSize": {"w":70,"h":54}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "ingame.png",
+	"format": "RGBA8888",
+	"size": {"w":895,"h":1620},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:fd15656f544f6a212e184e5c9f502433:c1cb481bee99e9d6f583101268c0e33d:a0a7aae19725baf1127883d8cc485c4f$"
+}
+}

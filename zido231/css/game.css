@@ -1,0 +1,49 @@
+@font-face {
+    font-family: 'Farah';
+    src: url('../assets/fonts/hamattan.woff'),
+         url('../assets/fonts/hamattan.ttf');
+    src: local('☺'), url('../assets/fonts/hamattan.woff') format('woff'), url('../assets/fonts/hamattan.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Varela';
+    src: url('../assets/fonts/vagrounded.woff'),
+         url('../assets/fonts/vagrounded.ttf');
+    src: local('☺'), url('../assets/fonts/vagrounded.woff') format('woff'), url('../assets/fonts/vagrounded.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+#forestrun
+{   
+    cursor: url("../assets/hand-small.png"), auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 540px;
+    width: 960px;
+    text-align: center;
+    overflow: hidden;
+}
+
+body{
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.inner-logo
+{
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    background-image: url("../assets/zido-logo.png");
+    background-repeat: no-repeat;
+    width: 90px;
+    height: 100px;
+    margin-top: 15px;
+
+}
