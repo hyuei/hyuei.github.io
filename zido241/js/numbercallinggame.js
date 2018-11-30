@@ -177,8 +177,8 @@ class numberCallingGame {
     }
 
     spawnAnswer() {
-        this.wrongLogo = this.game.add.sprite(this.game.width * .5, this.game.height * .2, 'wrong');
-        this.rightLogo = this.game.add.sprite(this.game.width * .6, this.game.height * .2, 'right');
+        this.wrongLogo = this.game.add.sprite(this.game.width * .7, this.game.height * .2, 'wrong');
+        this.rightLogo = this.game.add.sprite(this.game.width * .7, this.game.height * .2, 'right');
         this.wrongLogo.anchor.set(.5);
         this.rightLogo.anchor.set(.5);
         this.wrongLogo.visible = false;
