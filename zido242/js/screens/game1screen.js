@@ -25,7 +25,7 @@ Game1Screen.inherit({
         this.gameOver = false;
         this.score = 0;
         this.plTime = 0;
-        this.maxTime = 60;
+        this.maxTime = 80;
         this.tutorId = 0;
         this.stageReady = false;
         this.curStage = 1;
