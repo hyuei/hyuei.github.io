@@ -39,7 +39,7 @@ class TreeGameScreen extends GameScreen {
         this.CurrentSecondsElapsed = 0;
         this.IsUpdatingTime = true;
         this.timeBox = this.game.add.sprite(775, 20, "timebox");
-        var timerTextOption = { font: "35px Arial", fill: "#8a4100", align: "right", wordWrap: true };
+        var timerTextOption = { font: "35px Vag", fill: "#8a4100", align: "right", wordWrap: true };
         this._timeText = this.game.add.text(880, 67, this.CurrentSecondsElapsed.toString(), timerTextOption);
         this._timeText.anchor.set(0.5);
         this.setTime(this.GAME_TIME);
