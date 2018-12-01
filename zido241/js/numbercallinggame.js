@@ -147,10 +147,10 @@ class numberCallingGame {
         let isPlus = (Math.random() > .5) ? 1 : 0;
         if (isPlus) {
             let quest = ans - randNum;
-            this.textBoardNumber.text = quest + "+" + randNum;
+            this.textBoardNumber.text = quest + "+" + randNum + "=";
         } else {
             let quest = ans + randNum;
-            this.textBoardNumber.text = quest + "-" + randNum
+            this.textBoardNumber.text = quest + "-" + randNum + "=";
         }
         this.strRand = ans.toString();
     }
