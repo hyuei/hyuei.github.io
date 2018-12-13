@@ -1,0 +1,53 @@
+@font-face {
+    font-family: 'Farah';
+    font-style: normal;
+    src: url("../assets/fonts/Farah-01.ttf") ;
+}
+
+@font-face {
+    font-family: 'Harmattan';
+    font-style: normal;
+    src: url("../assets/fonts/Harmattan-Regular.ttf") ;
+}
+
+@font-face {
+    font-family: "vag";
+    font-style: normal;
+    src: url("../assets/fonts/vag-round.otf") format('opentype');
+}
+
+#game
+{   
+    cursor: url("../assets/images/hand-small.png"), auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 540px;
+    width: 960px;
+    text-align: center;
+    overflow: hidden;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    margin: auto;
+}
+
+body{
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.inner-logo
+{
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    background-image: url("../assets/zido-logo.png");
+    background-repeat: no-repeat;
+    width: 90px;
+    height: 100px;
+    margin-top: 15px;
+
+}
