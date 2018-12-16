@@ -53,11 +53,12 @@ class Game1Screen extends GameScreen
 
         this.talker.onNext.add(this.nextTalker, this);
         this.talker.onFinish.add(function(){
-            var timer = this.numberCallingGame.updateTextTimer(this.numberCallingGame.gameTimer);
-            this.endgameoverlay.setTextScore(timer);
+            //let timer = this.numberCallingGame.updateTextTimer(this.numberCallingGame.gameTimer);
+            let score = this.numberCallingGame.getScore();
+            this.endgameoverlay.setTextScore(score);
             this.endgameoverlay.show();
 
-            ZIDO_API.setScore(this.numberCallingGame.gameTimer);
+            ZIDO_API.setScore(score);
             //this.waitAndNext();
             //var closeAudio = game.add.audio("applause", true);
             //closeAudio.play();;

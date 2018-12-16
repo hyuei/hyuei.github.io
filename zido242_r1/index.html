@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="HandheldFriendly" content="true" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="HandheldFriendly" content="true" />
+	<meta name="robots" content="noindex,nofollow" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="apple-mobile-web-app-title" content="Phaser App">
+	<meta name="viewport" id="vpr" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, minimal-ui"/>
+	<link rel="stylesheet" href="css/game.css" type="text/css" charset="utf-8">
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
+
+	<script>
+		
+		window.addEventListener('scroll', function () {
+		    // Do not scroll when keyboard is visible 
+		    if (document.activeElement === document.body && window.scrollY > 0) {
+		        document.body.scrollTop = 0;
+		    }
+		}, true);
+	</script>
+
+	<script type="text/javascript" src="js/phaser.js"></script>
+	<script type="text/javascript" src="js/zido-game-plugin.min.js"></script>
+	<script type="text/javascript" src="js/zidoconnect.js"></script>
+    <script src="js/core/init.js"></script>
+    <script src="js/core/platform.js"></script>
+    <script src="js/core/scm.js"></script>
+	<script src="js/core/utils.js"></script>
+		
+	<!-- plugins -->
+	<script type="text/javascript" src="js/plugins/phaser-nineslice.min.js"></script>
+	<script type="text/javascript" src="js/plugins/fontfaceobserver.min.js"></script>
+	<script type="text/javascript" src="js/plugins/phaser-fade.js"></script>
+
+	<script type="text/javascript" src="js/plugins/phaser-state-transition.umd.js"></script>
+	<script type="text/javascript" src="js/ubriframework/transitioncollections.js"></script>
+	<script type="text/javascript" src="js/lz-string.min.js"></script>
+	<script type="text/javascript" src="js/ubriframework/custom-storage.js"></script>
+	<script type="text/javascript" src="js/ubriframework/imageassetsdata.js"></script>
+	<script type="text/javascript" src="js/ubriframework/audioassetsdata.js"></script>
+	<script type="text/javascript" src="js/ubriframework/statescreenmanager.js"></script>
+	<script type="text/javascript" src="js/ubriframework/custompointer.js"></script>
+
+	<!-- assets -->
+	<script type="text/javascript" src="js/plugins/fontdetect.min.js"></script>
+	<script type="text/javascript" src="js/assets-reader.js"></script>
+	<!-- <script type="text/javascript" src="js/global.js"></script> -->
+	<script type="text/javascript" src="js/gameimageassets.js"></script>
+	<script type="text/javascript" src="js/gameaudioassets.js"></script>
+	<script type="text/javascript" src="js/talkingdata.js"></script>
+	<script type="text/javascript" src="js/stringsdata.js"></script>
+
+	<!-- game 
+	<script type="text/javascript" src="js/hopnumbergame.js"></script>
+	-->
+	<script type="text/javascript" src="js/talker/talker.js"></script>
+	<!-- <script type="text/javascript" src="js/platform.js"></script> -->
+
+	<!-- screens -->
+	<script type="text/javascript" src="js/components/transition.js"></script>
+	<script type="text/javascript" src="js/components/basestate.js"></script>
+	<script type="text/javascript" src="js/screens/zidoscreen.js"></script>
+	<script type="text/javascript" src="js/screens/zidovideoscreen.js"></script>
+	<script type="text/javascript" src="js/screens/gamescreen.js"></script>
+	<script type="text/javascript" src="js/screens/bootscreen.js"></script>
+	<script type="text/javascript" src="js/screens/preloadscreen.js"></script>
+	<script type="text/javascript" src="js/screens/startscreen.js"></script>
+	<script type="text/javascript" src="js/screens/game1screen.js"></script>
+
+	<!-- objects -->
+	<script type="text/javascript" src="js/objects/correct-burst.js"></script>
+	<script type="text/javascript" src="js/objects/chara.js"></script>
+	<script type="text/javascript" src="js/objects/endscreen.js"></script>
+	<script type="text/javascript" src="js/objects/click-btn.js"></script>
+	<script type="text/javascript" src="js/objects/flashlight.js"></script>
+	<script type="text/javascript" src="js/objects/object-group.js"></script>
+	<script type="text/javascript" src="js/objects/other-chara.js"></script>
+
+	<!-- main -->
+	<script type="text/javascript" src="js/main.js"></script>
+	<!-- <script type="text/javascript" src="js/avatar.js"></script> -->
+	
+
+</head>
+
+<body>
+	<div id="main-game">
+<!-- 	<div id="forestrun"> -->
+		<div id="loader-text">Loading</div>
+		<div id="game">
+			
+		</div>
+	</div>
+	<div id="orientation"></div>
+	
+	<!-- <div id="forestrun"></div> -->
+</body>
+
+	
+
+	<!-- main game
+
+</html>

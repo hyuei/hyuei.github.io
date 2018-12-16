@@ -8,10 +8,10 @@ class StringsData{
             loadingVideo: "Loading Video text",
             waitingZidoAPI: "Waiting Zido API Text",
             "start" : "!اِبْدَأْ",
-            "thousand" : "thousands",
-            "hundred" : "hundreds",
-            "ten" : "tens",
-            "one" : "ones"
+            "thousand" : "الآلَافُ",
+            "hundred" : "الْمِئَاتُ",
+            "ten" : "الْعَشَرَاتُ",
+            "one" : "الوَحَدَاتُ"
         };
     }
 }

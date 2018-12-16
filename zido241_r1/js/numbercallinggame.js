@@ -134,7 +134,7 @@ class numberCallingGame {
             let slotkid = this.game.add.sprite(480+(110*i), 110, "numberbox");
             slotkid.anchor.set(.5);
             let style = {
-                font:"18px vag",
+                font:"30px vag",
                 fill: "#8f4019",
                 align : "center"
             };
@@ -379,15 +379,9 @@ class numberCallingGame {
     }
 
     getScore() {
-        if (this.gameTimer < 60) { //1 menit dalam milisecond
-            return 1000;
-        } else if (this.gameTimer > 360) { // 6 menit dalam milisecond
-            return 100;
-        } else {
-            //return (1000 - (timerelapse * 0.0167));// 1000;
-            var timerxxx = this.gameTimer / 60;
-            return (1 / timerxxx) * 1000;
-        }
+        let maxdurationgame = this.TIMERQUESTION*10;
+        let cur = this.gameTimer;
+        return Math.floor(((maxdurationgame-cur)/maxdurationgame)*5000);
     }
 
     timeCount(elapsedMS) {
