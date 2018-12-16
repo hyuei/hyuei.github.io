@@ -45,7 +45,7 @@ class PreloadScreen
     create()
     {
         console.log("Preload screen");
-        this.game.state.start("ZidoScreen"); //should call this
+    //    this.game.state.start("ZidoScreen"); //should call this
         this.game.state.start("StartScreen"); // im jumping into game because want to focus finishing game
     }
 }
