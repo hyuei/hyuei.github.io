@@ -6,103 +6,103 @@ class TalkingData{
             Prologue:[
                 {
                     char:"",
-                    en:"Hello everyone, welcome to the classroom!",
-                    ar:"السَّلَامُ عَلَيْكُمْ أَحِبَّائِي، مَرْحَباً بِكُمْ إِلَى الْفَصْلِ الدِّرَاسِيِّ!",
-                    voice:"line1.mp3"
+                    en:"Carnaval is nearing!",
+                    ar:"مَوْعِدُ الْكَرْنَفَالِ يَقْتَرِبُ!",
+                    voice:""
                 },
                 {
                     char:"",
-                    en:"We are having a little game in the class right now.",
-                    ar:"نَحْنُ الْآنَ بِصَدَدِ لُعْبَةٍ صَغِيرَةٍ فِي الْفَصْلِ.",
-                    voice:"line2.mp3"
+                    en:"Carnaval is fun, but it'll be more fun if we could bring a lot of friends to the carnaval!",
+                    ar:"الْكَرْنَفَالُ كُلُّهُ مَرَحٌ وَبَهْجَةٌ، لَكِنَّ الْفَرْحَةَ سَوْفَ تَكْتَمِلُ إِذَا تَمَكَّنَّا مِنْ جَلْبِ الْكَثِيرِ مِنَ الْأَصْدِقَاءِ لِحُضُورِهِ!",
+                    voice:""
                 },
                 {
                     char:"",
-                    en:"So how does it play?",
-                    ar:"حَسَناً كَيْفَ يُمْكِنُنَا لَعِبُهَا؟",
-                    voice:"line3.mp3"
+                    en:"So let's go to the park and meet some other friends to go to the carnaval.",
+                    ar:"هَيَّا بِنَا إِذَنْ إِلَى الْمُنْتَزَهِ نَلْتَقِي عَدَداً مِنَ الْأَصْدِقَاءِ الْجُدُدِ وَنُسَاعِدُهُمْ عَلَى التَّوَجُّهِ إِلَى الْكَرْنَفَالِ.",
+                    voice:""
                 },
                 {
                     char:"",
-                    en:"Easy! There will be some numbers shown on the blackboard.",
-                    ar:"الْأَمْرُ بَسِيطٌ لِلْغَايَةِ! سَتَظْهَرُ بَعْضُ الْأَرْقَامِ عَلَى السَّبُّورَةِ.",
-                    voice:"line4.mp3"
+                    en:"How? It's easy! Just follow my instructions.",
+                    ar:"كَيْفَ نَفْعَلُ ذَلِكَ؟ الْأَمْرُ فِي غَايَةِ السُّهُولَةِ، يَكْفِي أَنْ تَتَّبِعَ التَّعْلِيمَاتِ!",
+                    voice:""
                 },
                 {
                     char:"",
-                    en:"You'll also see the kids wearing number 0-9 on their body.",
-                    ar:"وَسَنُشَاهِدُ كَذَلِكَ أَطْفَالاً يَحْمِلُونَ عَلَى أَجْسَادِهِمْ أَرْقَاماً مِنْ 0 إِلَى 9 .",
-                    voice:"line5.mp3"
+                    en:"The character will always walk forward, but you could use your arrow keyboard to direct his walk.",
+                    ar:"سَوْفَ تَتَحَرَّكُ الشَّخْصِيَّةُ بِاتِّجَاهِ الْأَمَامِ دَائِماً، لَكِنْ يُمْكِنُكَ اسْتِخْدَامُ أَسْهُمِ التَّوْجِيهِ الْمُثَبَّتَةِ عَلَى لَوْحَةِ الْمَفَاتِيحِ لِتَغْيِيرِ اتِّجَاهِ تَقَدُّمِهَا.",
+                    voice:""
                 },
                 {
                     char:"",
-                    en:"Just click on the kids who have the right numbers to form the number on the blackboard.",
-                    ar:"عَلَيْك فَقَطِ النَّقْرُ عَلَى الْأَطْفَالِ الَّذِينَ يَحْمِلُونَ الْاَرْقَامَ الصَّحِيحَةَ لِتَشْكِيلِ الرَّقْمِ الْمَوْجُودِ عَلَى السَّبُّورَةِ.",
-                    voice:"line6.mp3"
+                    en:"You could also use swipe to adjust his walk direction.",
+                    ar:"كَمَا تَسْتَطِيعُ تَوْجِيهَهَا أَيْضاً عَنْ طَرِيقِ اللَّمْسِ عَبْرَتَمْرِيرِ أُصْبُعِكَ عَلَى الشَّاشَةِ فِي الِاتِّجَاهِ الَّذِي تُرِيدُهُ.",
+                    voice:""
                 },
                 {
                     char:"",
-                    en:"Among them, there'll be one kid who didn't want to put on their number.",
-                    ar:"سَنَجِدُ طِفْلاً وَاحِداً ضِمْنَ الْمَجْمُوعَةِ لَا يُرِيدُ أَنْ يَرْتَدِيَ رَقْمَهُ.",
-                    voice:"line7.mp3"
+                    en:"Sometimes, someone will appear randomly within the map. Try to reach them before they go!",
+                    ar:"أَحْيَاناً يَظْهَرُ شَخْصٌ مَا عَشْوَائِيّاً عَلَى الْخَارِطَةِ، حَاوِلِ الْوُصُولَ إِلَيْهِ قَبْلَ اخْتِفَائِهِ عَنْ نَظَرِكَ!",
+                    voice:""
                 },
                 {
                     char:"",
-                    en:"You'll have to guess its number by seeing the missing number among the kids.",
-                    ar:"يَتَعَيَّنُ عَلَيْك حَزْرُ رَقْمِهِ مِنْ خِلَالِ مُلَاحَظَةِ الرَّقْمِ الْمَفْقُودِ ضِمْنَ مَجْمُوعَةِ الْأَطْفَالِ.",
-                    voice:"line8.mp3"
+                    en:"If you has succesfully reached someone, they will follow you from behind.",
+                    ar:"إِذَا تَمَكَّنْتَ مِنَ الْوُصُولِ إِلَى أَحَدِ الْأَشْخَاصِ، سَيَقُومُ بِالسَّيْرِ وَرَاءَكَ.",
+                    voice:""
                 },
                 {
                     char:"",
-                    en:"There will be some math question on the blackboard, too. Answer them using the kids number!",
-                    ar:"وَسَتَكُونُ هُنَاكَ أَيْضاً بَعْضُ عَمَلِيَّاتِ الْحِسَابِ عَلَى السَّبُّورَةِ. حَاوِلِ الْإِجَابَةُ عَنْهَا بِاسْتِخْدَامٍ أَرْقَامِ الْأَطْفَالِ!",
-                    voice:"line9.mp3"
+                    en:"Be careful, though. If you bump to the obstacle or your friends, the character will get unconscious and game over.",
+                    ar:"وَمَعَ ذَلِكَ يَجِبُ أَنْ تَظَلَّ مُتَيَقِّظاً! إِنِ ارْتَطَمْتَ بِحَاجِزٍ أَوْ أَصْدِقَائِكَ فَإِنَّ هَؤُلُاءِ سَيَفْقِدُونَ وَعْيَهُمْ وَسَتَخْسَرُ اللُّعْبَةَ.",
+                    voice:""
                 },
                 {
                     char:"",
-                    en:"Easy, right? Then let's get ready!",
-                    ar:"الْأَمْرُ فِي غَايَةِ السُّهُولَةِ، أَلَيْسَ كَذَلِكَ؟ إِذَنْ لِنَسْتَعِدَّ!",
-                    voice:"line10.mp3"
+                    en:"Now let's try to make the longest friend chain for the carrnaval!",
+                    ar:"الْآنَ هَيَّا نُحَاوِلُ تَكْوِينَ أَطْوَلَ سِلْسِلَةِ أَصْدِقَاءَ قَصْدَ التَّوَجُّهِ إِلَى الْكَرْنَفَالِ!",
+                    voice:""
                 }
             ],
             EndFailed:[
                 {
                     char:"",
-                    en:"That's all!",
-                    ar:"هَذَا كُلُّ شَيْءٍ!",
-                    voice:"line12.mp3"
+                    en:"Hmm, I think you'll need some more friends to make an awesome carnaval.",
+                    ar:"أَظُنُّكَ بِحَاجَةٍ إِلَى الْمَزِيدِ مِنَ الْأَصْدِقَاءِ لِيَكُونَ الْكَرْنَفَالُ أَمْتَعَ!",
+                    voice:""
                 },
                 {
                     char:"",
-                    en:"I think your score could be better than this.",
-                    ar:"أَعْتَقِدُ أَنَّهُ بِإِمْكَانِكَ إِحْرَازُ نَتِيجَةٍ أَفْضَلَ مِنْ هَذِهِ.",
-                    voice:"line13.mp3"
-                },
-                {
-                    char:"",
-                    en:"Try to play again and see if you can score better!",
-                    ar:"حَاوِلْ مَرَّةً أُخْرَى لِنَنْظُرَ أَيُمْكِنُكَ إِحْرَازُ نَتِيجَةٍ أَفْضَلَ!",
-                    voice:"line14.mp3"
+                    en:"Don't worry, you can also try to gather friends again in the next time. Good luck!",
+                    ar:"لَا عَلَيْكَ، يُمْكِنُكَ إِعَادَةُ مُحَاوَلَةِ جَمْعِ الْأَصْدِقَاءِ فِي الْمَرَّةِ الْقَادِمَةِ. وَفَّقَكَ اللَهُ!",
+                    voice:""
                 }
             ],
             EndFinish:[
                 {
                     char:"",
-                    en:"That's all, great job!",
-                    ar:"هَذَا كُلُّ شَيْءٍ، عَمَلٌ رَائِعٌ!",
-                    voice:"line15.mp3"
+                    en:"Whoa, that's a lot of friend, good job!",
+                    ar:"مَا شَاءَ اللَهُ! إِنَّ عَدَدَ الْأَصْدِقَاءِ الَّذِينَ جَمَعْتَهُمْ كَبِيرٌ حَقّاً، عَمَلٌ رَائِعٌ! ",
+                    voice:""
                 },
                 {
                     char:"",
-                    en:"The teacher is satisfied with your performance. The kids are having fun, too!",
-                    ar:"الْمُعَلِّمُ رَاضٍ عَنْ أَدَائِك. كَمَا أَنَّ الْأَطْفَالَ يَقْضُونَ وَقْتاً مُمْتِعاً!",
-                    voice:"line16.mp3"
+                    en:"Thanks to this, you'll surely be able to pull out some great carnaval performance.",
+                    ar:"بِفَضْلِ هَذَا حَتْماً سَتَكُونُ قَادِراً عَلَى الْقِيَامِ بِأَدَاءٍ رَائِعٍ فِي الْكَرْنَفَالِ بِحَوْلِ اللَهِ.",
+                    voice:""
                 },
                 {
                     char:"",
-                    en:"Thank you for playing and see you next time!",
-                    ar:"شُكْراً عَلَى اللَّعِبِ نَرَاك فِي الْمَرَّةِ الْقَادِمَةِ!",
-                    voice:"line17.mp3"
+                    en:"Our little heroes from the animation also has a great performance, too.",
+                    ar:"لَقَدْ حَقَّقَ أَبْطَالُنَا الصِّغَارُ فِي الرُّسُومِ الْمُتَحَرِّكَةِ هُمْ كَذَلِكَ إِنْجَازاً رَائِعاً!",
+                    voice:""
+                },
+                {
+                    char:"",
+                    en:"Don't forget to watch their action in the animation video!",
+                    ar:"لَا تَنْسَيَنْ مُتَابَعَةَ مُغَامَرَتِهِمْ عَلَى فِيدْيُو الرُّسُومِ الْمُتَحَرِّكَةِ!",
+                    voice:""
                 }
             ]
         };

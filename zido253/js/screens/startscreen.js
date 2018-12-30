@@ -12,7 +12,7 @@ class StartScreen
         
         var startButton = game.add.button(game.world.centerX, game.world.centerY, "btn-taptoplay", function(){
             // game.state.start(SCREEN_MANAGER.getNext());
-            game.state.start("Game1Screen");//("PrologueScreen");//("Game1Screen");
+            game.state.start("PrologueScreen");//("Game1Screen");
         });
         startButton.anchor.set(0.5);
         startButton.scale.set(0.75);

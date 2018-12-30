@@ -47,6 +47,10 @@ class ShopGame {
         this._sellerBalloonGroup = null;
         this._sellerBButtonGroup = null;
         this._finalScoreGroup = null;
+        this._buyerTimerGroup = null;
+
+        this._timerBar = null;
+        this._initialTimeWidth = 40;
 
         this._judgementGroup = null;
 
@@ -57,10 +61,12 @@ class ShopGame {
 
         this._currentScore = 0;
         this._currentTime = 0;
+        this._currentBuyerTime = 0;
 
         this._currentSecondsElapsed = 0;
 
         this.INITIAL_TIME = 60000;
+        this.INITIAL_BUYER_TIME = 20000;
 
         this._correctMark = null;
         this._falseMark = null;
@@ -75,8 +81,10 @@ class ShopGame {
         this._finalTotalScoreText = null;
 
         this._isBuyerServed = false;
+        this._isBuyerTimingOut = false;
 
         this._hasGreeted = false;
+        this._hasBuyerNoticed = false;
 
     }
 
@@ -92,6 +100,8 @@ class ShopGame {
         this.createBuyer();
         this.createBuyer();
         this.createBuyer();
+
+        this.createBuyerTimer();
 
         this._selectedFruitGroup = this._game.add.group();
 
@@ -251,13 +261,17 @@ class ShopGame {
 
             this.showFalseMark();
 
-            var ref = this;
-            setTimeout(function () {
-                ref.clearSelectedFruits();
-                ref.clearShop();
-                setTimeout(function () { ref.shiftBuyer(false); }, 350);
-            }, 500);
+            this.buyerExit();
         }
+    }
+
+    buyerExit() {
+        var ref = this;
+        setTimeout(function () {
+            ref.clearSelectedFruits();
+            ref.clearShop();
+            setTimeout(function () { ref.shiftBuyer(false); }, 350);
+        }, 500);
     }
 
     addScore(score) {
@@ -295,6 +309,32 @@ class ShopGame {
 
     createSeller() {
         this._mainChar = this._game.add.sprite(640, 170, "seller");
+    }
+
+    createBuyerTimer() {
+
+        this._buyerTimerGroup = this._game.add.group();
+
+        var timerBase = this._game.add.sprite(255, 260, "timer-base");
+
+        // timer bar
+        this._timerBar = game.add.graphics(0, 0);
+        this._timerBar.anchor.x = 0;
+        this._timerBar.anchor.y = 0.5;
+        this._timerBar.beginFill(0xF84D44, 1);
+        this._timerBar.drawRect(291, 281, this._initialTimeWidth, 9);
+
+        this._buyerTimerGroup.add(timerBase);
+        this._buyerTimerGroup.add(this._timerBar);
+
+        this._currentBuyerTime = this.INITIAL_BUYER_TIME;
+        this.updateBuyerTimer(this._currentBuyerTime);
+
+    }
+
+    updateBuyerTimer(time) {
+        this._timerBar.clear();
+        this._timerBar.drawRect(291, 281, time / this.INITIAL_BUYER_TIME * this._initialTimeWidth, 9);
     }
 
     createBuyer() {
@@ -338,6 +378,8 @@ class ShopGame {
     }
 
     shiftBuyer(isThanks = false) {
+        this._hasBuyerNoticed = false;
+        
         var ref = this;
 
         if (isThanks) {
@@ -370,11 +412,16 @@ class ShopGame {
                             mostFrontBuyer.destroy();
                             ref._addedBuyersSprites.shift();
 
+                            ref._currentBuyerTime = ref.INITIAL_BUYER_TIME;
+                            ref.updateBuyerTimer(ref._currentBuyerTime);
+
                             ref.createBuyer();
                             ref.showGreetButton();
 
                             ref._isBuyerServed = false;
                             ref._hasGreeted = false;
+
+                            ref._isBuyerTimingOut = false;
 
                         });
 
@@ -398,6 +445,23 @@ class ShopGame {
             } else {
                 this._currentSecondsElapsed -= this._game.time.elapsedMS;
                 this.setTime(this._currentSecondsElapsed);
+
+
+                // buyer timer update
+                // if (!this._hasBuyerNoticed) {
+                    if(!this._isBuyerServed) {
+                        if (!this._isBuyerTimingOut && this._currentBuyerTime > 0) {
+                            this._currentBuyerTime -= this._game.time.elapsedMS;
+                            this.updateBuyerTimer(this._currentBuyerTime);
+                        } else {
+                            if (this._currentBuyerTime <= 0 && !this._isBuyerTimingOut) {
+                                this.buyerExit();
+                                this._isBuyerTimingOut = true;
+                            }
+                        }
+                    }
+                // }
+
             }
         }
 
@@ -569,6 +633,8 @@ class ShopGame {
 
     greetingsOrchestration() {
         // this._buyerBaloonGroup.scale.set(0.5);
+
+        this._hasBuyerNoticed = true;
 
         var ref = this;
         var offset = 50;

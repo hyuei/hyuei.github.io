@@ -1,17 +1,6 @@
  // ----------------------------------------------------------------------------------------------
  // DYNAMICALLY CHANGE VIEWPORT FOR SPECIFIC PLATFORM FIX
  // ----------------------------------------------------------------------------------------------
-var mvp = document.getElementById('vpr');
-
-if (mvp == null || mvp == undefined) {
-    mvp = document.querySelector("meta[name=viewport]");
-}
-
-if (mvp == null || mvp == undefined) {
-}
- 
-mvp.parentNode.removeChild(mvp);
-
 viewport = document.createElement('meta');
 viewport.name = 'viewport';
 
@@ -52,6 +41,31 @@ helper.init = function() {
         helper.phaserMode = Phaser.AUTO;
     }
 }
+// ====================================================================================================
+// init var and functions right after window.onLoad event
+helper.initOnLoad = function() {
+    var scream;
+    var brim;
+    
+    //IS ALREAD LOADED
+    var firstTime = true;
+    
+    //APPEND CANVAS TO THIS ELEMENT
+    var brimCanvasElement = 'game';
+
+    if(firstTime)
+    {
+        //alert("flag b")
+        //DO ONLY ONCE AT STARTUP
+        firstTime = false;
+        //SET THE RIGHT DOM ELEMENT
+        document.querySelector('#game').style.display = 'block';
+        window.brimCanvasElement = 'game';
+        //CREATE PHASER CANVAS
+        helper.preCreatePhaser();
+    }
+    
+}
 
 helper.preCreatePhaser = function() {
         global.webFontReady = false;
@@ -72,7 +86,6 @@ helper.preCreatePhaser = function() {
               families: global.webFontArr
             }
         };
-
         
         global.deviceWidth = window.innerWidth;
         global.deviceHeight = window.innerHeight;
@@ -86,40 +99,22 @@ helper.preCreatePhaser = function() {
         global.processScaling();
         
         window.game = null;
-            console.log("pre createPhaser", Phaser.Device);
+        // console.log("pre createPhaser", Phaser.Device);
 
         Phaser.Device.onInitialized.add(function() {
             console.log("INITIALISESSDES");
-            if (global.forceWidth || (global.astrid && global.landscape == false && Phaser.Device.desktop) || (!Phaser.Device.desktop && global.astrid)) {
-                window.addEventListener("resize", auto_resize_area, false);
-                auto_resize_area();
-                auto_resize_area_id = setInterval(initOnce, 3000);
-                setInterval(auto_resize_area, 1000);
-            } else if (global.simulatedMobile == true) {
-                window.addEventListener("resize", init_refresh_page, false);
-            }
 
-            if (global.astrid == true) {
-                // if responsive mode
-                if (Phaser.Device.desktop && global.landscape == true){
-                    window.regainIncorrectOrientation = true;
-                    //window.addEventListener("resize", resizeResponsive, false); 
-                } else if (Phaser.Device.desktop == false) {
-                    // window.addEventListener("resize", init_refresh_page, false);
-                }
-                //document.getElementById('game').style.width =   (window.innerWidth-2) + 'px';
-                //document.getElementById('game').style.height =  (window.innerHeight-2) + 'px';
-                auto_refresh_page_id2 = setInterval(auto_refresh_page, 1000);
-                document.getElementById('main-game').style.overflow = "hidden";
-                // if (Phaser.Device.desktop == true) {
-                //     document.getElementById('main-game').style.overflow = "hidden";
-                // }
-            }
+            window.addEventListener("resize", auto_resize_area, false);
+            auto_resize_area();
+            auto_resize_area_id = setInterval(initOnce, 10);
+            setInterval(auto_resize_area, 10);
             
+            auto_refresh_page_id2 = setInterval(auto_refresh_page, 10);
+            document.getElementById('main-game').style.overflow = "hidden";
             window.addEventListener('orientationchange', orientationchange);
             window.addEventListener("resize", orientationchange, false);
             // (optional) Android doesn't always fire orientationChange on 180 degree turns
-            setInterval(orientationchange, 1000);
+            setInterval(orientationchange, 10);
             setInterval(forceScroll, 20);
         });
 
@@ -151,57 +146,6 @@ helper.preCreatePhaser = function() {
                     return point;
             }
         }
-
-}
-
-// ====================================================================================================
-// init var and functions right after window.onLoad event
-helper.initOnLoad = function() {
-    var scream;
-    var brim;
-    
-    //IS ALREAD LOADED
-    var firstTime = true;
-    
-    //APPEND CANVAS TO THIS ELEMENT
-    var brimCanvasElement = 'game';
-
-    if(firstTime)
-    {
-        //alert("flag b")
-        //DO ONLY ONCE AT STARTUP
-        firstTime = false;
-        //SET THE RIGHT DOM ELEMENT
-        document.querySelector('#game').style.display = 'block';
-        window.brimCanvasElement = 'game';
-        //CREATE PHASER CANVAS
-        helper.preCreatePhaser();
-    }
-    
-}
-
-// ====================================================================================================
-// Generic vars and functions definitions
-
-var temp_scroll_x = 10;
-function forceScroll() {
-    if (Phaser.Device.desktop || game.canvas == null || game.canvas == undefined || document.getElementById('game') == undefined || document.getElementById('game') == null) {
-        return;
-    }
-    
-    if (temp_scroll_x == 10) {
-        temp_scroll_x = -10;
-        document.getElementById('orientation').innerHTML = '.';
-    } else {
-        temp_scroll_x = 10;
-        document.getElementById('orientation').innerHTML = '..';
-    }
-}
-
-helper.constraintResponsive = function() {
-    if (window.deviceSizeCheckIntervalID)
-        clearInterval(window.deviceSizeCheckIntervalID);
-    window.deviceSizeCheckIntervalID = setInterval(window.deviceSizeCheck, 1);
 }
 
 function resizeResponsive() {
@@ -261,7 +205,7 @@ var auto_refresh_page_id2 = -1;
 global.forceReloadFlag = false;
 function init_refresh_page () {
     // body...
-    auto_refresh_page_id = setTimeout(auto_refresh_page, 1500);
+    auto_refresh_page_id = setTimeout(auto_refresh_page, 10);
 }
 
 function get_current_ori () {
@@ -288,35 +232,6 @@ function auto_refresh_page() {
 
     var currentOrientation = get_current_ori();
 
-    if ((
-        (((currentOrientation == "portrait" && global.landscape == false) || (currentOrientation == "landscape" && global.landscape == true))
-            )
-        && (global.hasOrientationChanged)
-    ) || (
-
-        (((currentOrientation == "portrait" && global.landscape == false) || (currentOrientation == "landscape" && global.landscape == true))
-            ) &&
-        (global.forceReloadFlag == true)
-      )
-    )
-    {
-        if (global.forceWidth == false && global.forceReloadFlag == true) {
-            clearInterval(auto_refresh_page_id);
-            clearInterval(auto_refresh_page_id2);
-            location.reload();
-            //alert("flag b")
-        } else {
-            console.log("CORRECT ORI")
-            document.getElementById('orientation').style.display = 'none';
-        }
-    }
-
-    if ((global.hasOrientationChanged && currentOrientation == "landscape" && global.landscape == true) 
-        || (global.hasOrientationChanged && currentOrientation == "portrait" && global.landscape == false)
-    ) {
-        global.hasOrientationChanged = false;
-    }
-
     if ((currentOrientation == "portrait" && global.landscape == false) || (currentOrientation == "landscape" && global.landscape == true)) {
         oldInnerWidth = newInnerWidth;
         oldInnerHeight = newInnerHeight
@@ -329,7 +244,7 @@ function auto_refresh_page() {
     }
 
     if ((currentOrientation == "portrait" && global.mobileLandscape == true) || (currentOrientation == "landscape" && global.mobileLandscape == false)) {        
-        document.getElementById('orientation').style.display = 'block';
+        // document.getElementById('orientation').style.display = 'block';
     } else if((currentOrientation == 'landscape' && global.mobileLandscape == true) || (currentOrientation == 'portrait' && global.mobileLandscape == false)){
         setTimeout(function(){
             document.getElementById('orientation').style.display = 'none'  
@@ -357,7 +272,26 @@ function deviceSizeCheck() {
     global.deviceHeight = window.innerHeight;
 }
 
-/**Injecting no border code for Phaser.ScaleManager*/
+var temp_scroll_x = 10;
+function forceScroll() {
+    if (Phaser.Device.desktop || game.canvas == null || game.canvas == undefined || document.getElementById('game') == undefined || document.getElementById('game') == null) {
+        return;
+    }
+    
+    if (temp_scroll_x == 10) {
+        temp_scroll_x = -10;
+        document.getElementById('orientation').innerHTML = '.';
+    } else {
+        temp_scroll_x = 10;
+        document.getElementById('orientation').innerHTML = '..';
+    }
+}
+
+helper.constraintResponsive = function() {
+    if (window.deviceSizeCheckIntervalID)
+        clearInterval(window.deviceSizeCheckIntervalID);
+    window.deviceSizeCheckIntervalID = setInterval(window.deviceSizeCheck, 1);
+}
 
 MyScaleManager = {};
 //MyScaleManager.NO_BORDER = 3;

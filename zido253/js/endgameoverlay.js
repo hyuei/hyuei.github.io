@@ -10,6 +10,7 @@ class EndGameOverlay extends Phaser.Sprite
         this.stars = [];
         this.triocheers = null;
         this.congratsTitle = null;
+        this.toobad = null;
         this.emitter = null;
         this.retryButton = null;
         this.blackOverlay = null;
@@ -41,10 +42,15 @@ class EndGameOverlay extends Phaser.Sprite
         });
     }
 
-    show()
+    show(win)
     {
         this.group.alpha = 1;
-        this.animate();
+        if(win == true){this.toobad.visible =false;}
+        else {
+            this.congratsTitle.visible = false;
+            this.triocheers.visible = false;
+        }
+        this.animate(win);
     }
 
     hide()
@@ -64,6 +70,7 @@ class EndGameOverlay extends Phaser.Sprite
         this.createBlackOverlay();
         this.createCharacter();
         this.createCongratsTitle();
+        this.createToobadTitle();
         this.createScoreBox();
         this.createStars();
         this.createButtons();
@@ -91,6 +98,15 @@ class EndGameOverlay extends Phaser.Sprite
         this.textScore.anchor.set(.5, .65);
 
         this.group.add(this.scoreBox);
+    }
+
+    createToobadTitle(){
+        this.toobad = this.game.add.sprite(0,0, "toobad");
+        this.toobad.anchor.set(0.5);
+        this.toobad.position.set(this.game.world.centerX, this.game.world.height*.35);
+        //this.congratsTitle.scale.set(0.9);
+
+        this.group.add(this.toobad);
     }
 
     createCongratsTitle()
@@ -164,7 +180,7 @@ class EndGameOverlay extends Phaser.Sprite
         this.emitter.start(true, 2000, null, 30);
     }
 
-    animate(){
+    animate(win){
         
         var ref = this;
         
@@ -180,21 +196,36 @@ class EndGameOverlay extends Phaser.Sprite
         this.congratsTitle.alpha = 0;
         this.game.add.tween(this.congratsTitle).to({alpha : 1}, 800, Phaser.Easing.Exponential.Out, true, 1000);
 
+        this.toobad.alpha = 0;
+        this.game.add.tween(this.toobad).to({alpha : 1}, 800, Phaser.Easing.Exponential.Out, true, 1000);
+
         this.scoreBox.alpha = 0;
         this.game.add.tween(this.scoreBox).to({alpha : 1}, 800, Phaser.Easing.Exponential.Out, true, 1000);
 
         this.retryButton.alpha = 0;
         this.game.add.tween(this.retryButton).to({alpha : 1}, 800, Phaser.Easing.Exponential.Out, true, 1000);
 
-        for(var i = 0; i < this.stars.length; i++){
-            var star = this.stars[i];
-            if(star != null)
-            {
-                star.scale.set(0, 0);
-                this.game.add.tween(star.scale).to({x:1, y:1}, 300, Phaser.Easing.Exponential.Out, true, (i * 100) + 1000);
+        if(win){
+            for(var i = 0; i < this.stars.length; i++){
+                var star = this.stars[i];
+                if(star != null)
+                {
+                    star.scale.set(0, 0);
+                    this.game.add.tween(star.scale).to({x:1, y:1}, 300, Phaser.Easing.Exponential.Out, true, (i * 100) + 1000);
+                }
+            }
+            setTimeout(function(){ref.particleBurst();}, 800);
+        }
+        else{
+            for(var i = 0; i < this.stars.length; i++){
+                var star = this.stars[i];
+                if(star != null)
+                {
+                    star.visible = false;
+                }
             }
         }
-        setTimeout(function(){ref.particleBurst();}, 800);
+        
 
         setTimeout(() => {
             ref.retryButton.inputEnabled = true;

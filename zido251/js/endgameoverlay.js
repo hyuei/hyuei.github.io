@@ -1,23 +1,25 @@
-class EndGameOverlay extends Phaser.Sprite
-{
-    constructor(game,x, y)
-    {
+class EndGameOverlay extends Phaser.Sprite {
+    constructor(game, x, y) {
         super(game, x, y);
         this._game = game;
-        
+
         this.group = game.add.group();
 
         this.stars = [];
         this.triocheers = null;
         this.congratsTitle = null;
+        this.tooBadTitle = null;
         this.emitter = null;
         this.retryButton = null;
         this.blackOverlay = null;
 
+        this.congratsGroup = null;
+        this.tooBadGroup = null;
+
         this.onRetryButtonDown = new Phaser.Signal();
 
         this.wasDown = false;
-        
+
 
         this.createObjects();
         this.hide();
@@ -36,82 +38,120 @@ class EndGameOverlay extends Phaser.Sprite
         // }
 
         var ref = this;
-        ref.emitter.forEachAlive(function(p) {
+        ref.emitter.forEachAlive(function (p) {
             p.alpha = p.lifespan / ref.emitter.lifespan;
         });
     }
 
-    show()
-    {
+    show() {
         this.group.alpha = 1;
         this.animate();
     }
 
-    hide()
-    {
+    showCongrats() {
+        this.tooBadGroup.visible = false;
+        this.congratsGroup.visible = true;
+        this.group.alpha = 1;
+        this.animate();
+
+        this.triocheers.alpha = 0;
+        this.game.add.tween(this.triocheers).to({ alpha: 1 }, 800, Phaser.Easing.Exponential.Out, true, 1000);
+
+        this.congratsTitle.alpha = 0;
+        this.game.add.tween(this.congratsTitle).to({ alpha: 1 }, 800, Phaser.Easing.Exponential.Out, true, 1000);
+
+        var ref = this;
+        setTimeout(function () { ref.particleBurst(); }, 800);
+    }
+
+    showTooBad(){
+        this.congratsGroup.visible = false;
+        this.tooBadGroup.visible = true;
+        this.group.alpha = 1;
+        this.animate();
+
+        this.triocheers.alpha = 0;
+
+        this.congratsTitle.alpha = 0;
+        this.game.add.tween(this.congratsTitle).to({ alpha: 1 }, 800, Phaser.Easing.Exponential.Out, true, 1000);
+
+        this.tooBadTitle.alpha = 0;
+        this.game.add.tween(this.tooBadTitle).to({ alpha: 1 }, 800, Phaser.Easing.Exponential.Out, true, 1000);
+    }
+
+    hide() {
         this.group.alpha = 0;
         this.retryButton.inputEnabled = false;
     }
 
-    fadeIn()
-    {}
+    fadeIn() { }
 
-    fadeOut()
-    {}
+    fadeOut() { }
 
-    createObjects()
-    {
+    createObjects() {
         this.createBlackOverlay();
         this.createCharacter();
         this.createCongratsTitle();
+        this.createTooBadTitle();
         this.createScoreBox();
         this.createStars();
         this.createButtons();
         this.createParticles();
     }
 
-    createCharacter()
-    {
-        this.triocheers = this.game.add.sprite(0,0, "trio-cheers");
+    createCharacter() {
+        this.triocheers = this.game.add.sprite(0, 0, "trio-cheers");
         this.triocheers.anchor.set(0.5);
-        this.triocheers.position.set(this.game.world.centerX, this.game.world.height *.3);
+        this.triocheers.position.set(this.game.world.centerX, this.game.world.height * .3);
 
         this.group.add(this.triocheers);
     }
 
-    createScoreBox(){
+    createScoreBox() {
         //this.scoreBox = this.group.create(this.game.world.centerX, this.game.world.height*.5, 'scorebox');
         //this.scoreBox.anchor.set(.5);
 
-        this.scoreBox = this.game.add.sprite(0,0, "scorebox");
+        this.scoreBox = this.game.add.sprite(0, 0, "scorebox");
         this.scoreBox.anchor.set(0.5);
-        this.scoreBox.position.set(this.game.world.centerX, this.game.world.height *.68);
+        this.scoreBox.position.set(this.game.world.centerX, this.game.world.height * .68);
 
-        this.textScore = this.scoreBox.addChild(this.game.add.text(0, 10, 'defaultscore', {fontSize:40, fill:"#c53a2c"}));
+        this.textScore = this.scoreBox.addChild(this.game.add.text(0, 0, 'defaultscore', { fontSize: 40, fill: "#c53a2c" }));
         this.textScore.anchor.set(.5, .65);
 
         this.group.add(this.scoreBox);
     }
 
-    createCongratsTitle()
-    {
-        this.congratsTitle = this.game.add.sprite(0,0, "congrats-title");
+    createCongratsTitle() {
+        this.congratsTitle = this.game.add.sprite(0, 0, "congrats-title");
         this.congratsTitle.anchor.set(0.5);
-        this.congratsTitle.position.set(this.game.world.centerX, this.game.world.height*.4);
+        this.congratsTitle.position.set(this.game.world.centerX, this.game.world.height * .4);
         //this.congratsTitle.scale.set(0.9);
 
-        this.group.add(this.congratsTitle);
+        this.congratsGroup = this.game.add.group();
+        this.congratsGroup.add(this.congratsTitle);
+
+        this.group.add(this.congratsGroup);
     }
 
-    createStars()
-    {
-        
-        var positions = [[122,168],[300,64],[642,73],[808,181]];//,[688,315],[248,331]];
+    createTooBadTitle() {
+        this.tooBadTitle = this.game.add.sprite(0, 0, "toobad");
+        this.tooBadTitle.anchor.set(0.5);
+        this.tooBadTitle.position.set(this.game.world.centerX, this.game.world.height * .4);
+
+        this.tooBadGroup = this.game.add.group();
+        this.tooBadGroup.add(this.tooBadTitle);
+
+        this.group.add(this.tooBadGroup);
+    }
+
+    createStars() {
+
+        var positions = [[122, 168], [300, 64], [642, 73], [808, 181]];//,[688,315],[248,331]];
 
         for (var i = 0; i < positions.length; i++) {
             var position = positions[i];
 
-            var star = this.game.add.sprite(0,0, "star-particle");
+            var star = this.game.add.sprite(0, 0, "star-particle");
             star.anchor.set(0.5);
             star.scale.set(0.75);
             this.stars.push(star);
@@ -122,24 +162,22 @@ class EndGameOverlay extends Phaser.Sprite
 
     }
 
-    createButtons()
-    {
+    createButtons() {
         var ref = this;
-        this.retryButton = this.game.add.button(0,0, "btn-retry", function(){ ref.onRetryButtonDown.dispatch(); });
+        this.retryButton = this.game.add.button(0, 0, "btn-retry", function () { ref.onRetryButtonDown.dispatch(); });
         this.retryButton.scale.set(0.75);
-        this.retryButton.position.set(this.game.world.centerX - 50, this.game.world.height*.75);
+        this.retryButton.position.set(this.game.world.centerX - 50, this.game.world.height * .75);
         // this.retryButton.input.useHandCursor = false;
 
         this.group.add(this.retryButton);
     }
 
-    setTextScore(_text){
-        this.textScore.text =_text; 
+    setTextScore(_text) {
+        this.textScore.text = _text;
     }
 
-    createParticles()
-    {
-        this.emitter = game.add.emitter(this.game.world.centerX, this.game.world.centerY,30);
+    createParticles() {
+        this.emitter = game.add.emitter(this.game.world.centerX, this.game.world.centerY, 30);
         this.emitter.makeParticles("star-particle");
         this.emitter.gravity = 500;
         this.emitter.minParticleSpeed.setTo(-500, -500);
@@ -150,59 +188,49 @@ class EndGameOverlay extends Phaser.Sprite
         this.group.add(this.emitter);
     }
 
-    createBlackOverlay()
-    {
-        this.blackOverlay = game.add.graphics(0,0);
+    createBlackOverlay() {
+        this.blackOverlay = game.add.graphics(0, 0);
         this.blackOverlay.beginFill(0x000000, 1);
-        this.blackOverlay.drawRect(0,0,game.width, game.height); 
+        this.blackOverlay.drawRect(0, 0, game.width, game.height);
         this.blackOverlay.alpha = 0;
 
         this.group.add(this.blackOverlay);
     }
 
-    particleBurst(){
+    particleBurst() {
         this.emitter.start(true, 2000, null, 30);
     }
 
-    animate(){
-        
+    animate() {
         var ref = this;
-        
+
         this.group.alpha = 0;
-        this.game.add.tween(this.group).to({alpha: 1}, 100, Phaser.Easing.Exponential.Out, true, 0);
-        
+        this.game.add.tween(this.group).to({ alpha: 1 }, 100, Phaser.Easing.Exponential.Out, true, 0);
+
         this.blackOverlay.alpha = 0;
-        this.game.add.tween(this.blackOverlay).to( { alpha: 0.7 }, 1000, Phaser.Easing.Linear.None, true);
-
-        this.triocheers.alpha = 0;
-        this.game.add.tween(this.triocheers).to({alpha : 1}, 800, Phaser.Easing.Exponential.Out, true, 1000);
-
-        this.congratsTitle.alpha = 0;
-        this.game.add.tween(this.congratsTitle).to({alpha : 1}, 800, Phaser.Easing.Exponential.Out, true, 1000);
+        this.game.add.tween(this.blackOverlay).to({ alpha: 0.7 }, 1000, Phaser.Easing.Linear.None, true);
 
         this.scoreBox.alpha = 0;
-        this.game.add.tween(this.scoreBox).to({alpha : 1}, 800, Phaser.Easing.Exponential.Out, true, 1000);
+        this.game.add.tween(this.scoreBox).to({ alpha: 1 }, 800, Phaser.Easing.Exponential.Out, true, 1000);
 
         this.retryButton.alpha = 0;
-        this.game.add.tween(this.retryButton).to({alpha : 1}, 800, Phaser.Easing.Exponential.Out, true, 1000);
+        this.game.add.tween(this.retryButton).to({ alpha: 1 }, 800, Phaser.Easing.Exponential.Out, true, 1000);
 
-        for(var i = 0; i < this.stars.length; i++){
+        for (var i = 0; i < this.stars.length; i++) {
             var star = this.stars[i];
-            if(star != null)
-            {
+            if (star != null) {
                 star.scale.set(0, 0);
-                this.game.add.tween(star.scale).to({x:1, y:1}, 300, Phaser.Easing.Exponential.Out, true, (i * 100) + 1000);
+                this.game.add.tween(star.scale).to({ x: 1, y: 1 }, 300, Phaser.Easing.Exponential.Out, true, (i * 100) + 1000);
             }
         }
-        setTimeout(function(){ref.particleBurst();}, 800);
+        
 
         setTimeout(() => {
             ref.retryButton.inputEnabled = true;
         }, 1000);
     }
 
-    retryButtonDown()
-    {
+    retryButtonDown() {
         this.onRetryButtonDown.dispatch();
     }
 

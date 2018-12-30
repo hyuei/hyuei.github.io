@@ -6,24 +6,44 @@ class carnavalMarchGame {
         this.gameState = "play";
         this.gamescreen = null;
         this.gameTimer = 0;
+        this.timeLimit = 120;
         this.curCD = 3;
         this.direction = "right";
         this.nextDirection = "";
         this.maxSpeed = 2; 
         this.moveSpeedKid = {x:0, y:0};
         this.tailBody = [];
-        this.recordMovement = [];
+        this.allGRID = [];
         this.foods = null;
-        this.lastSpawnFood = 0;
+        this.foodBonus = null;
         this.timeSpawnObstacle = 0;
-        this.countObsInGame = 0;
-        this.testGridBug = 5;
-        
-        /* BUG LIST
-            - using getintersect, need to change with pysic arcarde or manual set getbox
-            * why : collider to big, when foods in up head, and the other food still process
+        this.timeSpawnBonus = 10;
+        this.timeLiveFoods = 10;
+        this.CONSTTIMEFOODS = 10;
+        this.BONUSTIMER = 5;
+        this.score = 0;
+
+        this.friendEncounter = 1;
+
+        if(gameControl == null){
+            gameControl = this;
+        }
+
+        /*RULES
+        • Untuk si temen2 yang bisa diambil, jadinya animasinya dibounce aja scale atas bawah kaya jalan.
+        • Tambahin shadow di bawahnya (static aja).
+        • Mau jalan ke arah manapun, tetep ngarah ke depan aja.
+        • Urutan spawn warnanya dibikin kaya sekarang aja, kalo udah sampe friend-05, spawn berikutnya kembali ke friend-01
         */
 
+
+        /*TODO
+            scale movement boing-boing
+            zIndex
+
+            brutforce when searching emptyspcae
+            please include snake(head to tail) when check emptyspace
+        */
     }
 
 
@@ -33,25 +53,43 @@ class carnavalMarchGame {
         this.allContent = this.game.add.group();
         this.backcgroundGroup = this.game.add.group();
         this.entityGroup = this.game.add.group();
-        this.goodEntitiesGroup = this.game.add.group();
+        this.goodEntitiesGroup = this.game.add.group();//snake from head to tail
+        this.foodEntitiesGroup = this.game.add.group();
         this.badEntitiesGroup = this.game.add.group();
         this.frontUI = this.game.add.group();
+        this.backUI = this.game.add.group();
 
         this.allContent.add(this.backcgroundGroup);
         this.allContent.add(this.entityGroup);
+        this.allContent.add(this.backUI);
         this.allContent.add(this.frontUI);
 
         this.entityGroup.add(this.goodEntitiesGroup);
+        this.entityGroup.add(this.foodEntitiesGroup);
         this.entityGroup.add(this.badEntitiesGroup);
 
         this.goodEntitiesGroup.enableBody = true;
+        this.foodEntitiesGroup.enableBody = true;
         this.badEntitiesGroup.enableBody = true;
 
+        for(let i = 0; i<6; i++){
+            if(i == 0){
+                this.allGRID.push([1,0,0,0,0,0,0,0,0,0,0]);
+            }
+            else{
+                this.allGRID.push([0,0,0,0,0,0,0,0,0,0,0]);
+            }
+        }
+
         this.spawnBackground();
-        this.spawnEntities();
+        this.spawnSnake();
+        this.spawnFood();
+        this.spawnBonus();
+        //this.spawnSnakeBody();
         //this.spawnObstacle();
         this.spawnUI();
         this.spawnGraphics();
+        this.createEmiterCleaner();
 
         let mRight = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
         let mLeft = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
@@ -63,30 +101,17 @@ class carnavalMarchGame {
         mUp.onDown.add(this.moveChar, this, 0, "up");
         mDown.onDown.add(this.moveChar, this, 0, "down");
 
-        this.timeSpawnObstacle = this.game.rnd.between(8, 15);
-    }
+        this.bg.inputEnabled = true;
+        this.bg.events.onInputDown.add(this.onStartClick, this);
+        this.bg.events.onInputUp.add(this.onReleaseClick, this);
 
-    createEmiterCleaner() {
-        this.particle = this.game.add.emitter(0, 0, 50);
-        this.particle.makeParticles('star-particle');
-        this.particle.maxParticleScale = 0.3;
-        this.particle.minParticleScale = 0.1;
-        this.particle.minParticleSpeed.set(-200, -200);
-        this.particle.maxParticleSpeed.set(200, 200);
-        this.particle.minRotation = 20;
-        this.particle.maxRotation = 80;
+        this.timeSpawnObstacle = 15;//this.game.rnd.between(8, 15);
+        
     }
-
-    runParticles(x, y) {
-        this.particle.x = x;
-        this.particle.y = y;
-        this.particle.start(true, 1000, null, 20);
-    }
-
 
     spawnBackground() {
-        let bg = this.game.add.sprite(0, 0, "bg");
-        this.backcgroundGroup.add(bg);
+        this.bg = this.game.add.sprite(0, 0, "bg");
+        this.backcgroundGroup.add(this.bg);
     }
 
     spawnUI() {
@@ -98,71 +123,193 @@ class carnavalMarchGame {
         this.showCountdown.stroke = 'yellow';
         this.showCountdown.strokeThickness = 5;
         this.frontUI.add(this.showCountdown);
+
+        this.timerInGame = this.game.add.sprite(this.game.width*.5, this.game.height-10, 'scoreboxingame');
+        this.scoreInGame =  this.game.add.sprite(this.game.width*.5, 10, 'scoreboxingame');
+        this.timerInGame.anchor.setTo(.5);
+        this.scoreInGame.anchor.setTo(.5);
+        this.backUI.add(this.timerInGame);
+        this.backUI.add(this.scoreInGame);
+
+        let timerimg = this.game.add.sprite(-50, -25, 'timer-icon');
+        this.textTimerInGame = this.game.add.text(15, -8, '00:15', {
+            font: "25px vag",
+            fill: "#dd6118"
+        });
+        this.textTimerInGame.anchor.setTo(.5);
+        this.timerInGame.addChild(timerimg);
+        this.timerInGame.addChild(this.textTimerInGame);
+
+        this.textScoreInGame = this.game.add.text(0, 8, '0', {
+            font: "25px vag",
+            fill: "#dd6118"
+        });
+        this.textScoreInGame.anchor.setTo(.5);
+        this.scoreInGame.addChild(this.textScoreInGame);
     }
 
-
-    spawnEntities() {
-        this.kid = this.game.add.sprite(0,0, "char", "chara-down-01.png");
-        this.kid.grid = {x:0, y:0};
-        this.kid.x = 144 + this.kid.grid.x *65;
-        this.kid.y = 34 + this.kid.grid.y * 66; 
-        this.kid.anchor.set(.5, 0);
-        this.kid.animations.add("down",  ["chara-down-01.png", "chara-down-02.png", "chara-down-03.png", "chara-down-02.png"], 6, true, false);
-        this.kid.animations.add("side",  ["chara-side-01.png", "chara-side-02.png", "chara-side-03.png", "chara-side-02.png"], 6, true, false);
-        this.kid.animations.add("up",  ["chara-up-01.png", "chara-up-02.png", "chara-up-03.png", "chara-up-02.png"], 6, true, false);
-        this.kid.ready = true;
-        //push head into tail body
-        this.tailBody.push(this.kid);
+    spawnSnake() {
+        this.kid = new SnakeHead(this.game, 144, 80, this);
+        this.kid.playAnims("right");
 
         //push movement and dirr
-        let newObjcRecord = {grid:{x:this.kid.grid.x, y:this.kid.grid.y}, dir:this.direction};
-        this.recordMovement.push(newObjcRecord);
-
         this.goodEntitiesGroup.add(this.kid);
-        this.kid.body.setSize(30, 30, 15, 50);
-
-        //rect manual
-        this.kid.rect = {w:30, h:30, x:this.kid.x-15,  y:this.kid.y+55};
-
-
-        //this.spawnObstacle();
-    }
-
-    spawnFood(){
-        let randFriend = "friend-"+this.game.rnd.between(1, 5);
-        this.foods = this.game.add.sprite(0, 0, randFriend);
-        let randGrid = {x:this.game.rnd.between(0, 10), y:this.game.rnd.between(0,5)};
-        //randGrid = {x:5, y:this.testGridBug--};
-        this.foods.grid = randGrid;
-        this.foods.x = 144+randGrid.x *65;
-        this.foods.y = 100+randGrid.y*66;
-        this.foods.scale.setTo(.1, .1);
-        this.foods.anchor.set(.5, .5);
-        this.game.add.tween(this.foods.scale).to({
-            x: 1,
-            y: 1
-        }, 800, Phaser.Easing.Elastic.Out).start();
-        this.lastSpawnFood = this.gameTimer;
-        this.goodEntitiesGroup.add(this.foods);
-        this.foods.body.setSize(30, 30, 14, 16);
-
+        //this.kid.body.setSize(30, 30, 15, 50);
     }
 
     spawnGraphics(){
         this.graphicRenderBody = this.game.add.graphics(0,0);
     }
 
-    spawnObstacle(){
-        this.timeSpawnObstacle = game.rnd.between(8, 15) + this.gameTimer;
-        let randGrid = {x:this.game.rnd.between(0, 10), y:this.game.rnd.between(0,5)};
-        let batu = this.game.add.sprite(144 + randGrid.x*65, 100+randGrid.y*66, 'obstacle');
-        batu.anchor.set(.5);
-        batu.alpha = 0.1;
-        this.setAlphaObs(1, null, batu, 600, true);
-        this.countObsInGame ++;
+    spawnFood(){
+        //new spawn food code
+        let numberShow = 0;
+        numberShow = this.friendEncounter;
+        let numFriend = "friend-"+ numberShow;
+        if(this.foods){
+            this.foods.loadTexture(numFriend);
+        }
+        else {
+            this.foods = this.game.add.sprite(0, 0, numFriend);
+            this.timebarFood = this.game.add.sprite(0,-20, 'timebar');
+            this.foods.addChild(this.timebarFood);
+            this.timebarFood.anchor.set(.5);
+        }
+        this.friendEncounter++;
+        this.timeLiveFoods = 10;
+        if(this.friendEncounter > 5)this.friendEncounter = 1;
+        let randGrid ={x:0, y:0};
+        let recheckRepeat = 33;
+        do{
+            randGrid.x = this.game.rnd.between(0, 10); 
+            randGrid.y = this.game.rnd.between(0,5);
+            recheckRepeat -- ;
+            if(recheckRepeat <=0){
+                //brutfore check
+                break;
+            }
+        }
+        while(!this.checkEmptyGrid(randGrid.x, randGrid.y));
+        //console.log(randGrid);
+        this.allGRID[randGrid.y][randGrid.x] = 100+numberShow;
+        this.foods.x = 144+randGrid.x *65;
+        this.foods.y = 100+randGrid.y*66;
+        //tween here
+
+        this.foodEntitiesGroup.add(this.foods);
+        this.foods.anchor.set(.5, .5);
+        this.foods.body.setSize(30, 30, 14, 16);
+    }
+    spawnBonus(){
+        this.foodBonus = this.game.add.sprite(0,0, 'bonus');
+        this.foodBonus.anchor.set(.5);
+        this.foodEntitiesGroup.add(this.foodBonus);
+        this.foodBonus.visible = false;
     }
 
+    addBonusFoods(){
+        let spawnBonusTimer = (Math.random() <.3)?true:false;
+        this.timeSpawnBonus = this.gameTimer + 10;
+        if(!spawnBonusTimer ||this.foodBonus.visible){
+            return;
+        }
+        this.foodBonus.visible = true;
+        this.foodBonus.timeLive = 20;
+        let randGrid ={x:0, y:0};
+        let recheckRepeat = 33;
+        do{
+            randGrid.x = this.game.rnd.between(0, 10); 
+            randGrid.y = this.game.rnd.between(0,5);
+            recheckRepeat -- ;
+            if(recheckRepeat <=0){
+                //brutfore check
+                break;
+            }
+        }
+        while(!this.checkEmptyGrid(randGrid.x, randGrid.y));
 
+        this.allGRID[randGrid.y][randGrid.x] = 106;
+        this.foodBonus.x = 144+randGrid.x *65;
+        this.foodBonus.y = 100+randGrid.y *66;
+    }
+
+    spawnSnakeBody(x, y, array){
+        let numbfriend = this.friendEncounter - 1;
+        if(numbfriend==0)numbfriend =5;
+        let body = new SnakeBody(game, 144+x*65, 100+y*66, this, numbfriend);
+        body.setGrid(x, y);
+        body.trackMovement = array.slice();
+        this.goodEntitiesGroup.add(body);
+        this.tailBody.splice(0,0, body);
+        //console.log(this.tailBody);
+        //this.tailBody.push(body);
+        this.spawnFood();
+    }
+
+    removeSnakeBody(){
+        let tail = this.tailBody[this.tailBody.length-1];
+        tail.destroy();
+        this.tailBody.pop();
+
+        ///particle asap
+    }
+
+    spawnObstacle(){
+        let batu = this.game.add.sprite(0, 0, 'obstacle');
+        let randGrid = {x:0, y:0};
+        let recheckRepeat = 33;
+        do{
+            randGrid = {x:this.game.rnd.between(0, 10), y:this.game.rnd.between(0,5)};
+            recheckRepeat -- ;
+            if(recheckRepeat <=0){
+                //brutfore check
+                break;
+            }
+        }
+        while(!this.checkEmptyGrid(randGrid.x, randGrid.y));
+        //this.allGRID[randGrid.y][randGrid.x] = 300;
+        batu.x = 144+randGrid.x *65;
+        batu.y = 100+randGrid.y*66;
+        batu.grid = new Phaser.Point(randGrid.x, randGrid.y);
+        batu.anchor.set(.5);
+
+        //create tween when load, after on complete make stone solids
+        batu.alpha = 0.1;
+        this.setAlphaObs(1, null, batu, 700, true);
+        this.timeSpawnObstacle = this.game.rnd.between(8, 15) + this.gameTimer;
+    }
+
+    createEmiterCleaner() {
+        this.particle = this.game.add.emitter(0, 0, 50);
+        this.particle.makeParticles('star-particle');
+        this.particle.maxParticleScale = 0.3;
+        this.particle.minParticleScale = 0.1;
+        this.particle.minParticleSpeed.set(-200, -200);
+        this.particle.maxParticleSpeed.set(200, 200);
+        this.particle.minRotation = 20;
+        this.particle.maxRotation = 80;
+
+        this.poofParticle = this.game.add.emitter(0,0, 30);
+        this.poofParticle.makeParticles('b-particle', ['b1', 'b2', 'b3', 'b4']); // this._game.rnd) make random particle
+        this.poofParticle.maxParticleScale = .4;
+        this.poofParticle.minParticleScale = .1;
+        this.poofParticle.minParticleSpeed.set(-100, -100);
+        this.poofParticle.maxParticleSpeed.set(100, 100);
+        this.poofParticle.minRotation = 20;
+        this.poofParticle.maxRotation = 80;
+    }
+
+    runParticles(x, y) {
+        this.particle.x = x;
+        this.particle.y = y;
+        this.particle.start(true, 1000, null, 20);
+    }
+
+    runPoofParticle(x, y){
+        this.poofParticle.x = x;
+        this.poofParticle.y = y;
+        this.poofParticle.start(true, 1000, 100, 20);
+    }
     setAlphaObs(alpha, tweener, obj, timer, yoyo){
         timer -= 100;
         let tween = this.game.add.tween(obj).to({alpha:1}, timer, Phaser.Easing.Linear.None, true, 0, 0, yoyo);
@@ -177,11 +324,29 @@ class carnavalMarchGame {
     makeObsSolid(alpha, tweener, obj){
         obj.alpha = 1;
         this.badEntitiesGroup.add(obj);
-        obj.body.setSize(65,66);
+        //obj.body.setSize(65,66);
+        this.allGRID[obj.grid.y][obj.grid.x] = 300;
+        this.game.time.events.add(30000, function () {
+            this.destroyObs();
+        }, this);
     }
 
-    checkEmptyPos(){
-        //still think about algorithm empty pos (maybe use a bruteforce)
+    destroyObs(){
+        let batuFirst = this.badEntitiesGroup.getFirst("obstacle");
+        this.allGRID[batuFirst.grid.y][batuFirst.grid.x] = 0;
+        batuFirst.destroy();
+        this.timeSpawnObstacle = this.game.rnd.between(8, 15) + this.gameTimer;
+    }
+
+    checkEmptyGrid(x, y){
+        return(this.allGRID[y][x] == 0);
+    }
+
+    getGridFoodByPosition(x, y){
+        let gx = (x-144)/65;
+        let gy = (y-100)/66;
+        let grid = {x:gx, y:gy};
+        return(grid);
     }
 
     countingDown() {
@@ -217,6 +382,10 @@ class carnavalMarchGame {
     }
 
     getScore() {
+       
+    }
+
+    getTimerScore(){
         if (this.gameTimer < 60) { //1 menit dalam milisecond
             return 1000;
         } else if (this.gameTimer > 360) { // 6 menit dalam milisecond
@@ -231,193 +400,61 @@ class carnavalMarchGame {
     gameUpdate(elapsedMS) {
         if (this.gameState == "play") {
             this.gameTimer += elapsedMS;
-            this.movingChar();
+            this.timeLimit -= elapsedMS;
+            //drawTextTimer
+            this.textTimerInGame.text = this.updateTextTimer(this.timeLimit);
+            if(this.timeLimit <=0){
+                this.kid.animations.stop();
+                this.gamescreen.createTalker();
+                this.gameState = "end";
+            }
+            //this.movingChar();
             //spawnAfriend
-            if(this.lastSpawnFood+1 < this.gameTimer && this.foods == null){
-                this.spawnFood();
+            if(this.timeSpawnBonus < this.gameTimer){
+                this.addBonusFoods();
             }
-            if(this.timeSpawnObstacle < this.gameTimer && this.countObsInGame < 2){
-                this.spawnObstacle()
+            if(this.foods){
+                if(!this.kid.eating){
+                    this.timeLiveFoods -= elapsedMS;
+                    this.timebarFood.width = Math.floor(50*(this.timeLiveFoods/this.CONSTTIMEFOODS));
+                    if(this.timeLiveFoods<0){
+                        let gridFood = this.getGridFoodByPosition(this.foods.x, this.foods.y);
+                        this.allGRID[gridFood.y][gridFood.x] = 0;
+                        this.runPoofParticle(this.foods.x, this.foods.y);
+                        this.spawnFood();
+                    }
+                }
             }
-        }
-    }
+            if(this.timeSpawnObstacle < this.gameTimer && this.badEntitiesGroup.length  < 5){
+                this.spawnObstacle();
+            }
 
-    
-
-    movingChar(){
-        //set speed
-        //when have a tail
-        let i = 0;
-        while(i<this.tailBody.length){
-            let tail = this.tailBody[i];
-            let headPos = i-1;
-            let dir = (headPos > -1)?this.recordMovement[headPos].dir:this.direction;
-            let nextGrid =  (headPos > -1)?this.recordMovement[headPos].grid:null;
-            if(tail.ready){
-                this.moveBySpeed(tail, dir, nextGrid);
-            }
-            i++;
-        }
-        //set anims
-        if(this.direction == "right"){
-            //this.kid.x += 2;
-            this.kid.animations.play("side");
-            if(this.kid.scale.x != 1) this.kid.scale.x = 1;
-        }
-        else if(this.direction == "left"){
-            //this.kid.x -= 2;
-            this.kid.animations.play("side");
-            if(this.kid.scale.x != -1) this.kid.scale.x = -1;
-        }
-        else if(this.direction == "up"){
-            //this.kid.y -= 2;
-            this.kid.animations.play("up");
-        }
-        else if(this.direction == "down"){
-            //this.kid.y += 2;
-            this.kid.animations.play("down");
-        }
-
-        //check next direction
-        if(this.checkGridMovement()){
-            this.kid.grid.x = (this.kid.x-144)/65;
-            this.kid.grid.y = (this.kid.y-34)/66;
-            if(this.nextDirection != "") {
-                this.direction = this.nextDirection;
-                this.nextDirection = "";
-            }
-            let newObjcRecord = {grid:{x:this.kid.grid.x, y:this.kid.grid.y}, dir:this.direction};
-            this.recordMovement.push(newObjcRecord);
-            if(this.recordMovement.length > this.tailBody.length){
-                this.recordMovement.shift();
-            }
-        }
-
-        //updateCollider
-        /*
-        this.kid.rect.x = this.kid.x-15;
-        this.kid.rect.y = this.kid.y+55;
-        */
-        
-
-        //check collide
-        //food
-        if(this.foods){
-            this.game.physics.arcade.overlap(this.kid, this.foods, this.eatFoods, null, this);
-        }
-        
-
-        //END GAME
-        this.game.physics.arcade.overlap(this.goodEntitiesGroup, this.badEntitiesGroup, function(){
-            this.gameState = "end";
-            this.gamescreen.endGame();
-            this.kid.animations.stop();
-        }, null, this);
-
-        if(this.kid.x > 828){ //desiredWidthRatio - this.kid.width){
-            this.kid.x = 828;//desiredWidthRatio - this.kid.width;
-            if(this.gameState == "play"){
-                this.gameState = "end";
-                this.gamescreen.endGame();
-                this.kid.animations.stop();
-            }
-        }
-        if(this.kid.x < 111){
-            this.kid.x = 111;
-            if(this.gameState == "play"){
-                this.gameState = "end";
-                this.gamescreen.endGame();
-                this.kid.animations.stop();
-            }
-        }
-        if(this.kid.y < 1){
-            this.kid.y = 1;
-            if(this.gameState == "play"){
-                this.gameState = "end";
-                this.gamescreen.endGame();
-                this.kid.animations.stop();
-            }
-        }
-        if(this.kid.y > 397){ //desiredHeightRatio- this.kid.height){
-            this.kid.y = 397; //desiredHeightRatio - this.kid.height;
-            if(this.gameState == "play"){
-                this.gameState = "end";
-                this.gamescreen.endGame();
-                this.kid.animations.stop();
+            if(this.foodBonus.visible){
+                this.foodBonus.timeLive -= elapsedMS;
+                if(this.foodBonus.timeLive<0)this.foodBonus.visible = false;
             }
         }
     }
 
-    eatFoods(){
-        this.tailBody.push(this.foods);
-        this.game.add.tween(this.foods.scale).to(
-            {x:0, y:0}, 
-            500, 
-            Phaser.Easing.Cubic.Out, true)
-        .onComplete.add(this.spawnTails, this, 0, this.foods);
-        //this.foods = null;//adding new foods
-        this.spawnFood();
+    pushMovement(dir){
+        for(let i = 0; i<this.tailBody.length; i++){
+            let b = this.tailBody[i];
+            b.trackMovement.push(dir);
+        }
     }
 
-    spawnTails(scale, tween, tails){//scale, tween, //rest you can add any argument
-        //debugger;
-        //tails.y-=20;
-        this.game.add.tween(tails.scale).to({x:1, y:1},200,Phaser.Easing.Cubic.Out, true).onComplete.add(function(){
-            tails.ready = true;
-        }.bind(this));
-        console.log(this.tailBody.length);
-    }
 
     moveChar(pKey, direction){
-        this.nextDirection = direction;
+        let ver = (this.direction == "right" || this.direction == "left");
+        let hor = (this.direction == "up" || this.direction == "down");
+
+        if(ver && (direction == "left" || direction == "right"))return;
+        if(hor && (direction == "up" || direction == "down"))return;
+
+        //this.nextDirection = direction;
+        //this.kid.playAnims(direction);
+        this.kid.nextDirection = direction;
     }
-
-    moveBySpeed(obj, dir, grid){
-        //read movement
-        let p = {x:0, y:0};
-        let s = {x:0, y:0};
-        if(dir == "down"){
-            p.y = 1;
-        }
-        else if(dir == "up"){
-            p.y = -1;
-        }
-        else if(dir == "left"){
-            p.x = -1;
-        }
-        else if(dir == "right"){
-            p.x = 1;
-        }
-
-        if(p.x != 0){
-            let nextGridX = 144 + (obj.grid.x+p.x)*65;
-            if(grid != null) nextGridX = 144 + (grid.x+p.x)*65;
-            let checkPosX = Math.abs(obj.x - nextGridX);
-
-            s.x = (checkPosX>this.maxSpeed)?this.maxSpeed*p.x:checkPosX*p.x;
-        }
-        if(p.y != 0){
-            let nextGridY = 34 + (obj.grid.y+p.y)*66;
-            if(grid != null) nextGridY = 100 + (grid.y+p.y)*66;
-            let checkPosY = Math.abs(obj.y - nextGridY);
-            s.y = (checkPosY>this.maxSpeed)?this.maxSpeed*p.y:checkPosY*p.y;
-        }
-        //note if(sx == 0 || sy = 0 ) that mean collide with ending || collide with something
-        obj.x += s.x;
-        obj.y += s.y;
-    }
-
-    checkGridMovement(){
-        let checkX = ((this.kid.x-144)%65==0)?1:0;
-        let checkY = ((this.kid.y-34)%66==0)?1:0;
-        return (checkX&&checkY);
-    }
-
-    /*
-    checkCollider(obj1, obj2){
-        obj1.x+obj1.w >  
-    }
-    */
 
     updateTextTimer(time) {
         var min = parseInt(time / 60);
@@ -433,21 +470,107 @@ class carnavalMarchGame {
         return (minString + ":" + secString);
     }
 
+    checkCollider(x, y){
+        //out game area
+        if(x<0 || x > 10 || y <0 || y>5){
+            this.kid.animations.stop();
+            this.gamescreen.createTalker();
+            this.gameState = "end";
+            //setback position
+            let posCrah = {x:144+x*65, y:80+y*66};
+            if(x>10){this.kid.x = 144+10*65; posCrah.x = 827;}
+            if(x<0){this.kid.x = 144;posCrah.x = 112;}
+            if(y<0){this.kid.y = 80;posCrah.y = 67;}
+            if(y>5){this.kid.y = 80+5*66;posCrah.y = 463;}
+            //spawn crash
+            let img = this.game.add.sprite(posCrah.x,posCrah.y, 'crash');
+            img.anchor.set(.5);
+            this.backUI.add(img);
+            return;
+            //debugger;
+        }
+        let check  = this.allGRID[y][x];
+        if(check > 100 && check < 107){
+            //eat food
+            if(check >100 && check < 106){
+                this.allGRID[y][x] = 0;
+                this.score +=10 ;
+                this.textScoreInGame.text = this.score;
+                this.kid.eatFood(x, y);
+                this.runParticles(144+x*65, 100+y*66);
+            }
+            else{//bonus
+                //this.foodBonus.destroy();
+                this.timeLimit += this.BONUSTIMER;
+                this.foodBonus.visible = false;
+                this.allGRID[y][x] = 0;
+                this.runParticles(144+x*65, 100+y*66);
+            }
+        }
+        else if (check == 300){ //collide with obs
+            this.kid.animations.stop();
+            this.gamescreen.createTalker();
+            this.gameState = "end";
+            //spawn crash
+            let posCrah = {x:144+x*65, y:100+y*66};
+            let img = this.game.add.sprite(posCrah.x,posCrah.y, 'crash');
+            img.anchor.set(.5);
+            this.backUI.add(img);
+            return;
+        }
+    }
+
+    selfCollision(x, y){
+        for(let i = 0; i<this.tailBody.length; i++){
+            let tail = this.tailBody[i];
+            if(tail.grid.x == x && tail.grid.y ==y){
+                console.log("collide body");
+                this.kid.animations.stop();
+                this.gamescreen.createTalker();
+                this.gameState = "end";
+                //spawn crash
+                //this.game.add.sprite(0,0, 'crash');
+                let posCrah = {x:112-x*65, y:47+y*66};
+                let img = this.game.add.sprite(posCrah.x,posCrah.y, 'crash');
+                img.anchor.set(.5);
+                this.backUI.add(img);
+                break;
+            }
+        }
+    }
+
     renderSpriteBody(){
         this.game.debug.physicsGroup(this.goodEntitiesGroup);
         this.game.debug.physicsGroup(this.badEntitiesGroup);
-        //this.entityGroup.forEachAlive(function(member){
-                //console.log(member);
+    }
 
-        //});
-        /*
-        this.graphicRenderBody.clear();
-        this.graphicRenderBody.alpha = .5;
-        this.graphicRenderBody.beginFill(0xFF3300);
-        this.graphicRenderBody.drawRect(this.kid.rect.x, this.kid.rect.y, this.kid.rect.w, this.kid.rect.h);
-        if(this.foods){
-            this.graphicRenderBody.drawRect(this.foods.x-15, this.foods.y-10, 30, 30);
+    onStartClick(obj, pointer){
+        if(this.isClicked) return;
+        this.isClicked = true;
+        this.startClick = {x:game.input.x, y:game.input.y};
+    }
+
+    onReleaseClick(obj, pointer){
+        if(!this.isClicked) return;
+        this.isClicked = false;
+        let minDist = 100;
+        let dir = {x:this.startClick.x - game.input.x, y:this.startClick.y - game.input.y};
+        let ver = (Math.abs(dir.x)>Math.abs(dir.y))?true:false;
+        if(ver){
+            let checkDist = Math.abs(dir.x);
+            if(checkDist >= minDist){
+                let right = (dir.x < 0 )?true:false;
+                if(right)this.moveChar(null, "right");
+                else{ this.moveChar(null, "left");}
+            }
         }
-        */
+        else{
+            let checkDist = Math.abs(dir.y);
+            if(checkDist >= minDist){
+                let up = (dir.y > 0 )?true:false;
+                if(up)this.moveChar(null, "up");
+                else{ this.moveChar(null, "down");}
+            }
+        }
     }
 }

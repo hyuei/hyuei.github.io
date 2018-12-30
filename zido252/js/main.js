@@ -9,7 +9,6 @@ ZIDO.listenMessageEvent(
 );
 
 var ZIDO_API = new ZidoAPI();
-console.log(ZIDO)
 // ZIDO_API.sendData();
 
 var TALKING_DATA = new TalkingData();

@@ -89,6 +89,10 @@ Endscreen.inherit({
 			ZIDO_API.sendData();
 		}
 
+		if(!curState().isWin){
+			this.resultText.frameName = 'ingame/toobad';
+		}
+		
 		this.appeared = true;
 		var score = curState().writeThousands(score);
 		this.showScore.setText(score)
@@ -102,6 +106,7 @@ Endscreen.inherit({
 		tweenBtn.onComplete.add(function(){
 			this.replayBtn.inputEnabled = true;
 			for(var a = 0; a < this.charas.length; a++){
+				if(!curState().isWin) continue;
 				var chara = this.charas[a];
 
 				var timer = 150;

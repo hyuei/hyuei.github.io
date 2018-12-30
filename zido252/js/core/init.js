@@ -175,22 +175,10 @@ global.processScaling = function (argument) {
 	device.desktop = !mobileAndTabletcheck();
 	
 	var r = BasicGame.logicWidth/BasicGame.logicHeight;
-
 	BasicGame.gameHeight = global.logicHeight;
-
-	if (global.forceWidth) {
-		// BasicGame.screen = "1020";
-		BasicGame.gameWidth = global.logicWidth;
-		BasicGame.gameHeight = global.logicHeight
-	}
+	BasicGame.gameWidth = BasicGame.gameHeight*r;
 	
     global.simulatedMobileOnDesktop = false;
-    
-    if(device.desktop && global.simulatedMobile == true){
-    	global.simulatedMobileOnDesktop = true;
-    }
-
-	BasicGame.gameWidth = BasicGame.gameHeight*r;
 };
 
 global.cw = function(value){

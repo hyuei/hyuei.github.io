@@ -17,11 +17,7 @@ class PrologueScreen extends GameScreen
         game.canvas.oncontextmenu = function (e) { e.preventDefault(); }
 
         this.spawnBG();
-        this.spawnBoard();
-        this.spawnKid();
-        this.spawnTeacher();
-        var textoption = {font:"20px vag", fill:"#272a4c", align :"center"};
-        var num = game.add.text(-20, 0, 1, textoption);
+        this.spawnSnake();
 
         //group for entity
         this._enGroup = game.add.group();
@@ -35,28 +31,14 @@ class PrologueScreen extends GameScreen
         var bgImg = game.add.sprite(0,0, "bg");
     }
 
-    spawnBoard(){
-        let board = game.add.sprite(272, 108, "board");
-        board.anchor.set(.5);
-    }
-
-    spawnTeacher(){
-        let teacher = game.add.sprite(46, 70, "teacher");
-    }
-
-    spawnKid(){
-       for(let i = 0; i<this.kidsPos.length; i++){
-        let pos = this.kidsPos[i];
-        let kid = game.add.sprite(pos.x, pos.y, "kid-s");
+    spawnSnake(){
+        var kid = game.add.sprite(144, 80, 'char', 'chara-side-02.png');
         kid.anchor.set(.5);
-        //let kid = new kidNumber(this.game, pos.x, pos.y, this);
-        //kid.setNumber(i);
-       }
     }
 
     spawnEntity(enNumber){
         if(this._enGroup.length>0){
-            this._enGroup.removeAll(true)
+            this._enGroup.removeAll(true);
         }
         if(enNumber == 0){
             //console.log("show image 1");
@@ -81,6 +63,12 @@ class PrologueScreen extends GameScreen
             sprite.anchor.set(.5);
             this._enGroup.add(sprite);
         }
+        else if(enNumber == 4){
+            //console.log("show image 2");
+            var sprite  = game.add.sprite(game.width*.5, game.height*.3, "tut5");
+            sprite.anchor.set(.5);
+            this._enGroup.add(sprite);
+        }
     }
 
     createTalker()
@@ -94,7 +82,7 @@ class PrologueScreen extends GameScreen
     }
 
     checkNext(){
-        if(this.talker.talkIndex == 3){
+        if(this.talker.talkIndex == 4){
             this.spawnEntity(0);
         }
         else if(this.talker.talkIndex==5){
@@ -103,8 +91,14 @@ class PrologueScreen extends GameScreen
         else if(this.talker.talkIndex==6){
             this.spawnEntity(2);
         }
-        else if(this.talker.talkIndex==8){
+        else if(this.talker.talkIndex==7){
             this.spawnEntity(3);
+        }
+        else if(this.talker.talkIndex==8){
+            this.spawnEntity(4);
+        }
+        else if(this.talker.talkIndex == 9){
+            this._enGroup.removeAll(true);
         }
     }
 

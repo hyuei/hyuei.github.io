@@ -67,6 +67,11 @@ Runner.inherit({
 				} else {
 					curState().plBranch++;
 				}
+
+				var totItem = curState().plTrash + curState().plBranch;
+				if(totItem > 0 && totItem % 10 == 0){
+					curState().gGround.speed += 1.5;
+				}
 				curState().gGround.createEmitter(item)
 				collectibles[a] = null
 			}
@@ -74,8 +79,9 @@ Runner.inherit({
 	},
 
 	jumping:function(){
+		if(curState().gameOver || curState().gamePaused || !curState().gameStart) return;
 		if(game.time.now > this.jumpTimer && this.checkIfCanJump()){			
-			this.body.moveUp(800);
+			this.body.moveUp(950);
 			this.jumpTimer = game.time.now + 750;
 			this.isJumping = true;
 			this.animations.stop('run');
@@ -91,18 +97,32 @@ Runner.inherit({
 			this.enablePhysic = true;
 		}
 
-		// if(curState().gameOver || curState().gamePaused || !curState().gameStart) return;
+		if(curState().gameOver || curState().gamePaused || !curState().gameStart) return;
 		if(!this.body) return;
-		if(!curState().gGround.isRunning) return;
+		// if(!curState().gGround.isRunning) return;
 		this.checkItems();
 		if(this.jumpButton.isDown){
 			this.jumping();
 		}
 
-		if(this.isJumping && game.time.now > this.jumpTimer && this.checkIfCanJump()){
-			this.isJumping = false;
-			this.animations.play('run')
+		if(this.checkIfCanJump()){
+			if(this.isJumping && game.time.now > this.jumpTimer){
+				this.isJumping = false;
+				this.animations.play('run')
+			} else {
+				if(game.time.now > this.jumpTimer){
+					this.animations.play('run')
+				}
+			}
+		} else {
+			if(!this.isJumping){
+				this.animations.stop('run')
+			}
 		}
+		// if(this.isJumping && game.time.now > this.jumpTimer && this.checkIfCanJump()){
+		// 	this.isJumping = false;
+		// 	this.animations.play('run')
+		// }
 
 		if(!this.isRepos){
 			if(this.body.x < this.minX || this.body.x > this.maxX){
@@ -125,7 +145,10 @@ Runner.inherit({
 		}
 
 		if(this.body && this.body.y - (this.height * 0.5) > curState().gh) {
-			curState().gGround.isRunning = false;
+			if(curState().gGround.isRunning){
+				curState().gGround.isRunning = false;
+				curState().checkScore();
+			}
 		}
 	}
 }, Phaser.Sprite)

@@ -125,49 +125,9 @@ BasicGame.Boot.prototype = {
         game.scale.pageAlignHorizontally = true;
         game.scale.pageAlignVertically = true;
 
-        // hack debug
-        if (
-            (Phaser.Device.desktop == true && (global.astrid == false && global.simulatedMobile == false)) 
-            || (Phaser.Device.desktop == true && (global.astrid == true && global.landscape == false)) 
-            || (global.forceWidth) || (!Phaser.Device.desktop && global.astrid)
-        )
-        {
-            game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL; 
-            //game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT; 
-            game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL
-            //game.scale.setShowAll();
-            game.scale.pageAlignHorizontally = true;
-            game.scale.pageAlignVeritcally = true;
-            game.scale.refresh();
-            // if (global.skeletonMode) 
-            //     console.log("SET SCALE MODE TO SHOW_ALL")
-        }
-        else
-        {
-            // if (global.skeletonMode) 
-            //     console.log("ENTUT @boot.scaleStage scale.min : " + game.scale.minWidth + " - " + game.scale.minHeight
-            //         + ", scale.max : " + game.scale.maxWidth + "-" + game.scale.maxHeight
-            //         + ", scale.w/h : " + game.scale.width  + "-" + game.scale.height
-            //     )              
-
-            console.log("------------------------------> Platform name : " + platform.name)  
-            game.scale.pageAlignHorizontally = false;
-            game.scale.pageAlignVertically = false;
-            game.scale.scaleMode = Phaser.ScaleManager.USER_SCALE
-            game.scale.fullScreenScaleMode = Phaser.ScaleManager.USER_SCALE
-
-            if (global.respMode == undefined || global.respMode == 0) {
-                //console.log("@@@@@@@@@@@@ KUCING MIBER")
-                if (global.landscape == true)
-                    game.scale.forceOrientation(true, false);
-                else 
-                    game.scale.forceOrientation(false, true);
-            }
-
-            MyScaleManager.setNoBorder();
-            //  )
-        }
-
+        game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL; 
+        game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL
+        game.scale.refresh();
     },
 
     gameResized: function (width, height) {

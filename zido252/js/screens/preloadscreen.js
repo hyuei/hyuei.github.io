@@ -46,8 +46,8 @@ PreloadScreen.prototype = {
         if (this.text_loading)
             this.text_loading.setText(progress+"%")
         if (progress == 100){
-            // transition.close('StartScreen')
-            transition.close('Game1Screen');
+            transition.close('StartScreen')
+            // transition.close('Game1Screen');
             game.load.onFileComplete.remove(this.fileComplete, this);
         }
     },

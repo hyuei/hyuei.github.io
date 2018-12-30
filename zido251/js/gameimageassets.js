@@ -59,9 +59,11 @@ class GameImageAssets extends ImageAssetsData
             {id:"bonus-tutorial", file:"assets/bonus-tutorial.png"},
 
             // TUTORIAL
-            {id:"img-3-1", file:"assets/img-3-1.png"},
-            {id:"img-3-2", file:"assets/img-3-2.png"},
-            {id:"img-3-3", file:"assets/img-3-3.png"},
+            {id:"img-1-1", file:"assets/shop/img-1-1.png"},
+            {id:"img-1-2", file:"assets/shop/img-1-2.png"},
+            {id:"img-1-3", file:"assets/shop/img-1-3.png"},
+            {id:"img-1-4", file:"assets/shop/img-1-4.png"},
+            {id:"img-1-5", file:"assets/shop/img-1-5.png"},
 
 
             {id:"ans-right", file:"assets/shop/ans-right.png"},
@@ -93,6 +95,11 @@ class GameImageAssets extends ImageAssetsData
             {id:"lemon", file:"assets/shop/lemon.png"},
             {id:"orange", file:"assets/shop/orange.png"},
             {id:"seller", file:"assets/shop/seller.png"},
+
+            {id:"toobad", file:"assets/toobad.png"},
+
+            {id:"timer-bar", file:"assets/shop/timer-bar.png"},
+            {id:"timer-base", file:"assets/shop/timer-base.png"},
         ];
     }
 }

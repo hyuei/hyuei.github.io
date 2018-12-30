@@ -44,7 +44,7 @@ class Game1Screen extends GameScreen
 
         this.talker = new Talker(game, 10, 530, game.world.width , TALKER_HEIGHT, this);
         this.game.add.existing(this.talker);
-        if(this.numberCallingGame.gameTimer < 300){
+        if(this.carnavalMarchGame.score > 0){
             this.talker.loadTalkingArray(TALKING_DATA.talkingdata.EndFinish);
         }
         else{
@@ -59,7 +59,7 @@ class Game1Screen extends GameScreen
             //this.endgameoverlay.show();
             this.endGame();
 
-            ZIDO_API.setScore(this.carnavalMarchGame.gameTimer);
+            ZIDO_API.setScore(this.carnavalMarchGame.score);
             //this.waitAndNext();
             //var closeAudio = game.add.audio("applause", true);
             //closeAudio.play();;
@@ -83,16 +83,20 @@ class Game1Screen extends GameScreen
 
     render(){
         //game.debug.text('FPS: ' + game.time.fps || 'FPS: --', 40, 40, "#00ff00");
-        this.carnavalMarchGame.renderSpriteBody();
+        //this.carnavalMarchGame.renderSpriteBody();
     }
 
     waitAndNext() {
     }
 
     endGame(){
-        var timer = this.carnavalMarchGame.updateTextTimer(this.carnavalMarchGame.gameTimer);
-        this.endgameoverlay.setTextScore(timer);
-        this.endgameoverlay.show();
+        //var timer = this.carnavalMarchGame.updateTextTimer(this.carnavalMarchGame.gameTimer);
+        //this.endgameoverlay.setTextScore(timer);
+        //this.endgameoverlay.show();
+        let score = this.carnavalMarchGame.score;
+        let windcondition = (score > 0)?true:false;
+        this.endgameoverlay.setTextScore(score);
+        this.endgameoverlay.show(windcondition);
     }
 
     createCurtains(){

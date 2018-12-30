@@ -16,6 +16,7 @@ Talker = function(game, x, y, talkerWidth, talkerHeight){
 
     this.audioDataList = {};
     this.finished = false;
+    this.clickTimer = game.time.now;
 };
 
 Talker.inherit({
@@ -86,6 +87,8 @@ Talker.inherit({
     {
         if(this.isClicked) return;
         if(transition && transition.isClosed) return;
+        if(game.time.now < this.clickTimer) return;
+        this.clickTimer = game.time.now + 500;
         this.isClicked = true;
         this.nextButtonOnClick();
     },

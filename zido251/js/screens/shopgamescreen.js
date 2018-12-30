@@ -6,14 +6,18 @@ class ShopGameScreen extends GameScreen {
         this.endgameoverlay = null;
 
         this.GAME_TIME = 60000;
+        this.BUYER_TIME = 20000;
+        this.MINIMUM_SCORE = 10;
     }
 
     create() {
         this._shopGame = new ShopGame(game);
         this._shopGame.INITIAL_TIME = this.GAME_TIME;
+        this._shopGame.BUYER_TIME = this.BUYER_TIME;
         this._shopGame.init();
 
         this.createTalker();
+        this.createTutorials();
 
         this.endgameoverlay = new EndGameOverlay(game);
         this.endgameoverlay.onRetryButtonDown.add(this.onRetryButtonDown);
@@ -31,8 +35,13 @@ class ShopGameScreen extends GameScreen {
     }
 
     shopGame_onGameCompleted() {
-        this.talker.loadTalkingArray(TALKING_DATA.talkingdata.Shop_End);
-        this.talker.startTalk();
+        if (this._shopGame._currentScore < this.MINIMUM_SCORE) {
+            this.talker.loadTalkingArray(TALKING_DATA.talkingdata.Shop_Fail);
+            this.talker.startTalk();
+        }else{
+            this.talker.loadTalkingArray(TALKING_DATA.talkingdata.Shop_End);
+            this.talker.startTalk();
+        }
     }
 
     createTalker() {
@@ -52,10 +61,79 @@ class ShopGameScreen extends GameScreen {
         this.talker.onReceiveMetadata.add(ref.onReceiveMetadata, this);
     }
 
+    createTutorials() {
+        this.tutimg01 = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY - 35, "img-1-1");
+        this.tutimg01.anchor.set(0.5);
+        this.tutimg01.visible = false;
+        this.tutimg02 = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY - 35, "img-1-2");
+        this.tutimg02.anchor.set(0.5);
+        this.tutimg02.visible = false;
+        this.tutimg03 = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY - 35, "img-1-3");
+        this.tutimg03.anchor.set(0.5);
+        this.tutimg03.visible = false;
+        this.tutimg04 = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY - 35, "img-1-4");
+        this.tutimg04.anchor.set(0.5);
+        this.tutimg04.visible = false;
+        this.tutimg05 = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY - 35, "img-1-5");
+        this.tutimg05.anchor.set(0.5);
+        this.tutimg05.visible = false;
+
+    }
+
     onReceiveMetadata(metadata) {
         console.log("metadata: " + metadata);
 
         switch (metadata) {
+            case "show_tutimg01":
+                {
+                    this.tutimg01.visible = true;
+                }
+                break;
+            case "hide_tutimg01":
+                {
+                    this.tutimg01.visible = false;
+                }
+                break;
+                case "show_tutimg02":
+                {
+                    this.tutimg02.visible = true;
+                }
+                break;
+            case "hide_tutimg02":
+                {
+                    this.tutimg02.visible = false;
+                }
+                break;
+                case "show_tutimg03":
+                {
+                    this.tutimg03.visible = true;
+                }
+                break;
+            case "hide_tutimg03":
+                {
+                    this.tutimg03.visible = false;
+                }
+                break;
+                case "show_tutimg04":
+                {
+                    this.tutimg04.visible = true;
+                }
+                break;
+            case "hide_tutimg04":
+                {
+                    this.tutimg04.visible = false;
+                }
+                break;
+                case "show_tutimg05":
+                {
+                    this.tutimg05.visible = true;
+                }
+                break;
+            case "hide_tutimg05":
+                {
+                    this.tutimg05.visible = false;
+                }
+                break;
             case "show_start_button":
                 {
                     this.startButton.visible = true;
@@ -64,13 +142,13 @@ class ShopGameScreen extends GameScreen {
             case "endgame":
                 {
                     this.endgameoverlay.setTextScore(this._shopGame._currentScore);
-                    this.endgameoverlay.show();
+                    this.endgameoverlay.showCongrats();
                 }
                 break;
             case "failgame":
                 {
                     this.endgameoverlay.setTextScore(this._shopGame._currentScore);
-                    this.endgameoverlay.show();
+                    this.endgameoverlay.showTooBad();
                 }
                 break;
         }
@@ -114,5 +192,5 @@ class ShopGameScreen extends GameScreen {
     onRetryButtonDown() {
         game.state.start("ShopGameScreen");
     }
-    
+
 }

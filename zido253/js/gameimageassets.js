@@ -15,7 +15,9 @@ class GameImageAssets extends ImageAssetsData
 
             {id:"trio-cheers", file:"assets/images/trio-cheers.png"},
             {id:"congrats-title", file:"assets/images/congrats-title.png"},
+            {id:"toobad", file:"assets/images/toobad.png"},
             {id:"btn-retry", file:"assets/images/btn-retry.png"},
+            {id:"btn-next", file:"assets/images/balloon.png"},
             {id:"star-particle", file:"assets/images/star-particle.png"},
             {id:"scorebox", file:"assets/images/scorebox.png"},
 
@@ -28,6 +30,20 @@ class GameImageAssets extends ImageAssetsData
             {id:"friend-4", file:"assets/images/friend-4.png"},
             {id:"friend-5", file:"assets/images/friend-5.png"},
             {id:"obstacle", file:"assets/images/obstacle.png"},
+            {id:"bonus", file:"assets/images/bonus-timer.png"},
+            {id:"timebar", file:"assets/images/timerbar.png"},
+
+            {id:"scoreboxingame", file:"assets/images/scorebox2.png"},
+            {id:"timer-icon", file:"assets/images/timer-icon.png"},
+
+            {id:"crash", file:"assets/images/crash.png"},
+
+            {id:"tut1", file:"assets/images/tut1.png"},
+            {id:"tut2", file:"assets/images/tut2.png"},
+            {id:"tut3", file:"assets/images/tut3.png"},
+            {id:"tut4", file:"assets/images/tut4.png"},
+            {id:"tut5", file:"assets/images/tut5.png"},
+
         ];
 
         this.atlas = [

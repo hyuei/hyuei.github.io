@@ -36,7 +36,7 @@ Game1Screen.inherit({
 
         game.physics.startSystem(Phaser.Physics.P2JS);
 
-        game.physics.p2.gravity.y = 1200;
+        game.physics.p2.gravity.y = 1800;
         game.physics.p2.world.defaultContactMaterial.friction = 0.3;
         game.physics.p2.world.setGlobalStiffness(1e5);
         this.groundMaterial = game.physics.p2.createMaterial('groundMaterial');
@@ -91,6 +91,9 @@ Game1Screen.inherit({
         this.showTrash.fill = this.showBranch.fill;
         this.gInGame.add(this.showTrash)
 
+        this.scoreBoard = new ScoreBoard(this.centerX, this.centerY)
+        this.gInFront.add(this.scoreBoard)
+
         this.createLogo();
 
         this.bg.events.onInputDown.add(function(){
@@ -102,6 +105,7 @@ Game1Screen.inherit({
         this.gCont.add(this.gInGame);
         this.gCont.add(this.gInFront);
 
+        // this.gameStart = true;
         this.countingDown();
     },
 
@@ -242,6 +246,14 @@ Game1Screen.inherit({
         this.tutorImg = global.addSprite(this.centerX, this.gh * 0.4, imgid);
         this.tutorImg.anchor.setTo(0.5);
         this.gFront.add(this.tutorImg);
+    },
+
+    checkScore:function(){
+        if(this.plBranch == 0 && this.plTrash == 0){
+            this.gameEnd();
+        } else {
+            this.scoreBoard.tweenIn();
+        }
     },
 
     gameEnd:function(){

@@ -51,7 +51,8 @@ var resizeGame = function() {
 var TRANSITION = new TransitionCollections();
 var game = new Phaser.Game(desiredWidthRatio, desiredHeightRatio, Phaser.CANVAS, 'game');
 
-
+//for testing purpose
+var gameControl = null;
 
 /*
 var SCREEN_MANAGER = new StateScreenManager(game, 
