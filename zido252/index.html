@@ -6,37 +6,14 @@
 	<meta charset="utf-8">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<meta name="format-detection" content="telephone=no">
-	<meta name="HandheldFriendly" content="true" />
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<meta name="format-detection" content="telephone=no">
-	<meta name="HandheldFriendly" content="true" />
-	<meta name="robots" content="noindex,nofollow" />
-	<meta name="apple-mobile-web-app-capable" content="yes" />
-	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-	<meta name="apple-mobile-web-app-title" content="Phaser App">
-	<meta name="viewport" id="vpr" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, minimal-ui"/>
-	<link rel="stylesheet" href="css/game.css" type="text/css" charset="utf-8">
-	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-	<script>
-		
-		window.addEventListener('scroll', function () {
-		    // Do not scroll when keyboard is visible 
-		    if (document.activeElement === document.body && window.scrollY > 0) {
-		        document.body.scrollTop = 0;
-		    }
-		}, true);
-	</script>
+	<link rel="stylesheet" href="css/game.css" type="text/css" charset="utf-8">
 
 	<script type="text/javascript" src="js/phaser.js"></script>
 	<script type="text/javascript" src="js/zido-game-plugin.min.js"></script>
 	<script type="text/javascript" src="js/zidoconnect.js"></script>
     <script src="js/core/init.js"></script>
-    <script src="js/core/platform.js"></script>
-    <script src="js/core/scm.js"></script>
-	<script src="js/core/utils.js"></script>
 		
 	<!-- plugins -->
 	<script type="text/javascript" src="js/plugins/phaser-nineslice.min.js"></script>
@@ -44,7 +21,7 @@
 	<script type="text/javascript" src="js/plugins/phaser-fade.js"></script>
 
 	<script type="text/javascript" src="js/plugins/phaser-state-transition.umd.js"></script>
-	<script type="text/javascript" src="js/ubriframework/transitioncollections.js"></script>
+<!-- 	<script type="text/javascript" src="js/ubriframework/transitioncollections.js"></script> -->
 	<script type="text/javascript" src="js/lz-string.min.js"></script>
 	<script type="text/javascript" src="js/ubriframework/custom-storage.js"></script>
 	<script type="text/javascript" src="js/ubriframework/imageassetsdata.js"></script>
@@ -95,20 +72,16 @@
 </head>
 
 <body>
-	<div id="main-game">
-<!-- 	<div id="forestrun"> -->
-		<div id="loader-text">Loading</div>
-		<div id="game">
-			
-		</div>
+	<div id="game">
 	</div>
-	<div id="orientation"></div>
-	
-	<!-- <div id="forestrun"></div> -->
+	<!-- <button onclick="ZIDO.testDispatchEvent(true);">Test Start</button> -->
+
+	<!-- <button onclick="ZIDO.testDispatchEvent(false);">Test Fail</button>
+	<button onclick="game.state.start('DesignerScreen');">Goto designer</button> -->
 </body>
 
 	
 
-	<!-- main game
+	<!-- main game -->
 
 </html>

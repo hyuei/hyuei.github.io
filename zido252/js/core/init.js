@@ -20,30 +20,9 @@ window.log = function(a){
 
 global = {}
 
-global.AngleOfTwoDots = function(x1, y1, x2, y2) {
-	var dx = x1 - x2;
-	var dy = y1 - y2;
-	return Math.atan2(dy, dx);
-}
-
-global.RadToDeg = function(rad) {
-	return rad * 180 / Math.PI;
-}
-
-global.Distance = function(x1, y1, x2, y2) {
-	var dx = Math.pow(x2 - x1, 2);
-	var dy = Math.pow(y2 - y1, 2);
-	return Math.sqrt(dx + dy);
-}
-
-
 // ****************************************************
 // bagian google webfont
 // ****************************************************
-global.webFontReadyID = null;
-global.font1 = 'Farah';
-global.font2 = 'Varela';
-global.landscape = false;
 global.addText = function (xx, yy, txt, size, font, settings) {
     // console.log("webfont ready : " + global.webFontReady)
     // body...
@@ -66,19 +45,19 @@ global.addText = function (xx, yy, txt, size, font, settings) {
 //global.load = {};
 
 global.addAtlas = function(key, subfolder, png, json) {
-	if (png == undefined) 
-		png = key;
+  if (png == undefined) 
+    png = key;
 
-	if (json == undefined)
-		json = png;
+  if (json == undefined)
+    json = png;
 
-	if (subfolder != undefined && subfolder != "")
-		subfolder = subfolder + "/"
-	else if (subfolder == undefined)
-		subfolder =""
+  if (subfolder != undefined && subfolder != "")
+    subfolder = subfolder + "/"
+  else if (subfolder == undefined)
+    subfolder =""
 
-	game.load.atlas(key, 'assets/'+BasicGame.screen+'/'+subfolder+png+'.png', 'assets/'+BasicGame.screen+'/'+subfolder+json+'.json');
-	game.load.json(json, 'assets/'+BasicGame.screen+'/'+subfolder+json+'.json')
+  game.load.atlas(key, 'assets/'+BasicGame.screen+'/'+subfolder+png+'.png', 'assets/'+BasicGame.screen+'/'+subfolder+json+'.json');
+  game.load.json(json, 'assets/'+BasicGame.screen+'/'+subfolder+json+'.json')
 }
 
 global.findAtlasBySpriteKey = function(key) {
@@ -103,16 +82,16 @@ global.findAtlasBySpriteKey = function(key) {
 
 }
 
-global.loadTexture = function(sprite, newKey) {	
-	var temp = global.findAtlasBySpriteKey(newKey);
-	sprite.loadTexture(temp.atlasKey, newKey)
-	var ssc = temp.p.spriteSourceSize;
-	var dw = ssc.w - ssc.x;
-	var dh = ssc.h - ssc.y;
+global.loadTexture = function(sprite, newKey) { 
+  var temp = global.findAtlasBySpriteKey(newKey);
+  sprite.loadTexture(temp.atlasKey, newKey)
+  var ssc = temp.p.spriteSourceSize;
+  var dw = ssc.w - ssc.x;
+  var dh = ssc.h - ssc.y;
 
-	sprite.atlasName = temp.atlasKey;
-	sprite.pivot.x = sprite.tempPivotX - ssc.x;
-	sprite.pivot.y = sprite.tempPivotY - ssc.y;	
+  sprite.atlasName = temp.atlasKey;
+  sprite.pivot.x = sprite.tempPivotX - ssc.x;
+  sprite.pivot.y = sprite.tempPivotY - ssc.y; 
 }
 
 global.addSprite = function(x, y, key) {
@@ -141,196 +120,58 @@ global.addSprite = function(x, y, key) {
     return t;
 }
 
-global.addButton = function(x, y, key, actionOnClick, context) {
-	var temp = global.findAtlasBySpriteKey(key);
-	if (temp == null) {
-		console.log("atlas on global.add.sprite with key |" + key + "| not found on any json files")
-	}
-
-	var t = game.add.button(x, y, temp.atlasKey, actionOnClick, context, key, key, key, key);
-
-	var ssc = temp.p.spriteSourceSize;
-	var dw = ssc.w - ssc.x;
-	var dh = ssc.h - ssc.y;
-
-	t.atlasName = temp.atlasKey;
-	t.tempPivotX = t.pivot.x;
-	t.tempPivotY = t.pivot.y;
-	t.pivot.x -= ssc.x;
-	t.pivot.y -= ssc.y;	
-    t.dw = dw;
-	t.dh = dh;
-
-	//console.log(t.x + " - " + t.y)
-
-	return t;
-}
-
 // ****************************************************
 // bagian responsive
 // ****************************************************
 global.processScaling = function (argument) {
-	// body...
-	var device = Phaser.Device;
-	device.desktop = !mobileAndTabletcheck();
-	
-	var r = BasicGame.logicWidth/BasicGame.logicHeight;
-	BasicGame.gameHeight = global.logicHeight;
-	BasicGame.gameWidth = BasicGame.gameHeight*r;
-	
-    global.simulatedMobileOnDesktop = false;
+  // body...
+  var device = Phaser.Device;
+  device.desktop = !mobileAndTabletcheck();
+  
+  var r = BasicGame.logicWidth/BasicGame.logicHeight;
+
+  BasicGame.gameHeight = global.logicHeight;
+  BasicGame.gameWidth = BasicGame.gameHeight*r;
 };
 
 global.cw = function(value){
-		return Math.floor(value/BasicGame.logicWidth * BasicGame.gameWidth); 
-	};
+    return Math.floor(value/BasicGame.logicWidth * BasicGame.gameWidth); 
+  };
 
 global.ch = function(value){
-	return Math.floor(value/BasicGame.logicHeight * BasicGame.gameHeight);
+  return Math.floor(value/BasicGame.logicHeight * BasicGame.gameHeight);
 };
 
-global.init = function() {
-	global.left = BasicGame.viewX;
-	global.top = BasicGame.viewY;
-	global.right = BasicGame.viewRight;
-	global.bottom = BasicGame.viewBottom;
-	global.centerX = BasicGame.viewX + BasicGame.viewWidth/2;
-	global.centerY = BasicGame.viewY + BasicGame.viewHeight/2;
-	global.viewWidth = BasicGame.viewWidth;
-	global.viewHeight = BasicGame.viewHeight;
-}
+Function.prototype.inherit = function(proto, parentClass) {
+  if (parentClass) {
+    this.prototype = Object.create(parentClass.prototype);
+    this.prototype.$parent = parentClass;
+  }
 
-global.alignLeftPercent = function(obj, percent) {
-	// percent = 0% = plg kiri, 100% = plg kanan
-	var temp = percent;
-	obj.position.x = global.left + Math.floor((global.viewWidth) * (temp / 100));
-}
-
-global.alignTopPercent = function(obj, percent) {
-	// percent = 0% = plg kiri, 100% = plg kanan
-	var temp = percent;
-	obj.position.y = global.top + Math.floor((global.viewHeight) * (temp / 100));
-}
-
-global.alignLeft = function(obj){
-	obj.x = BasicGame.viewX;
+  this.prototype.constructor = this;
+  extend(this.prototype, proto);
 };
 
-global.alignTop = function(obj){
-	obj.y = BasicGame.viewY;
-};
+extend = function(obj, extObj) {
 
-global.alignTopLeft = function(obj){
-	global.alignTop(obj);
-	global.alignLeft(obj)
-};
+    if (arguments.length > 2) {
 
-global.alignTopRight = function(obj){
-	global.alignTop(obj);
-	global.alignRight(obj)
-};
+        for (var a = 1; a < arguments.length; a++) {
 
-global.alignCenterX = function(obj){
-	obj.x = BasicGame.viewX + BasicGame.viewWidth / 2 - obj.width / 2;
-};
+            extend(obj, arguments[a]);
 
-global.alignCenterY = function(obj){
-	obj.y = BasicGame.viewY + BasicGame.viewHeight / 2 - obj.height / 2;
-};
+        }
 
-global.alignCenter = function (obj) {
-	global.alignCenterY(obj)
-	global.alignCenterX(obj)
-}
+    } else {
 
-global.alignBottomLeft = function(obj){
-	global.alignBottom(obj);
-	global.alignLeft(obj)
-};
+        for (var i in extObj) {
 
-global.alignBottomRight = function(obj){
-	global.alignBottom(obj);
-	global.alignRight(obj)
-};
+            obj[i] = extObj[i];
 
-global.alignBottom = function(obj){
-	obj.y = BasicGame.viewBottom - obj.height;
-};
+        }
 
-global.alignRight = function(obj){
-	obj.x = BasicGame.viewRight - obj.width;
-};
-
-global.setPosX = function(percent) {
-	var temp = percent;	
-	return Math.floor((BasicGame.gameWidth) * (temp / 100));
-}
-
-global.setPosY = function(percent) {
-	var temp = percent;
-	return Math.floor((BasicGame.gameHeight) * (temp / 100));
-}
-
-global.setWordWrap = function(size) {
-	return (size*BasicGame.gameWidth/1020);
-}
-
-global.setFont = function(size) {
-	return (size*BasicGame.gameWidth/1020);
-}
-
-global.setSound = function() {
-	
-}
-
-global.AngleOfTwoDots = function(x1, y1, x2, y2) {
-	var dx = x1 - x2;
-	var dy = y1 - y2;
-	return Math.atan2(dy, dx);
-}
-
-global.RadToDeg = function(rad) {
-	return rad * 180 / Math.PI;
-}
-
-global.findTopPercents=function(percent)
-{
-	var temp=percent
-	var yDum=Math.floor((BasicGame.gameHeight) * (temp / 100));
-
-	return yDum
-}
-
-global.findLeftPercents=function(percent)
-{
-	var temp=percent
-	var xDum=Math.floor((BasicGame.gameWidth) * (temp / 100));
-
-	return xDum 
-}
-
-global.returnLeftPercents=function(xCord)
-{
-	var temp=xCord
-	var leftPercent=Math.floor(100 * (temp / BasicGame.gameWidth));
-
-	return leftPercent
-}
-
-global.returnTopPercents=function(yCord)
-{
-	var temp=yCord
-	var topPercent=Math.floor(100 * (temp / BasicGame.gameHeight));
-
-	return topPercent
-}
-
-global.fileComplete = function(progress, cacheKey, success, totalLoaded, totalFiles) {
-    if (this.loading_hati == null){
-        this.loading_hati = game.add.sprite(0,0,'loading_hati'); 
-        this.loading_hati.x = BasicGame.viewX + BasicGame.viewWidth/2;;            
-        this.loading_hati.y = BasicGame.viewY + BasicGame.viewHeight/2;
-        this.loading_hati.anchor.set(0.5);
-        game.add.tween(this.loading_hati).to({angle: 360},700, Phaser.Easing.Linear.None, true, 0,100000, false);
     }
+
+    return obj;
+
 };

@@ -67,6 +67,7 @@ class ShopGame {
 
         this.INITIAL_TIME = 60000;
         this.INITIAL_BUYER_TIME = 20000;
+        this.SCORE_MULTIPLIER = 10;
 
         this._correctMark = null;
         this._falseMark = null;
@@ -164,6 +165,9 @@ class ShopGame {
         button.onInputUp.add(function () {
             button.loadTexture(buttonName);
         }, this);
+
+        var fruitTween = this._game.add.tween(button.scale).to({ y: 1.02, x: 1.02}, 500, "Linear", true, 0, -1);
+        fruitTween.yoyo(true, 0);
 
         return button;
     }
@@ -275,7 +279,7 @@ class ShopGame {
     }
 
     addScore(score) {
-        this._currentScore += score;
+        this._currentScore += score * this.SCORE_MULTIPLIER;
         console.log("current score:" + this._currentScore);
         this._scoreText.text = "x " + this._currentScore.toString();
 
@@ -681,10 +685,9 @@ class ShopGame {
 
 
         // create text
-        var position = { x: 100, y: 55 };
+        var position = { x: 80, y: 33 };
         var scoreTextOption = { font: "30px Vag", fill: "#07abf8", align: "left" };
         this._scoreText = this._game.add.text(position.x, position.y, "x " + this._currentScore.toString(), scoreTextOption);
-        this._scoreText.anchor.set(0.5);
     }
 
     createTimerUI() {

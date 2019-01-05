@@ -8,15 +8,8 @@ PreloadScreen.prototype = {
         this.gameAudioAssets = new GameAudioAssets();
 
         console.log('preload preload')
-        // console.log('init highScore', ZIDO_API.gameData)
         this.isReady = false;
-        var textOption = {font: "20px " + global.font1, fill: "#ffff00", boundsAlignH: "center", boundsAlignV: "middle" };
-        // this.text = this.game.add.text(0,0, STRINGS_DATA.data.loadingAssets, textOption);
-        // this.text = global.addText(0, 0,  STRINGS_DATA.data.loadingAssets, 20, 'Arial');
-        // this.text.fill = textOption.fill;
-        // this.text.boundsAlignH = 'center';
-        // this.text.boundsAlignV = 'middle';
-        // this.text.setTextBounds(0, 0, game.world.width, game.world.height);        
+        var textOption = {font: "20px " + global.font1, fill: "#ffff00", boundsAlignH: "center", boundsAlignV: "middle" };        
 
         game.plugins.add(PhaserNineSlice.Plugin);
         game.plugins.add(StateTransition);
@@ -29,7 +22,6 @@ PreloadScreen.prototype = {
         game.load.nineSlice('dialogue-box', 'assets/dialogue-box.png', 800, 80, 800, 80);
         game.load.onFileComplete.add(this.fileComplete, this);
 
-        // transition.open();
         transition.bg.alpha = 0;
         transition.isClosed = false;
         transition.isAnimating = false;
@@ -57,8 +49,8 @@ PreloadScreen.prototype = {
         this.preloaderCreated = true;
 
         this.loading_hati = game.add.sprite(0,0,'loading_bar');
-        this.loading_hati.x = BasicGame.viewWidth/2-this.loading_hati.width/2;       
-        this.loading_hati.y = BasicGame.viewY + BasicGame.viewHeight/2;
+        this.loading_hati.x = game.width/2-this.loading_hati.width/2;       
+        this.loading_hati.y = game.height/2;
 
         this.text_wait = game.add.text( this.loading_hati.x+this.loading_hati.width/2,this.loading_hati.y-25, STRINGS_DATA.data.loadingAssets, {
             font:"20px Arial", fill:"#FFFFFF",fontWeight:"bold", align:"center"});  
@@ -80,27 +72,11 @@ PreloadScreen.prototype = {
         test2.setTextBounds(0, 0, game.world.width, game.world.height);          
         
         this.gameAudioAssets.init();
-
-        // FontDetect.onFontLoaded (global.font1, function(){
-        //     console.log('web font looks good')
-        // }.bind(this), function(){
-        //     console.log('using local font')
-        //     global.fontReady = true;
-        // }.bind(this), {msTimeout: 2000});
     },
 
     update:function(){        
-        if(!global.fontReady){
-            global.fontReady = (FontDetect.isFontLoaded(global.font1) && FontDetect.isFontLoaded(global.font2));
-            // console.log(global.fontReady)
-            // return;
-        }
-
         if(!this.isReady){
             this.isReady = true;
-            // console.log('transition StartScreen')
-            // transition.close('StartScreen')
-            // transition.close('Game1Screen');
         }
     }
 };

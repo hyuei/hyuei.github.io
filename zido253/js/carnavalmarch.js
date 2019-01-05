@@ -40,9 +40,6 @@ class carnavalMarchGame {
         /*TODO
             scale movement boing-boing
             zIndex
-
-            brutforce when searching emptyspcae
-            please include snake(head to tail) when check emptyspace
         */
     }
 
@@ -74,7 +71,7 @@ class carnavalMarchGame {
 
         for(let i = 0; i<6; i++){
             if(i == 0){
-                this.allGRID.push([1,0,0,0,0,0,0,0,0,0,0]);
+                this.allGRID.push([0,0,0,0,0,0,0,0,0,0,0]);
             }
             else{
                 this.allGRID.push([0,0,0,0,0,0,0,0,0,0,0]);
@@ -179,14 +176,26 @@ class carnavalMarchGame {
         this.timeLiveFoods = 10;
         if(this.friendEncounter > 5)this.friendEncounter = 1;
         let randGrid ={x:0, y:0};
-        let recheckRepeat = 33;
+        let recheckRepeat = 5;
         do{
-            randGrid.x = this.game.rnd.between(0, 10); 
-            randGrid.y = this.game.rnd.between(0,5);
+            randGrid = {x:this.game.rnd.between(0, 10), y:this.game.rnd.between(0,5)}
             recheckRepeat -- ;
             if(recheckRepeat <=0){
+                let getEmpty = false;
                 //brutfore check
-                break;
+                for(let i =0; i<6; i++){
+                    for(let j =0; j<11; j++){
+                        if(this.checkEmptyGrid(j, i)){
+                            randGrid = {x:j, y:i};
+                            getEmpty = true;
+                            break;
+                        }
+                    }
+                    if(getEmpty){
+                        break;
+                    }
+                }
+                //debugger;
             }
         }
         while(!this.checkEmptyGrid(randGrid.x, randGrid.y));
@@ -216,15 +225,16 @@ class carnavalMarchGame {
         this.foodBonus.visible = true;
         this.foodBonus.timeLive = 20;
         let randGrid ={x:0, y:0};
-        let recheckRepeat = 33;
+        //let recheckRepeat = 33;
         do{
             randGrid.x = this.game.rnd.between(0, 10); 
             randGrid.y = this.game.rnd.between(0,5);
+            /*
             recheckRepeat -- ;
             if(recheckRepeat <=0){
                 //brutfore check
                 break;
-            }
+            }*/
         }
         while(!this.checkEmptyGrid(randGrid.x, randGrid.y));
 
@@ -257,17 +267,32 @@ class carnavalMarchGame {
     spawnObstacle(){
         let batu = this.game.add.sprite(0, 0, 'obstacle');
         let randGrid = {x:0, y:0};
-        let recheckRepeat = 33;
+        //let recheckRepeat = 33;
         do{
             randGrid = {x:this.game.rnd.between(0, 10), y:this.game.rnd.between(0,5)};
+            /*
             recheckRepeat -- ;
             if(recheckRepeat <=0){
+                let getEmpty = false;
                 //brutfore check
-                break;
+                for(let i =0; i<6; i++){
+                    for(let j =0; j<11; j++){
+                        if(this.checkEmptyGrid(j, i)){
+                            randGrid.x = j;
+                            randGrid.y = i;
+                            getEmpty = true;
+                            break;
+                        }
+                    }
+                    if(getEmpty){
+                        break;
+                    }
+                }
             }
+            */
         }
         while(!this.checkEmptyGrid(randGrid.x, randGrid.y));
-        //this.allGRID[randGrid.y][randGrid.x] = 300;
+        this.allGRID[randGrid.y][randGrid.x] = 200;
         batu.x = 144+randGrid.x *65;
         batu.y = 100+randGrid.y*66;
         batu.grid = new Phaser.Point(randGrid.x, randGrid.y);
@@ -339,6 +364,19 @@ class carnavalMarchGame {
     }
 
     checkEmptyGrid(x, y){
+        //check head
+        if(this.kid.grid.y == y && this.kid.grid.x == x){
+            return false;
+        }
+        //check body
+        for(let i = 0; i < this.tailBody.length; i++){
+            let partboady = this.tailBody[i];
+            if(partboady.grid.x == x && partboady.grid.y == y){
+                return false;
+            }
+        }
+        //else
+
         return(this.allGRID[y][x] == 0);
     }
 
@@ -438,6 +476,7 @@ class carnavalMarchGame {
 
     pushMovement(dir){
         for(let i = 0; i<this.tailBody.length; i++){
+            //console.log("pushmovement");
             let b = this.tailBody[i];
             b.trackMovement.push(dir);
         }
@@ -494,7 +533,7 @@ class carnavalMarchGame {
             //eat food
             if(check >100 && check < 106){
                 this.allGRID[y][x] = 0;
-                this.score +=10 ;
+                this.score +=100 ;
                 this.textScoreInGame.text = this.score;
                 this.kid.eatFood(x, y);
                 this.runParticles(144+x*65, 100+y*66);
@@ -522,15 +561,16 @@ class carnavalMarchGame {
 
     selfCollision(x, y){
         for(let i = 0; i<this.tailBody.length; i++){
+            //console.log("selfCollision");
             let tail = this.tailBody[i];
             if(tail.grid.x == x && tail.grid.y ==y){
-                console.log("collide body");
+                //console.log("collide body");
                 this.kid.animations.stop();
                 this.gamescreen.createTalker();
                 this.gameState = "end";
                 //spawn crash
                 //this.game.add.sprite(0,0, 'crash');
-                let posCrah = {x:112-x*65, y:47+y*66};
+                let posCrah = {x:144+x*65, y:100+y*66};
                 let img = this.game.add.sprite(posCrah.x,posCrah.y, 'crash');
                 img.anchor.set(.5);
                 this.backUI.add(img);

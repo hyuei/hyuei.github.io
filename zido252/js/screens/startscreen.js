@@ -27,7 +27,6 @@ StartScreen.inherit({
         this.startButton = startButton;
 
         this.gCont.add(this.startButton)
-        this.onResize();
     },
 
     spawnButton:function(){

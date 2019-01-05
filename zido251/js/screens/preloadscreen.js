@@ -22,9 +22,9 @@ class PreloadScreen {
 
         game.load.nineSlice('dialogue-box', 'assets/dialogue-box.png', 800, 80, 800, 80);
 
-        TALKING_DATA.loadAudios(game, TALKING_DATA.talkingdata.ClimbTree_Prolog);
-        TALKING_DATA.loadAudios(game, TALKING_DATA.talkingdata.ClimbTree_End);
-        TALKING_DATA.loadAudios(game, TALKING_DATA.talkingdata.ClimbTree_Fail);
+        TALKING_DATA.loadAudios(game, TALKING_DATA.talkingdata.Shop_Prolog);
+        TALKING_DATA.loadAudios(game, TALKING_DATA.talkingdata.Shop_End);
+        TALKING_DATA.loadAudios(game, TALKING_DATA.talkingdata.Shop_Fail);
 
         game.load.bitmapFont('arabnumbers', 'assets/fonts/arabnumber.png', 'assets/fonts/arabnumber.fnt');
 

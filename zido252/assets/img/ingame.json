@@ -90,7 +90,7 @@
 },
 {
 	"filename": "ingame/bg-bush-3",
-	"frame": {"x":73,"y":82,"w":175,"h":89},
+	"frame": {"x":511,"y":82,"w":175,"h":89},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":175,"h":89},
@@ -106,7 +106,7 @@
 },
 {
 	"filename": "ingame/bg-tree-1",
-	"frame": {"x":748,"y":731,"w":225,"h":345},
+	"frame": {"x":635,"y":1281,"w":225,"h":345},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":225,"h":345},
@@ -114,7 +114,7 @@
 },
 {
 	"filename": "ingame/bg-tree-2",
-	"frame": {"x":578,"y":731,"w":170,"h":296},
+	"frame": {"x":465,"y":1281,"w":170,"h":296},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":170,"h":296},
@@ -161,8 +161,32 @@
 	"sourceSize": {"w":141,"h":56}
 },
 {
+	"filename": "ingame/img-2-1",
+	"frame": {"x":0,"y":1281,"w":465,"h":281},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":465,"h":281},
+	"sourceSize": {"w":465,"h":281}
+},
+{
+	"filename": "ingame/img-2-2",
+	"frame": {"x":465,"y":1000,"w":465,"h":281},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":465,"h":281},
+	"sourceSize": {"w":465,"h":281}
+},
+{
+	"filename": "ingame/img-2-3",
+	"frame": {"x":0,"y":1000,"w":465,"h":281},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":465,"h":281},
+	"sourceSize": {"w":465,"h":281}
+},
+{
 	"filename": "ingame/khalid-cheers",
-	"frame": {"x":782,"y":172,"w":102,"h":124},
+	"frame": {"x":869,"y":172,"w":102,"h":124},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":102,"h":124},
@@ -170,7 +194,7 @@
 },
 {
 	"filename": "ingame/khalid-idle",
-	"frame": {"x":884,"y":172,"w":87,"h":124},
+	"frame": {"x":782,"y":172,"w":87,"h":124},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":87,"h":124},
@@ -218,7 +242,7 @@
 },
 {
 	"filename": "ingame/scorebox",
-	"frame": {"x":248,"y":82,"w":438,"h":89},
+	"frame": {"x":73,"y":82,"w":438,"h":89},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":438,"h":89},
@@ -234,7 +258,7 @@
 },
 {
 	"filename": "ingame/tile-end",
-	"frame": {"x":927,"y":0,"w":28,"h":82},
+	"frame": {"x":842,"y":0,"w":28,"h":82},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":28,"h":82},
@@ -242,7 +266,7 @@
 },
 {
 	"filename": "ingame/tile-end2",
-	"frame": {"x":899,"y":0,"w":28,"h":82},
+	"frame": {"x":814,"y":0,"w":28,"h":82},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":28,"h":82},
@@ -250,7 +274,7 @@
 },
 {
 	"filename": "ingame/tile",
-	"frame": {"x":814,"y":0,"w":85,"h":82},
+	"frame": {"x":870,"y":0,"w":85,"h":82},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":85,"h":82},
@@ -285,8 +309,8 @@
 	"version": "1.0",
 	"image": "ingame.png",
 	"format": "RGBA8888",
-	"size": {"w":973,"h":1076},
+	"size": {"w":971,"h":1626},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:11e82543418b6425255fbe198adea27e:d95be1167d86caedc61498fa86a12ac8:a0a7aae19725baf1127883d8cc485c4f$"
+	"smartupdate": "$TexturePacker:SmartUpdate:a9ac5e0be5db20a237d80ffbab0b4a7e:257761b6711f090b38ee3f7a111a8d6a:a0a7aae19725baf1127883d8cc485c4f$"
 }
 }

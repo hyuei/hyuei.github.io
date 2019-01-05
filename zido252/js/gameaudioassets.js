@@ -23,9 +23,7 @@ class GameAudioAssets extends AudioAssetsData
             {id:"voice13", file:"voice/voice13", type:"sfx"},
             {id:"voice14", file:"voice/voice14", type:"sfx"},
             {id:"voice15", file:"voice/voice15", type:"sfx"},
-            {id:"voice16", file:"voice/voice16", type:"sfx"},
-            {id:"voice17", file:"voice/voice17", type:"sfx"},
-            {id:"voice18", file:"voice/voice18", type:"sfx"}
+            {id:"voice16", file:"voice/voice16", type:"sfx"}
         ];
     }
 }

@@ -5,8 +5,8 @@ BaseState.prototype = {
 	ctr:0,
 	isActive: true,
 	init: function() {
-		this.gw = BasicGame.gameWidth;
-		this.gh = BasicGame.gameHeight;
+		this.gw = game.width;
+		this.gh = game.height;
 		this.centerX = this.gw*0.5;
 		this.centerY = this.gh*0.5;
 		this.nm = "BaseState";
@@ -41,8 +41,8 @@ BaseState.prototype = {
 		this.preloaderCreated = true;
 
         this.loading_hati = game.add.sprite(0,0,'loading_bar');
-        this.loading_hati.x = BasicGame.viewWidth/2-this.loading_hati.width/2;       
-        this.loading_hati.y = BasicGame.viewY + BasicGame.viewHeight/2;
+        this.loading_hati.x = game.width/2-this.loading_hati.width/2;       
+        this.loading_hati.y = game.height/2;
 
         this.text_wait = game.add.text( this.loading_hati.x+this.loading_hati.width/2,this.loading_hati.y-25, "loading..", {
             font:"31px Times New Roman", fill:"#FFFFFF",fontWeight:"bold", align:"center"});  
@@ -86,57 +86,5 @@ BaseState.prototype = {
 	},
 	shutdown: function() {
 
-	},
-	onResize: function() {
-		global.init();
-		var isLandscape = (global.viewHeight < global.viewWidth);
-		if  (isLandscape != global.landscape) {
-			// incorrect orientation
-			// document.getElementById('orientation').style.display = 'block';
-		}
-		else {
-			// correct orientation
-			document.getElementById('orientation').style.display = 'none';
-		}
-
-		if (this.gPreloader){
-			this.gPreloader.fitToCenter(BasicGame.gameWidth, BasicGame.gameHeight, global.viewWidth, global.viewHeight);
-		}
-		
-		if (this.gCont){
-			this.gCont.fitToCenter(BasicGame.gameWidth, BasicGame.gameHeight, global.viewWidth, global.viewHeight);
-			// trace("SCALE GCONT",this.gCont.scale.x, this.gCont.scale.y);
-		}
-
-		if(this.gBG){
-			this.gBG.fitToCenter(BasicGame.gameWidth, BasicGame.gameHeight, global.viewWidth, global.viewHeight);
-		}
-
-		if(this.gFront){
-			this.gFront.fitToCenter(BasicGame.gameWidth, BasicGame.gameHeight, global.viewWidth, global.viewHeight);
-		}
-
-		if (this.gSkillBtn){
-			// this.gSkillBtn.fitToCenter(BasicGame.gameWidth, BasicGame.gameHeight, global.viewWidth, global.viewHeight);
-		}
-
-		if (this.bg){
-			if (this.bg.isStretch)
-				this.bg.stretch(this.world.width, this.world.height);
-		}
-
-		if (this.gFG){
-			this.gFG.fitToCenter(BasicGame.gameWidth, BasicGame.gameHeight, global.viewWidth, global.viewHeight);
-		}
-
-		if (this.g0){
-			this.g0.fitToCenter(BasicGame.gameWidth, BasicGame.gameHeight, global.viewWidth, global.viewHeight);
-		}
-
-		if (this.black80) {
-			this.black80.stretch(this.world.width*1.1, this.world.height*1.1);
-			this.black80.x = this.world.width*-0.05;
-			this.black80.y = this.world.height*-0.05;
-		}
 	},
 };

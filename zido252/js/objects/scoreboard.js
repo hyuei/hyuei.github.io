@@ -106,7 +106,8 @@ ScoreBoard.inherit({
 					game.time.events.add(1000, function(){
 						curState().isWin = true;
 						curState().score = this.totScore;
-						curState().gameEnd();
+						curState().prepareTutor();
+						// curState().gameEnd();
 					}, this)
 				}
 			}

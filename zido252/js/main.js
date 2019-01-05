@@ -31,66 +31,32 @@ var ratio = windowHeight/desiredHeightRatio;
 
 var width = desiredWidthRatio * ratio;
 
-var TRANSITION = new TransitionCollections();
-// var game = new Phaser.Game(desiredWidthRatio, desiredHeightRatio, Phaser.CANVAS, 'main-game');
+var assignOrientationChangeHandlers =  function() {
+    setInterval(resizeGame, 100);
+}
 
-window.addEventListener("load", function() {
+var resizeGame = function() {
+    var ratioWidth = window.innerWidth/desiredWidthRatio;
+    var ratioHeight = window.innerHeight/desiredHeightRatio;
+    if(ratioWidth<ratioHeight){
+        game.scale.setUserScale(ratioWidth, ratioWidth);
+    }
+    else{
+        game.scale.setUserScale(ratioHeight, ratioHeight);
+    }
+    game.scale.pageAlignHorizontally = true;
+    game.scale.pageAlignVertically = true;
+    game.scale.refresh();
+}
 
-    // Phaser.Device.whenReady(function() {
-        helper.init();
+// var TRANSITION = new TransitionCollections();
+var game = new Phaser.Game(desiredWidthRatio, desiredHeightRatio, Phaser.CANVAS, 'game');
 
-        global.logicWidth = 960;
-        global.logicHeight = 540;
-        global.mobileLandscape = true;
-        // global.landscape = false;
-        global.simulatedMobile = false;
-        global.forceWidth =  false;
-        global.astrid = true;
-
-        window.createPhaser = function() {
-            var SCREEN_MANAGER = new StateScreenManager(game, 
-                [
-                    // "OpeningScreen",
-                ]
-            );
-            
-            //By default we set 
-            // device canvas size 
-            //  Add the States your game has.
-            //  You don't have to do this in the html, it could be done in your Boot state too, but for simplicity I'll keep it here.
-            game.state.add("ZidoScreen", ZidoScreen);
-            game.state.add("ZidoVideoScreen", ZidoVideoScreen);
-            // game.state.add("BootScreen", BootScreen);
-            game.state.add("BootScreen", BasicGame.Boot);
-            game.state.add("PreloadScreen", PreloadScreen);
-            game.state.add("StartScreen", StartScreen);
-            game.state.add("Game1Screen", Game1Screen);
-            game.state.start("BootScreen");
-        }
-
-        helper.initOnLoad();
-    // });
-});
-
-// game.state.add("ZidoScreen", ZidoScreen);
-// game.state.add("ZidoVideoScreen", ZidoVideoScreen);
-// // game.state.add("BootScreen", BootScreen);
-// game.state.add("BootScreen", BasicGame.Boot);
-// game.state.add("PreloadScreen", PreloadScreen);
-// game.state.add("MenuScreen", MenuScreen);
-// game.state.add("OpeningScreen", OpeningScreen);
-// game.state.add("StartScreen", StartScreen);
-// game.state.add("Game1Screen", Game1Screen);
-// game.state.add("Game2Screen", Game2Screen);
-// game.state.add("Game3Screen", Game3Screen);
-// game.state.add("Game4Screen", Game4Screen);
-// game.state.add("Game5Screen", Game5Screen);
-// game.state.add("Game6Screen", Game6Screen);
-// game.state.add("ClosingScreen", ClosingScreen);
-
-// game.state.add("DesignerScreen", DesignerScreen);
-// level design screen
-// game.state.start("DesignerScreen");
-
+game.state.add("ZidoScreen", ZidoScreen);
+game.state.add("ZidoVideoScreen", ZidoVideoScreen);
+game.state.add("BootScreen", BootScreen);
+game.state.add("PreloadScreen", PreloadScreen);
+game.state.add("StartScreen", StartScreen);
+game.state.add("Game1Screen", Game1Screen);
 // real game starting screen
-// game.state.start("BootScreen");
+game.state.start("BootScreen");

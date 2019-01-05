@@ -32,30 +32,31 @@ class TalkingData{
 
             Shop_Prolog:
             [
-                {char:"", en:"Hello and welcome to the market!", talk:"السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللَهِ، مَرْحَباً بِكُمْ إِلَى مَتْجَرِ الْفَاكِهَةِ!", postmeta:""},
-                {char:"", en:"Our little heroes are going to the market to get some inspiration.", talk:"سَيَقْصِدُ أَبْطَالُنَا الصِّغَارُ الْمَتْجَرَ لِلْحُصُولِ عَلَى بَعْضِ الْإِثَارَةِ إِنْ شَاءَ اللَهُ.", postmeta:""},
-                {char:"", en:"But, this fruit market needs some help!", talk:"لَكِنَّ صَاحِبَ مَتْجَرِ الْفَاكِهَةِ هَذَا بِحَاجَةٍ إِلَى بَعْضِ الْمُسَاعَدَةِ!", postmeta:""},
-                {char:"", en:"Let's help him to manage his business by giving the customer what they need.", talk:"فَلْنُسَاعِدْهُ فِي تَسْيِيرِ شُؤُونِ مَحَلِّهِ بِإِعْطَاءِ كُلِّ زَبُونٍ مَا يَحْتَاجُهُ.", postmeta:""},
-                {char:"", en:"There will be a customer asking for some fruits.", talk:"سَوْفَ نُصَادِفُ زُبَنَاءَ يَبْحَثُونَ عَنْ بَعْضِ أَنْوَاعِ الْفَاكِهَةِ.", premeta:"show_tutimg01", postmeta: "hide_tutimg01"},
-                {char:"", en:"You'll need to get the right fruit by clicking on each fruit blocks.", talk:"سَتَكُونُ مُطَالَباً بِالْتِقَاطِ الْفَاكِهَةِ الْمُنَاسِبَةِ مِنْ خِلَالِ النَّقْرِ عَلَى صُنْدُوقِ كُلِّ نَوْعٍ  مِنَ الْفَاكِهَةِ عَلَى حِدَةٍ.", premeta:"show_tutimg02", postmeta: "hide_tutimg02"},
-                {char:"", en:"If you're sure that you've got all the things they need, press the submit button to give them the fruits!", talk:"إِنْ كُنْتَ مُتَأَكِّداً مِنْ أَنَّكَ قَدْ حَصَلْتَ عَلَى جَمِيعِ طَلَباَتِ الزُّبَنَاءِ، اضْغَطْ عَلَى زِرِّ \"تَأْكِيد\" لِكَيْ تٌسَلِّمَهُمُ الْفَاكِهَةَ!", premeta:"show_tutimg03", postmeta: "hide_tutimg03"},
-                {char:"", en:"But, if you think that you have picked the wrong fruit, press the delete button to re-pick the fruits.", talk:"بِالْمُقَابِلِ، إِنْ كُنْتَ تَظُنُّ أَنَّكَ قُمْتَ بِالْتِقَاطِ الْفَاكِهَةِ الْخَطَإِ، اضْغَطْ عَلَى الزِّرِّ \"حَذْفٌ\" لِكَيْ تٌعِيدَ اخْتِيَارَ الْفَاكِهَةِ مِنْ جَدِيدٍ.",  premeta:"show_tutimg04", postmeta: "hide_tutimg04"},
-                {char:"", en:"Be careful not to take too much time or giving them the wrong fruits, since they will be leaving without buying anything.", talk:"حَذَارِ أَنْ تَسْتَغْرِقَ وَقْتاً طَوِيلاً فِي الِاخْتِيَارِ أَوْ تُسَلِّمَهُمُ الْفَاكِهَةَ الْخَطَأَ، لِأَنَّهُمْ وَبِكُلِّ بَسَاطَةٍ سَيُغَادِرُونَ دُونَ شِرَاءِ أَيِّ شَيْءٍ.", premeta:"show_tutimg05", postmeta: "hide_tutimg05"},
-                {char:"", en:"Easy, right? Then let's get ready!", talk:"الْأَمْرُ فِي غَايَةِ السُّهُولَةِ، أَلَيْسَ كَذَلِكَ؟ إِذَنْ لِنَسْتَعِدَّ!", postmeta:"show_start_button"}
+                {char:"", en:"Hello and welcome to the market!", talk:"السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللَهِ، مَرْحَباً بِكُمْ إِلَى مَتْجَرِ الْفَاكِهَةِ!", voice:"01.mp3", postmeta:""},
+                {char:"", en:"Our little heroes are going to the market to get some inspiration.", talk:"سَيَقْصِدُ أَبْطَالُنَا الصِّغَارُ الْمَتْجَرَ لِلْحُصُولِ عَلَى بَعْضِ الْإِثَارَةِ إِنْ شَاءَ اللَهُ.", voice:"02.mp3", postmeta:""},
+                {char:"", en:"But, this fruit market needs some help!", talk:"لَكِنَّ صَاحِبَ مَتْجَرِ الْفَاكِهَةِ هَذَا بِحَاجَةٍ إِلَى بَعْضِ الْمُسَاعَدَةِ!", voice:"03.mp3", postmeta:""},
+                {char:"", en:"Let's help him to manage his business by giving the customer what they need.", talk:"فَلْنُسَاعِدْهُ فِي تَسْيِيرِ شُؤُونِ مَحَلِّهِ بِإِعْطَاءِ كُلِّ زَبُونٍ مَا يَحْتَاجُهُ.", voice:"04.mp3", postmeta:""},
+                {char:"", en:"There will be a customer asking for some fruits.", talk:"سَوْفَ نُصَادِفُ زُبَنَاءَ يَبْحَثُونَ عَنْ بَعْضِ أَنْوَاعِ الْفَاكِهَةِ.", premeta:"show_tutimg01", voice:"05.mp3", postmeta: "hide_tutimg01"},
+                {char:"", en:"You'll need to get the right fruit by clicking on each fruit blocks.", talk:"سَتَكُونُ مُطَالَباً بِالْتِقَاطِ الْفَاكِهَةِ الْمُنَاسِبَةِ مِنْ خِلَالِ النَّقْرِ عَلَى صُنْدُوقِ كُلِّ نَوْعٍ  مِنَ الْفَاكِهَةِ عَلَى حِدَةٍ.", voice:"06.mp3", premeta:"show_tutimg02", postmeta: "hide_tutimg02"},
+                {char:"", en:"If you're sure that you've got all the things they need, press the submit button to give them the fruits!", talk:"إِنْ كُنْتَ مُتَأَكِّداً مِنْ أَنَّكَ قَدْ حَصَلْتَ عَلَى جَمِيعِ طَلَباَتِ الزُّبَنَاءِ، اضْغَطْ عَلَى زِرِّ \"تَأْكِيد\" لِكَيْ تٌسَلِّمَهُمُ الْفَاكِهَةَ!", voice:"07.mp3", premeta:"show_tutimg03", postmeta: "hide_tutimg03"},
+                {char:"", en:"But, if you think that you have picked the wrong fruit, press the delete button to re-pick the fruits.", talk:"بِالْمُقَابِلِ، إِنْ كُنْتَ تَظُنُّ أَنَّكَ قُمْتَ بِالْتِقَاطِ الْفَاكِهَةِ الْخَطَإِ، اضْغَطْ عَلَى الزِّرِّ \"حَذْفٌ\" لِكَيْ تٌعِيدَ اخْتِيَارَ الْفَاكِهَةِ مِنْ جَدِيدٍ.", voice:"08.mp3",  premeta:"show_tutimg04", postmeta: "hide_tutimg04"},
+                {char:"", en:"Be careful not to take too much time or giving them the wrong fruits, since they will be leaving without buying anything.", talk:"حَذَارِ أَنْ تَسْتَغْرِقَ وَقْتاً طَوِيلاً فِي الِاخْتِيَارِ أَوْ تُسَلِّمَهُمُ الْفَاكِهَةَ الْخَطَأَ، لِأَنَّهُمْ وَبِكُلِّ بَسَاطَةٍ سَيُغَادِرُونَ دُونَ شِرَاءِ أَيِّ شَيْءٍ.", voice:"09.mp3",premeta:"show_tutimg05", postmeta: "hide_tutimg05"},
+                {char:"", en:"Easy, right? Then let's get ready!", talk:"الْأَمْرُ فِي غَايَةِ السُّهُولَةِ، أَلَيْسَ كَذَلِكَ؟ إِذَنْ لِنَسْتَعِدَّ!", voice:"10.mp3"},
+                {char:"", en:"Start!", talk:"ابْدَأْ", voice:"11.mp3",postmeta:"show_start_button"}
             ],
             Shop_Fail:
             [
-                {char:"", en:"Store's closed!", talk:"الْمَتْجَرُ مُغْلَقٌ!", postmeta:""},
-                {char:"", en:"I think your score could be better than this.", talk:"أَعْتَقِدُ أَنَّهُ بِإِمْكَانِكَ إِحْرَازُ نَتِيجَةٍ أَفْضَلَ مِنْ هَذِهِ.", postmeta:""},
-                {char:"", en:"Try to play again and see if you can score better!", talk:"حَاوِلْ مَرَّةً أُخْرَى لِنَنْظُرَ أَيُمْكِنُكَ إِحْرَازُ نَتِيجَةٍ أَفْضَلَ!", postmeta:"failgame"}
+                {char:"", en:"Store's closed!", talk:"الْمَتْجَرُ مُغْلَقٌ!", voice:"12.mp3", postmeta:""},
+                {char:"", en:"I think your score could be better than this.", talk:"أَعْتَقِدُ أَنَّهُ بِإِمْكَانِكَ إِحْرَازُ نَتِيجَةٍ أَفْضَلَ مِنْ هَذِهِ.", voice:"13.mp3",  postmeta:""},
+                {char:"", en:"Try to play again and see if you can score better!", talk:"حَاوِلْ مَرَّةً أُخْرَى لِنَنْظُرَ أَيُمْكِنُكَ إِحْرَازُ نَتِيجَةٍ أَفْضَلَ!", voice:"14.mp3",  postmeta:"failgame"}
             ],
 
             Shop_End:
             [
-                {char:"", en:"Store's closed!", talk:"الْمَتْجَرُ مُغْلَقٌ!", postmeta:""},
-                {char:"", en:"The store owner is very happy with all the coins that we have collected.", talk:"صَاحِبُ الْمَتْجَرِ فِي غاَيَةِ السَّعَادَةِ بِالْقِطَعِ النَّقْدِيَّةِ الَّتِي قُمْنَا بِجَمْعِهَا.", postmeta:""},
-                {char:"", en:"Great job! You have talents in being a market owner.", talk:"عَمَلٌ رَائِعٌ! أَنْتَ حَقّاً مَوْهُوبٌ فِي تَسْيِيرِ الْمَتَاجِرِ.", postmeta:""},
-                {char:"", en:"Thanks for helping, and see you!", talk:"شُكْراً عَلَى الْمُسَاعَدَةِ، نَرَاكَ لَاحِقاً!", postmeta:"endgame"}
+                {char:"", en:"Store's closed!", talk:"الْمَتْجَرُ مُغْلَقٌ!", voice:"15.mp3", postmeta:""},
+                {char:"", en:"The store owner is very happy with all the coins that we have collected.", talk:"صَاحِبُ الْمَتْجَرِ فِي غاَيَةِ السَّعَادَةِ بِالْقِطَعِ النَّقْدِيَّةِ الَّتِي قُمْنَا بِجَمْعِهَا.", voice:"16.mp3",  postmeta:""},
+                {char:"", en:"Great job! You have talents in being a market owner.", talk:"عَمَلٌ رَائِعٌ! أَنْتَ حَقّاً مَوْهُوبٌ فِي تَسْيِيرِ الْمَتَاجِرِ.", voice:"17.mp3",  postmeta:""},
+                {char:"", en:"Thanks for helping, and see you!", talk:"شُكْراً عَلَى الْمُسَاعَدَةِ، نَرَاكَ لَاحِقاً!", voice:"18.mp3",  postmeta:"endgame"}
             ]
         };
     }

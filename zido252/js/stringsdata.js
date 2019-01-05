@@ -11,13 +11,21 @@ StringsData = function(){
         "taptocontinue":"انْقُرْ لِلْمُتَابَعَةِ.",
         "x" : "X %1",
         "totalscore" : "Total Score : %1",
+        "target" : "هَدَف  ",
     };
 }
 
-// _t = function(string) {
-//     var r = string;
-//     for(var i = 1; i < arguments.length; i++) {
-//         r = r.replace('%' + i, arguments[i]);
-//     }
-//     return r;
-// }
+global.font1 = 'Farah';
+global.font2 = 'Varela';
+
+_t = function(string) {
+    var r = string;
+    for(var i = 1; i < arguments.length; i++) {
+        r = r.replace('%' + i, arguments[i]);
+    }
+    return r;
+}
+
+curState = function() {
+    return game.state.getCurrentState();
+}
