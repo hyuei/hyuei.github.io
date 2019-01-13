@@ -5,8 +5,8 @@ class ShopGameScreen extends GameScreen {
         this.talker = null;
         this.endgameoverlay = null;
 
-        this.GAME_TIME = 60000;
-        this.BUYER_TIME = 20000;
+        this.GAME_TIME = 100000;
+        this.BUYER_TIME = 15000;
         this.MINIMUM_SCORE = 10;
         this.SCORE_MULTIPLIER = 10;
     }
@@ -14,7 +14,7 @@ class ShopGameScreen extends GameScreen {
     create() {
         this._shopGame = new ShopGame(game);
         this._shopGame.INITIAL_TIME = this.GAME_TIME;
-        this._shopGame.BUYER_TIME = this.BUYER_TIME;
+        this._shopGame.INITIAL_BUYER_TIME = this.BUYER_TIME;
         this._shopGame.SCORE_MULTIPLIER = this.SCORE_MULTIPLIER;
         this._shopGame.init();
 

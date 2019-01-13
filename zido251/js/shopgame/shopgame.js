@@ -13,7 +13,7 @@ class ShopGame {
 
         this._selectedPositions = [{ x: 763, y: 131 }, { x: 690, y: 131 }, { x: 614, y: 131 }];
         this._buyerPositions = [{ x: 310, y: 210 }, { x: 180, y: 210 }, { x: 50, y: 210 }];
-        this._shopListPositions = [{ x: 130, y: 440 }, { x: 220, y: 440 }, { x: 310, y: 440 }];
+        this._shopListPositions = [{ x: 130, y: 450 }, { x: 220, y: 450 }, { x: 310, y: 450 }];
 
         this._rackFruit = {
             "frarea-01": "lemon",
@@ -22,6 +22,13 @@ class ShopGame {
             "frarea-04": "grape",
             "frarea-05": "date"
         };
+
+        this.SELLER_GREET_TEXT = "السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللهِ، مَرْحَباً!";
+        this.BUYER_RESPONSE_TEXT = "وَعَلَيْكُمُ السَّلَامُ وَرَحْمَةُ اللهِ وَبَرَكَاتُه!ُ" + "\u200F" + " أَوَدُّ اقْتِنَاءُ هَذِهِ الْأَنْوَاعِ مِنْ فَضْلِكَ:";
+        this.BUYER_RIGHT_ITEM_TEXT = "جَازَاكَ اللهُ خَيْراً، تَفَضَّلْ هَذَا هُوَ الْبَاقِي.";
+        this.BUYER_WRONG_ITEM_TEXT = "أَنَا آسِفٌ، لَيْسَ هَذَا مَا طَلَبْتُهُ... سَأُحَاوِلُ الْبَحْثَ فِي مَكَانٍ آخَرَ.";
+        this.TOO_LONG_TIME_TEXT = "أَنَا آسِفٌ فَوَقْتِي لَا يَسَعُنِي لِلِانْتِظَارِ. سَأَنْصَرِفُ الْآنَ. فِي أَمَانِ اللهِ.";
+        this.GREET_BUTTON_TEXT = "السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللهِ.";
 
         this._buyerBalloonPos = { x: 220, y: 400 };
 
@@ -87,7 +94,23 @@ class ShopGame {
         this._hasGreeted = false;
         this._hasBuyerNoticed = false;
 
+        this._currentTalkingAudioExtra = null;
+
     }
+
+    talkExtra(audioID) {
+
+        if (this._currentTalkingAudioExtra !== null) {
+            console.log("STOP AUDIO");
+            this._currentTalkingAudioExtra.stop();
+            console.log(this._currentTalkingAudioExtra);
+        }
+
+        this._currentTalkingAudioExtra = game.add.audio(audioID, true);
+        this._currentTalkingAudioExtra.play();
+
+    }
+
 
     init() {
         this.createBackground();
@@ -128,6 +151,8 @@ class ShopGame {
 
         // this.setIsPlaying(true);
 
+
+
     }
 
     createBackground() {
@@ -166,7 +191,7 @@ class ShopGame {
             button.loadTexture(buttonName);
         }, this);
 
-        var fruitTween = this._game.add.tween(button.scale).to({ y: 1.02, x: 1.02}, 500, "Linear", true, 0, -1);
+        var fruitTween = this._game.add.tween(button.scale).to({ y: 1.02, x: 1.02 }, 500, "Linear", true, 0, -1);
         fruitTween.yoyo(true, 0);
 
         return button;
@@ -265,16 +290,17 @@ class ShopGame {
 
             this.showFalseMark();
 
-            this.buyerExit();
+
+            this.buyerExit("BUYER_WRONG_ITEM");
         }
     }
 
-    buyerExit() {
+    buyerExit(condition) {
         var ref = this;
         setTimeout(function () {
             ref.clearSelectedFruits();
             ref.clearShop();
-            setTimeout(function () { ref.shiftBuyer(false); }, 350);
+            setTimeout(function () { ref.shiftBuyer(false, condition); }, 350);
         }, 500);
     }
 
@@ -381,28 +407,64 @@ class ShopGame {
 
     }
 
-    shiftBuyer(isThanks = false) {
+    shiftBuyer(isThanks = false, condition = "") {
         this._hasBuyerNoticed = false;
-        
+
         var ref = this;
 
+        let soundTime = 200;
+        let balloonAnimTime = 600;
+
+        let showBalloon = true;
+
         if (isThanks) {
+            // ref.talkExtra("BUYER_RIGHT_ITEM");
             ref._thanksGroup.visible = true;
             ref._sorryGroup.visible = false;
+
+            soundTime = 1000;
+            showBalloon = true;
         } else {
             ref._thanksGroup.visible = false;
             ref._sorryGroup.visible = true;
-        }
 
+            var sorryText = "";
+
+            if (condition == "BUYER_WRONG_ITEM") {
+                // ref.talkExtra("BUYER_WRONG_ITEM");
+                sorryText = ref.BUYER_WRONG_ITEM_TEXT
+                soundTime = 1000;
+                showBalloon = true;
+            }
+            else if (condition == "TOO_LONG_TIME") {
+                // ref.talkExtra("TOO_LONG_TIME");
+                sorryText = ref.TOO_LONG_TIME_TEXT
+                soundTime = 1000;
+                showBalloon = true;
+            }
+            
+            ref._sorryText.text = sorryText + "\u200F";
+            
+        }
+        // soundTime = ref._currentTalkingAudioExtra.totalDuration * 1000;
+        
         ref._shopListGroup.visible = false;
         ref._greetBButtonGroup.visible = false;
-        ref._buyerBalloonGroup.visible = true;
-
+        
         var ref = this;
         var offset = 50;
         ref._buyerBalloonGroup.y = 0 - offset;
+        
+        
+        
+        if(showBalloon)
+        {
+            ref._buyerBalloonGroup.visible = true;
+        }else{
+            ref._buyerBalloonGroup.visible = false;
+        }
 
-        ref._game.add.tween(ref._buyerBalloonGroup).to({ y: 0 }, 600, Phaser.Easing.Quartic.Out, true)
+        ref._game.add.tween(ref._buyerBalloonGroup).to({ y: 0 }, balloonAnimTime, Phaser.Easing.Quartic.Out, true)
             .onComplete.add(function () {
 
                 setTimeout(function () {
@@ -429,8 +491,9 @@ class ShopGame {
 
                         });
 
-                }, 200);
+                }, soundTime - balloonAnimTime);
             });
+
 
 
     }
@@ -453,17 +516,17 @@ class ShopGame {
 
                 // buyer timer update
                 // if (!this._hasBuyerNoticed) {
-                    if(!this._isBuyerServed) {
-                        if (!this._isBuyerTimingOut && this._currentBuyerTime > 0) {
-                            this._currentBuyerTime -= this._game.time.elapsedMS;
-                            this.updateBuyerTimer(this._currentBuyerTime);
-                        } else {
-                            if (this._currentBuyerTime <= 0 && !this._isBuyerTimingOut) {
-                                this.buyerExit();
-                                this._isBuyerTimingOut = true;
-                            }
+                if (!this._isBuyerServed) {
+                    if (!this._isBuyerTimingOut && this._currentBuyerTime > 0) {
+                        this._currentBuyerTime -= this._game.time.elapsedMS;
+                        this.updateBuyerTimer(this._currentBuyerTime);
+                    } else {
+                        if (this._currentBuyerTime <= 0 && !this._isBuyerTimingOut) {
+                            this.buyerExit("TOO_LONG_TIME");
+                            this._isBuyerTimingOut = true;
                         }
                     }
+                }
                 // }
 
             }
@@ -498,7 +561,7 @@ class ShopGame {
         this._greetBButtonGroup = this._game.add.group();
         this._buyerBalloonGroup.add(this._greetBButtonGroup);
 
-        var position = { x: 227, y: 418 };
+        var position = { x: 220, y: 418 };
         var ref = this;
 
         // create button
@@ -508,8 +571,8 @@ class ShopGame {
         btnGreet.onInputDown.add(ref.btnGreet_onDown, this);
 
         // create text
-        var greetTextOption = { font: "40px Vag", fill: "#0c7162", align: "right", wordWrap: true };
-        var greetText = this._game.add.text(position.x, position.y, "GREET", greetTextOption);
+        var greetTextOption = { font: "35px Harmattan", fill: "#0c7162", align: "right", wordWrap: true, wordWrapWidth: 300 };
+        var greetText = this._game.add.text(position.x, position.y, this.GREET_BUTTON_TEXT, greetTextOption);
         greetText.anchor.set(0.5);
         this._greetBButtonGroup.add(greetText);
 
@@ -522,8 +585,8 @@ class ShopGame {
         this._buyerBalloonGroup.add(this._thanksGroup);
 
         var position = { x: 227, y: 420 };
-        var ThanksTextOption = { font: "30px Vag", fill: "#0c7162", align: "center" };
-        var ThanksText = this._game.add.text(position.x, position.y, "Thank you", ThanksTextOption);
+        var ThanksTextOption = { font: "30px Harmattan", fill: "#0c7162", align: "center", wordWrap: true, wordWrapWidth: 300 };
+        var ThanksText = this._game.add.text(position.x, position.y, this.BUYER_RIGHT_ITEM_TEXT, ThanksTextOption);
         ThanksText.anchor.set(0.5);
         this._thanksGroup.add(ThanksText);
     }
@@ -533,18 +596,18 @@ class ShopGame {
         this._buyerBalloonGroup.add(this._sorryGroup);
 
         var position = { x: 227, y: 420 };
-        var SorryTextOption = { font: "30px Vag", fill: "#0c7162", align: "center" };
-        var SorryText = this._game.add.text(position.x, position.y, "Sorry", SorryTextOption);
-        SorryText.anchor.set(0.5);
-        this._sorryGroup.add(SorryText);
+        var SorryTextOption = { font: "30px Harmattan", fill: "#0c7162", align: "center", wordWrap: true, wordWrapWidth: 300 };
+        this._sorryText = this._game.add.text(position.x, position.y, "Sorry", SorryTextOption);
+        this._sorryText.anchor.set(0.5);
+        this._sorryGroup.add(this._sorryText);
     }
 
     createShopList() {
 
         // create text
         var position = { x: 220, y: 380 };
-        var answerGreetTextOption = { font: "20px Vag", fill: "#0c7162", align: "center" };
-        var answerGreetText = this._game.add.text(position.x, position.y, "Wa'alaikumussalam, we want these", answerGreetTextOption);
+        var answerGreetTextOption = { font: "25px Harmattan", fill: "#0c7162", align: "center", wordWrap: true, wordWrapWidth: 300 };
+        var answerGreetText = this._game.add.text(position.x, position.y, this.BUYER_RESPONSE_TEXT + "\u200F", answerGreetTextOption);
         answerGreetText.anchor.set(0.5);
         this._shopListGroup.add(answerGreetText);
 
@@ -599,8 +662,8 @@ class ShopGame {
 
         this._sellerBalloonGroup.add(this._sellerBalloon);
 
-        var greetTextOption = { font: "22px Vag", fill: "#b15315", align: "center", wordWrap: true };
-        var greetText = this._game.add.text(position.x, position.y - 5, "Assalamualaikum, welcome!", greetTextOption)
+        var greetTextOption = { font: "22px Harmattan", fill: "#b15315", align: "center", wordWrap: true, wordWrapWidth: 200 };
+        var greetText = this._game.add.text(position.x, position.y - 5, this.SELLER_GREET_TEXT + "\u200F", greetTextOption)
         greetText.anchor.set(0.5);
         this._sellerBalloonGroup.add(greetText)
     }
@@ -645,8 +708,12 @@ class ShopGame {
 
         ref._sellerBalloonGroup.y += offset;
 
+        // ref.talkExtra("SELLER_GREET");
+
+        const baloonAnimTime = 600;
+
         // show seller balloon
-        ref._game.add.tween(ref._sellerBalloonGroup).to({ y: ref._sellerBalloonGroup.y - offset }, 600, Phaser.Easing.Bounce.Out, true)
+        ref._game.add.tween(ref._sellerBalloonGroup).to({ y: ref._sellerBalloonGroup.y - offset }, baloonAnimTime, Phaser.Easing.Bounce.Out, true)
             .onComplete.add(function () {
 
                 // show buyer balloon
@@ -659,12 +726,16 @@ class ShopGame {
                     ref._rackInteractable = true;
 
                     ref._buyerBalloonGroup.y -= offset;
+
+                    // ref.talkExtra("BUYER_RESPONSE");
+
                     ref._game.add.tween(ref._buyerBalloonGroup).to({ y: ref._buyerBalloonGroup.y + offset }, 600, Phaser.Easing.Bounce.Out, true)
                         .onComplete.add(function () {
                             ref._hasGreeted = true;
                         });
 
-                }, 350);
+                // }, (ref._currentTalkingAudioExtra.totalDuration * 1000) - baloonAnimTime);
+                },  baloonAnimTime);
 
             });
     }
@@ -816,9 +887,9 @@ class ShopGame {
         }
 
         // create text
-        var totalScoreTextPosition = { x: 351, y: 346 };
+        var totalScoreTextPosition = { x: 401, y: 346 };
         var totalScoreTextOption = { font: "30px Vag", fill: "#f86d07", align: "center" };
-        this._finalTotalScoreText = this._game.add.text(totalScoreTextPosition.x, totalScoreTextPosition.y, "Total Score:", totalScoreTextOption);
+        this._finalTotalScoreText = this._game.add.text(totalScoreTextPosition.x, totalScoreTextPosition.y, "", totalScoreTextOption);
 
         this._finalScoreGroup.add(this._finalTotalScoreText);
     }
@@ -848,7 +919,7 @@ class ShopGame {
         ref.showFinalScoreItem(dataList[0], dataList, 0, function () {
             console.log("Complete");
 
-            ref._finalTotalScoreText.text = "Total Score:  " + ref._currentScore;
+            ref._finalTotalScoreText.text = "مجموع  " + ref._currentScore;
 
             ref.OnGameCompleted.dispatch();
         });
