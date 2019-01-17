@@ -9,6 +9,10 @@ class ShopGameScreen extends GameScreen {
         this.BUYER_TIME = 15000;
         this.MINIMUM_SCORE = 10;
         this.SCORE_MULTIPLIER = 10;
+
+        this.BUYER_WRONG_ITEM_TIME = 3000;
+        this.BUYER_TOO_LONG_TIME = 3000;
+        this.BUYER_THANKS_TIME = 1500;
     }
 
     create() {
@@ -16,6 +20,9 @@ class ShopGameScreen extends GameScreen {
         this._shopGame.INITIAL_TIME = this.GAME_TIME;
         this._shopGame.INITIAL_BUYER_TIME = this.BUYER_TIME;
         this._shopGame.SCORE_MULTIPLIER = this.SCORE_MULTIPLIER;
+        this._shopGame.BUYER_WRONG_ITEM_TIME = this.BUYER_WRONG_ITEM_TIME;
+        this._shopGame.BUYER_TOO_LONG_TIME = this.BUYER_TOO_LONG_TIME;
+        this._shopGame.BUYER_THANKS_TIME = this.BUYER_THANKS_TIME;
         this._shopGame.init();
 
         this.createTalker();

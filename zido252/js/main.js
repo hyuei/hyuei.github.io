@@ -16,6 +16,8 @@ var STRINGS_DATA = new StringsData();
 var TALKER_HEIGHT = 152;
 var VIDEO_INTRO_URL = "";
 
+var first_timer = true;
+
 var desiredWidthRatio = 960;
 var desiredHeightRatio = 540;
 

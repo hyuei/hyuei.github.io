@@ -76,6 +76,10 @@ class ShopGame {
         this.INITIAL_BUYER_TIME = 20000;
         this.SCORE_MULTIPLIER = 10;
 
+        this.BUYER_WRONG_ITEM_TIME = 1000;
+        this.BUYER_TOO_LONG_TIME = 1000;
+        this.BUYER_THANKS_TIME = 1000;
+
         this._correctMark = null;
         this._falseMark = null;
 
@@ -368,7 +372,23 @@ class ShopGame {
     }
 
     createBuyer() {
-        var buyer = this._game.add.sprite(0, 0, "buyer");
+        var buyer = null;
+
+        var randomBuyer = Math.floor(Math.random() * 3);
+
+        switch (randomBuyer) {
+            case 0:
+                buyer = this._game.add.sprite(0, 0, "buyer");
+                break;
+            case 1:
+                buyer = this._game.add.sprite(0, 0, "buyer-b");
+                break;
+            default:
+                buyer = this._game.add.sprite(0, 0, "buyer-c");
+                break;
+        }
+
+
         buyer.anchor.set(0.5);
 
         this._buyerGroup.add(buyer);
@@ -422,7 +442,7 @@ class ShopGame {
             ref._thanksGroup.visible = true;
             ref._sorryGroup.visible = false;
 
-            soundTime = 1000;
+            soundTime = ref.BUYER_THANKS_TIME;
             showBalloon = true;
         } else {
             ref._thanksGroup.visible = false;
@@ -433,34 +453,33 @@ class ShopGame {
             if (condition == "BUYER_WRONG_ITEM") {
                 // ref.talkExtra("BUYER_WRONG_ITEM");
                 sorryText = ref.BUYER_WRONG_ITEM_TEXT
-                soundTime = 1000;
+                soundTime = ref.BUYER_WRONG_ITEM_TIME;
                 showBalloon = true;
             }
             else if (condition == "TOO_LONG_TIME") {
                 // ref.talkExtra("TOO_LONG_TIME");
                 sorryText = ref.TOO_LONG_TIME_TEXT
-                soundTime = 1000;
+                soundTime = ref.BUYER_TOO_LONG_TIME;
                 showBalloon = true;
             }
-            
+
             ref._sorryText.text = sorryText + "\u200F";
-            
+
         }
         // soundTime = ref._currentTalkingAudioExtra.totalDuration * 1000;
-        
+
         ref._shopListGroup.visible = false;
         ref._greetBButtonGroup.visible = false;
-        
+
         var ref = this;
         var offset = 50;
         ref._buyerBalloonGroup.y = 0 - offset;
-        
-        
-        
-        if(showBalloon)
-        {
+
+
+
+        if (showBalloon) {
             ref._buyerBalloonGroup.visible = true;
-        }else{
+        } else {
             ref._buyerBalloonGroup.visible = false;
         }
 
@@ -734,8 +753,8 @@ class ShopGame {
                             ref._hasGreeted = true;
                         });
 
-                // }, (ref._currentTalkingAudioExtra.totalDuration * 1000) - baloonAnimTime);
-                },  baloonAnimTime);
+                    // }, (ref._currentTalkingAudioExtra.totalDuration * 1000) - baloonAnimTime);
+                }, baloonAnimTime);
 
             });
     }

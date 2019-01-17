@@ -77,7 +77,12 @@ class GameImageAssets extends ImageAssetsData
             {id:"btn-delete", file:"assets/shop/btn-delete.png"},
             {id:"btn-greet", file:"assets/shop/btn-greet.png"},
             {id:"btn-submit", file:"assets/shop/btn-submit.png"},
+
             {id:"buyer", file:"assets/shop/buyer.png"},
+            {id:"buyer-b", file:"assets/shop/buyer-b.png"},
+            {id:"buyer-c", file:"assets/shop/buyer-c.png"},
+
+
             {id:"date", file:"assets/shop/date.png"},
             {id:"frarea-01", file:"assets/shop/frarea-01.png"},
             {id:"frarea-01-clicked", file:"assets/shop/frarea-01-clicked.png"},

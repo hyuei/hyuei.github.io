@@ -172,8 +172,11 @@ Game1Screen.inherit({
         // console.log('tutorId', this.tutorId)
         isUp = false;        
 
-        if(this.tutorId == 1 || this.tutorId == 2){
-            // this.gameEnd();
+        if(this.tutorId == 0){
+            if(!first_timer) {
+                this.checkAfterTutor();
+                return;
+            }
         }
 
         if(arg) isUp = arg;

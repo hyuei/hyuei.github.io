@@ -54,6 +54,7 @@ Endscreen = function(x, y){
 	this.replayBtn.y -= this.replayBtn.height * 0.7;
 	this.replayBtn.onClick.add(function(){
 		// curState().changePage('Game1Screen')
+		first_timer = false;
 		game.input.keyboard.reset(true)
 		curState().changePage(game.state.current)
 		// game.state.restart()
