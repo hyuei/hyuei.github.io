@@ -72,7 +72,7 @@ class ShopGame {
 
         this._currentSecondsElapsed = 0;
 
-        this.INITIAL_TIME = 60000;
+        this.INITIAL_TIME = 120000;
         this.INITIAL_BUYER_TIME = 20000;
         this.SCORE_MULTIPLIER = 10;
 
