@@ -30,6 +30,11 @@ class TalkingData{
                 {char:"", en:"Maybe you can try again and see if you can reach higher!", talk:"رُبَمَا يَجْدُرُ بِكَ الْمُحَاوَلَةُ مُجَدَّداً وَاحْرِصْ عَلَى بُلُوغِ ارْتِفَاعٍ أَعْلَى!", postmeta: "failgame", voice:"13.mp3"},
             ],
 
+            Shop_Immediate:
+            [
+            {char:"", en:"Start!", talk:"ابْدَأْ", voice:"11.mp3",postmeta:"show_start_button"}
+            ],
+
             Shop_Prolog:
             [
                 {char:"", en:"Hello and welcome to the market!", talk:"السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللَهِ، مَرْحَباً بِكُمْ إِلَى مَتْجَرِ الْفَاكِهَةِ!", voice:"01.mp3", postmeta:""},

@@ -5,7 +5,7 @@ class ShopGameScreen extends GameScreen {
         this.talker = null;
         this.endgameoverlay = null;
 
-        this.GAME_TIME = 100000;
+        this.GAME_TIME = 60000;
         this.BUYER_TIME = 15000;
         this.MINIMUM_SCORE = 10;
         this.SCORE_MULTIPLIER = 10;
@@ -29,7 +29,8 @@ class ShopGameScreen extends GameScreen {
         this.createTutorials();
 
         this.endgameoverlay = new EndGameOverlay(game);
-        this.endgameoverlay.onRetryButtonDown.add(this.onRetryButtonDown);
+        var ref = this;
+        this.endgameoverlay.onRetryButtonDown.add(function () { ref.onRetryButtonDown(); });
 
         this.talker.loadTalkingArray(TALKING_DATA.talkingdata.Shop_Prolog);
         this.talker.startTalk();
@@ -47,7 +48,7 @@ class ShopGameScreen extends GameScreen {
         if (this._shopGame._currentScore < this.MINIMUM_SCORE) {
             this.talker.loadTalkingArray(TALKING_DATA.talkingdata.Shop_Fail);
             this.talker.startTalk();
-        }else{
+        } else {
             this.talker.loadTalkingArray(TALKING_DATA.talkingdata.Shop_End);
             this.talker.startTalk();
         }
@@ -103,7 +104,7 @@ class ShopGameScreen extends GameScreen {
                     this.tutimg01.visible = false;
                 }
                 break;
-                case "show_tutimg02":
+            case "show_tutimg02":
                 {
                     this.tutimg02.visible = true;
                 }
@@ -113,7 +114,7 @@ class ShopGameScreen extends GameScreen {
                     this.tutimg02.visible = false;
                 }
                 break;
-                case "show_tutimg03":
+            case "show_tutimg03":
                 {
                     this.tutimg03.visible = true;
                 }
@@ -123,7 +124,7 @@ class ShopGameScreen extends GameScreen {
                     this.tutimg03.visible = false;
                 }
                 break;
-                case "show_tutimg04":
+            case "show_tutimg04":
                 {
                     this.tutimg04.visible = true;
                 }
@@ -133,7 +134,7 @@ class ShopGameScreen extends GameScreen {
                     this.tutimg04.visible = false;
                 }
                 break;
-                case "show_tutimg05":
+            case "show_tutimg05":
                 {
                     this.tutimg05.visible = true;
                 }
@@ -199,7 +200,13 @@ class ShopGameScreen extends GameScreen {
     }
 
     onRetryButtonDown() {
-        game.state.start("ShopGameScreen");
+        // game.state.start("ShopGameScreen");
+        this._shopGame.reset();
+        this.endgameoverlay.hide();
+        
+        this.talker.loadTalkingArray(TALKING_DATA.talkingdata.Shop_Immediate);
+        this.talker.startTalk();
+        this.createStartButton();
     }
 
 }

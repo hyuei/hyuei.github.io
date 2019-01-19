@@ -117,6 +117,7 @@ class ShopGame {
 
 
     init() {
+
         this.createBackground();
         this.createFruitButtons();
         this.createSeller();
@@ -137,26 +138,51 @@ class ShopGame {
         this.createSellerBalloon();
 
 
-        this.clearShop();
 
-        // initial
-        this.showGreetButton();
 
 
         // UIs
         this.createScoreUI();
         this.createTimerUI();
 
-        this._currentSecondsElapsed = this.INITIAL_TIME;
 
         this.createFinalScoreWindow();
-        this.hideFinalScoreWindow();
         // this.showFinalScoreWindow();
 
         // this.setIsPlaying(true);
+        this.reset();
 
 
+    }
 
+    reset() {
+        this.setIsPlaying(false);
+        this.hideFinalScoreWindow();
+        this.clearShop();
+        this.clearSelectedFruits();
+
+        this._currentScore = 0;
+        this._currentTime = 0;
+        this._currentBuyerTime = this.INITIAL_BUYER_TIME;
+        this._currentSecondsElapsed = this.INITIAL_TIME;
+
+        this.updateBuyerTime();
+
+        this.setTime(this._currentSecondsElapsed);
+
+        // initial
+        this.showGreetButton();
+
+
+        // clear count
+        for (var key in this._finalScoreObjects) {
+            this._finalScoreObjects[key].count = 0;
+        }
+
+        // reset score
+        this.setScore(this._currentScore);
+        
+        this._finalTotalScoreText.text = "";
     }
 
     createBackground() {
@@ -316,6 +342,14 @@ class ShopGame {
         this.OnScoreAdded.dispatch(this._currentScore);
     }
 
+    setScore(score) {
+        this._currentScore = score * this.SCORE_MULTIPLIER;
+        console.log("current score:" + this._currentScore);
+        this._scoreText.text = "x " + this._currentScore.toString();
+
+        this.OnScoreAdded.dispatch(this._currentScore);
+    }
+
     clearSelectedFruits() {
         for (var i = 0; i < this._selectedFruitsSprites.length; i++) {
             this._selectedFruitsSprites[i].destroy();
@@ -334,6 +368,18 @@ class ShopGame {
                 .onComplete.add(function () {
                     fruit.destroy();
                 });
+        }
+
+        this._selectedFruitsSprites = [];
+        this._addedFruitRacks = [];
+        this._addedFruitIds = [];
+    }
+
+    clearSelectedFruits() {
+        for (var i = 0; i < this._selectedFruitsSprites.length; i++) {
+            // this._selectedFruitsSprites[i].destroy();
+            let fruit = this._selectedFruitsSprites[i];
+            fruit.destroy();
         }
 
         this._selectedFruitsSprites = [];
@@ -518,9 +564,9 @@ class ShopGame {
     }
 
     update() {
-        if (this._game.input.activePointer.leftButton.isDown) {
-            console.log(this._game.input.activePointer.position);
-        }
+        // if (this._game.input.activePointer.leftButton.isDown) {
+        //     console.log(this._game.input.activePointer.position);
+        // }
 
         if (this._isPlaying) {
             if (this._currentSecondsElapsed <= 0) {
@@ -529,28 +575,36 @@ class ShopGame {
                 this.setIsPlaying(false);
                 this.showFinalScoreWindow();
             } else {
-                this._currentSecondsElapsed -= this._game.time.elapsedMS;
-                this.setTime(this._currentSecondsElapsed);
+                this.updateGameTime();
 
 
-                // buyer timer update
-                // if (!this._hasBuyerNoticed) {
-                if (!this._isBuyerServed) {
-                    if (!this._isBuyerTimingOut && this._currentBuyerTime > 0) {
-                        this._currentBuyerTime -= this._game.time.elapsedMS;
-                        this.updateBuyerTimer(this._currentBuyerTime);
-                    } else {
-                        if (this._currentBuyerTime <= 0 && !this._isBuyerTimingOut) {
-                            this.buyerExit("TOO_LONG_TIME");
-                            this._isBuyerTimingOut = true;
-                        }
-                    }
-                }
-                // }
+                this.updateBuyerTime();
 
             }
         }
 
+    }
+
+    updateGameTime() {
+        this._currentSecondsElapsed -= this._game.time.elapsedMS;
+        this.setTime(this._currentSecondsElapsed);
+    }
+
+    updateBuyerTime() {
+        // buyer timer update
+        // if (!this._hasBuyerNoticed) {
+        if (!this._isBuyerServed) {
+            if (!this._isBuyerTimingOut && this._currentBuyerTime > 0) {
+                this._currentBuyerTime -= this._game.time.elapsedMS;
+                this.updateBuyerTimer(this._currentBuyerTime);
+            } else {
+                if (this._currentBuyerTime <= 0 && !this._isBuyerTimingOut) {
+                    this.buyerExit("TOO_LONG_TIME");
+                    this._isBuyerTimingOut = true;
+                }
+            }
+        }
+        // }
     }
 
     createBuyerBalloon() {
@@ -688,18 +742,14 @@ class ShopGame {
     }
 
     clearShop() {
-
-
-
         this._shopListGroup.visible = false;
         this._sellerBalloonGroup.visible = false;
-        this._buyerBalloonGroup.visible = false;
+        // this._buyerBalloonGroup.visible = false;
         this._thanksGroup.visible = false;
         this._sorryGroup.visible = false;
     }
 
     showGreetButton() {
-        this._greetBButtonGroup.visible = true;
 
         this._rackInteractable = false;
 

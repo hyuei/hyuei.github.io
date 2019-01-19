@@ -168,14 +168,12 @@ class Talker extends Phaser.Sprite {
             var targetMetaIndex = this.talkIndex - 1;
             if (targetMetaIndex >= 0 || targetMetaIndex < this.talkingArray.length) {
                 if (this.talkingArray[targetMetaIndex].hasOwnProperty('postmeta')) {
-                    console.log("post meta");
                     this.onReceiveMetadata.dispatch(this.talkingArray[targetMetaIndex].postmeta);
                 }
             }
 
             //execute current talking metadata
             if (this.talkingArray[this.talkIndex].hasOwnProperty('premeta')) {
-                console.log("pre meta")
                 this.onReceiveMetadata.dispatch(this.talkingArray[this.talkIndex].premeta);
             }
         }
@@ -185,7 +183,6 @@ class Talker extends Phaser.Sprite {
             this.visible = false;
 
             if (this.currentAudio !== null) {
-                console.log("stop " + this.currentAudio.name);
                 this.currentAudio.stop();
             }
 
@@ -200,7 +197,6 @@ class Talker extends Phaser.Sprite {
             var targetMetaIndex = this.talkIndex;
             if (targetMetaIndex >= 0 || targetMetaIndex < this.talkingArray.length) {
                 if (this.talkingArray[targetMetaIndex].hasOwnProperty('postmeta')) {
-                    console.log("post meta");
                     this.onReceiveMetadata.dispatch(this.talkingArray[targetMetaIndex].postmeta);
                 }
             }
