@@ -277,7 +277,7 @@ GroundGroup.inherit({
 		for(var a = 0; a < this.clouds.length; a++){
 			var cloud = this.clouds[a];
 			if(!cloud) continue;
-			cloud.x -= this._speed;
+			cloud.x -= this._speed - 1;
 			if(cloud.x + (cloud.width * 0.5) < 0){
 				cloud.destroy();
 				this.clouds[a] = null;

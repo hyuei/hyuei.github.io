@@ -69,6 +69,9 @@ ScoreBoard.inherit({
 		this.showBranch.setText('x ' + curState().plBranch);
 		this.showTrash.setText('x ' + curState().plTrash);
 
+		this.plBranch = curState().plBranch;
+		this.plTrash = curState().plTrash
+
 		var tween = game.add.tween(this);
 		tween.to({y:curState().centerY}, 300);
 		tween.onComplete.add(this.countScore, this)
@@ -90,17 +93,17 @@ ScoreBoard.inherit({
 			this.curTimer += countMs;
 			if(this.curTimer >= this.cdTimer){
 				this.curTimer = 0;
-				if(curState().plBranch > 0){
+				if(this.plBranch > 0){
 					this.totScore += this.branchScore;
-					curState().plBranch--;
+					this.plBranch--;
 				}
 
-				if(curState().plTrash > 0){
+				if(this.plTrash > 0){
 					this.totScore += this.trashScore;
-					curState().plTrash--;
+					this.plTrash--;
 				}
 
-				if(curState().plBranch <= 0 && curState().plTrash <= 0){
+				if(this.plBranch <= 0 && this.plTrash <= 0){
 					// console.log('win')
 					this.startCount = false;
 					game.time.events.add(1000, function(){
