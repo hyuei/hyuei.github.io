@@ -1,0 +1,132 @@
+{"frames": [
+
+{
+	"filename": "chara-01.png",
+	"frame": {"x":2,"y":2,"w":93,"h":84},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":93,"h":84},
+	"sourceSize": {"w":93,"h":84}
+},
+{
+	"filename": "chara-02.png",
+	"frame": {"x":143,"y":193,"w":55,"h":54},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":55,"h":54},
+	"sourceSize": {"w":55,"h":54}
+},
+{
+	"filename": "chara-03.png",
+	"frame": {"x":196,"y":132,"w":53,"h":56},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":53,"h":56},
+	"sourceSize": {"w":53,"h":56}
+},
+{
+	"filename": "guest-01.png",
+	"frame": {"x":2,"y":88,"w":79,"h":77},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":79,"h":77},
+	"sourceSize": {"w":79,"h":77}
+},
+{
+	"filename": "guest-02.png",
+	"frame": {"x":97,"y":71,"w":71,"h":54},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":71,"h":54},
+	"sourceSize": {"w":71,"h":54}
+},
+{
+	"filename": "guest-03.png",
+	"frame": {"x":170,"y":65,"w":61,"h":65},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":61,"h":65},
+	"sourceSize": {"w":61,"h":65}
+},
+{
+	"filename": "guest-04.png",
+	"frame": {"x":143,"y":132,"w":51,"h":59},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":51,"h":59},
+	"sourceSize": {"w":51,"h":59}
+},
+{
+	"filename": "guest-05.png",
+	"frame": {"x":169,"y":2,"w":67,"h":61},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":61},
+	"sourceSize": {"w":67,"h":61}
+},
+{
+	"filename": "guest-06.png",
+	"frame": {"x":2,"y":167,"w":67,"h":64},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":64},
+	"sourceSize": {"w":67,"h":64}
+},
+{
+	"filename": "guest-07.png",
+	"frame": {"x":83,"y":127,"w":58,"h":69},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":58,"h":69},
+	"sourceSize": {"w":58,"h":69}
+},
+{
+	"filename": "guest-08.png",
+	"frame": {"x":97,"y":2,"w":70,"h":67},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":70,"h":67},
+	"sourceSize": {"w":70,"h":67}
+},
+{
+	"filename": "item-bottle.png",
+	"frame": {"x":200,"y":190,"w":23,"h":39},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":23,"h":39},
+	"sourceSize": {"w":23,"h":39}
+},
+{
+	"filename": "item-can.png",
+	"frame": {"x":225,"y":190,"w":22,"h":36},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":22,"h":36},
+	"sourceSize": {"w":22,"h":36}
+},
+{
+	"filename": "item-wallet.png",
+	"frame": {"x":95,"y":198,"w":20,"h":34},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":20,"h":34},
+	"sourceSize": {"w":20,"h":34}
+},
+{
+	"filename": "item-wrapping.png",
+	"frame": {"x":71,"y":198,"w":22,"h":33},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":22,"h":33},
+	"sourceSize": {"w":22,"h":33}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "ingame.png",
+	"format": "RGBA8888",
+	"size": {"w":251,"h":251},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:06c3ecc2b8ed74ec9412627bd4f416ef:4234c6d8134e295b649809c90a8676b9:a0a7aae19725baf1127883d8cc485c4f$"
+}
+}
