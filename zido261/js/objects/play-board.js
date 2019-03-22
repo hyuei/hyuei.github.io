@@ -10,6 +10,7 @@ PlayBoard.inherit({
 	create:function(){
 		this.isReady = false;
 		this.changeStage = false;
+		this.correctMatch = 0;
 		this.gw = curState().gw;
 		this.gh = curState().gh;
 

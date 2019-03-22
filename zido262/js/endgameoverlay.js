@@ -75,6 +75,8 @@ class EndGameOverlay extends Phaser.Sprite
         this.createStars();
         this.createButtons();
         this.createParticles();
+
+        
     }
 
     createCharacter()
@@ -225,6 +227,9 @@ class EndGameOverlay extends Phaser.Sprite
                 }
             }
         }
+
+        let snd = this.game.add.audio('gameover');
+        snd.play();
         
 
         setTimeout(() => {

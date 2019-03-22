@@ -22,6 +22,9 @@ class TrashGameView extends Phaser.Sprite {
 
         this.raccoon = null;
 
+        this.correctSound = null;
+        this.falseSound = null;
+
     }
 
     create() {
@@ -38,6 +41,12 @@ class TrashGameView extends Phaser.Sprite {
 
 
         this.createUI();
+        this.createSounds();
+    }
+
+    createSounds() {
+        this.correctSound = this.game.add.sound("choice-right");
+        this.falseSound = this.game.add.sound("choice-wrong");
     }
 
 
@@ -134,6 +143,14 @@ class TrashGameView extends Phaser.Sprite {
 
     onTrashDragStop(sprite, pointer) {
         this.trashStopDragSignal.dispatch(sprite, pointer);
+    }
+
+    onDropTrashCorrect() {
+        this.correctSound.play();
+    }
+
+    onDropTrashFalse() {
+        this.falseSound.play();
     }
 
 }

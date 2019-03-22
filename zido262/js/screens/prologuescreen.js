@@ -98,12 +98,12 @@ class PrologueScreen extends Phaser.State
 
     spawnUI(){
         this.lockUI = {
-            wallet : this.game.add.sprite(800, 70, 'ingame', "item-wallet.png"),
+            //wallet : this.game.add.sprite(800, 70, 'ingame', "item-wallet.png"),
             can : this.game.add.sprite(800, 150, 'ingame', "item-can.png"),
             wrapping : this.game.add.sprite(800, 270, 'ingame', "item-wrapping.png"),
             bottle : this.game.add.sprite(800, 380, 'ingame', "item-bottle.png")
         };
-        this.objGroup.add(this.lockUI.wallet);
+        //this.objGroup.add(this.lockUI.wallet);
         this.objGroup.add(this.lockUI.can);
         this.objGroup.add(this.lockUI.wrapping);
         this.objGroup.add(this.lockUI.bottle);

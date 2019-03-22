@@ -12,6 +12,8 @@ class GameAudioAssets extends AudioAssetsData
             {id:"vn-cont", file:"assets/sfx/vn-cont.mp3"},
             {id:"jump-branch", file:"assets/sfx/jump-branch.mp3"},
             {id:"break-branch", file:"assets/sfx/break-branch.mp3"},
+            {id:"slap", file:"assets/sfx/slap.mp3"},
+            {id:"pick-up", file:"assets/sfx/pick-up.mp3"},
         ];
     }
 }

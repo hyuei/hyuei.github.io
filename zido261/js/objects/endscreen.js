@@ -78,6 +78,7 @@ Endscreen.inherit({
     },
 
 	tweenIn:function(){
+		SoundData.sfxPlay('gameover')
 		var score = curState().score;
 		if(CustomStorage.data.highScore < score) {
 			CustomStorage.data.highScore = score;

@@ -7,6 +7,13 @@ class GameAudioAssets extends AudioAssetsData
         [
             {id:"vn-cont", file:"sfx/vn-cont", type:"sfx"},
             {id:"start", file:"sfx/start", type:"sfx"},
+            {id:"match1", file:"sfx/match1", type:"sfx"},
+            {id:"match2", file:"sfx/match2", type:"sfx"},
+            {id:"match3", file:"sfx/match3", type:"sfx"},
+            {id:"fall", file:"sfx/fall", type:"sfx"},
+            {id:"click", file:"sfx/click", type:"sfx"},
+            {id:"gameover", file:"sfx/gameover", type:"sfx"},
+            {id:"false", file:"sfx/false", type:"sfx"},
 
             {id:"voice1", file:"voice/voice1", type:"sfx"},
             {id:"voice2", file:"voice/voice2", type:"sfx"},

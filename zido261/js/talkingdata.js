@@ -5,7 +5,7 @@ TalkingData = function(){
             part1:[
                 {char:"", en:"Hello there, welcome!", talk:"السَّلَامُ عَلَيْكُمْ، مَرْحَباً بِكَ! ", voice:"voice1"},
                 {char:"", en:"Do you see these houses? They comes from various countries?", talk:"هَلْ شَاهَدْتَ مِثْلَ هَذِهِ الْمَنَازِلِ مِنْ قَبْلُ؟ إِنَّهَا تَنْتَمِي لِدُوَلٍ مُخْتَلِفَةٍ!", voice:"voice2"},
-                {char:"", en:"We  have some friends visiting us, but they have difficulties finding their way home. ", talk:"يُقَامَ بَعْضُ الْأَصْدِقَاءِ بِزِيَارَتِنَا، لَكِنَّهُمْ يُوَاجِهُونَ صُعُوبَاتٍ فِي الْعُثُورِ عَلَى طَرِيقِ الْعَوْدَةِ إِلَى مَنَازِلِهِمْ.", voice:"voice3"},
+                {char:"", en:"We  have some friends visiting us, but they have difficulties finding their way home. ", talk:"قُومُ بَعْضُ الْأَصْدِقَاءِ بِزِيَارَتِنَا، لَكِنَّهُمْ يُوَاجِهُونَ صُعُوبَاتٍ فِي الْعُثُورِ عَلَى طَرِيقِ الْعَوْدَةِ إِلَى مَنَازِلِهِمْ.", voice:"voice3"},
                 {char:"", en:"Could you help them?", talk:"هَلْ يُمْكِنُكَ مُسَاعَدَتُهُمْ فِي ذَلِكَ؟ ", voice:"voice4"},
                 {char:"", en:"It’s easy: see those circles? Just put any character in each of the circle.", talk:"الْأَمْرُ سَهْلٌ: لَاحِظْ جَيِّداً الدَّوَائِرَ، ثُمَّ ضَعْ كُلَّ شَخْصِيَّةٍ فِي الدَّائِرَةِ الْمُنَاسِبَةِ لَهَا.", voice:"voice5"},
                 {char:"", en:"Once you’ve put them all, they will start walking through the path!", talk:"بِمُجَرَّدِ الْاِنْتِهَاءِ مِنْ وَضْعِ جَمِيعِ الشَّخْصِيَّاتِ فِي الدَّوَائِرِ، سَتَشْرَعُ فِي السَّيْرِ فِي اتِّجَاهِ الْمَنْزِلِ !", voice:"voice6"},

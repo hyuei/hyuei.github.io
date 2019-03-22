@@ -16,7 +16,7 @@ Game1Screen.inherit({
         this.gamePaused = false;
         this.gameOver = false;
         this.score = 0;
-        this.maxTime = 150;
+        this.maxTime = 300;
         this.plTime = this.maxTime;
         this.tutorId = 0;
         this.stageReady = false;
@@ -88,6 +88,7 @@ Game1Screen.inherit({
 
         this.playBtn = new ClickBtn(this.centerX, this.scoreBg.y, 'ingame/play-btn-a');
         this.playBtn.onClick.add(function(){
+            SoundData.sfxPlay('click')
             this.playBtn.inputEnabled = false;
             this.runWalkers();
         }, this);

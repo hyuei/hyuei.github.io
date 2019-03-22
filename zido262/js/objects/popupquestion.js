@@ -48,10 +48,13 @@ class PopupQuestion extends Phaser.Sprite
         this.textReply = this.game.add.text(0, 0, "_", fontStle);
         this.textReply.anchor.set(.5);
         this.textReply.wordWrap = true;
-        this.textReply.wordWrapWidth = this.width*.95;
+        this.textReply.wordWrapWidth = this.width*.9;
         if(this.languange == "ar"){
             this.textReply.align = "right";
         }
+
+        this.sndGoodChoice = this.game.add.sound('choice-right');
+        this.sndBadhoice = this.game.add.sound('choice-wrong');
         this.addChild(this.boxBadChoice);
         this.addChild(this.boxGoodChoice);
         this.boxBadChoice.addChild(this.textBadRequest);
@@ -62,6 +65,12 @@ class PopupQuestion extends Phaser.Sprite
         this.events.onInputDown.add(this.nextAnswer, this);
         this.boxGoodChoice.events.onInputDown.add(this.pickGoodQuestion, this);
         this.boxBadChoice.events.onInputDown.add(this.pickBadQuestion, this);
+    }
+
+    disableInput(){
+        this.inputEnabled = false;
+        this.boxBadChoice.inputEnabled = false;
+        this.boxGoodChoice.inputEnabled = false;
     }
 
     showQuestion(people, char){
@@ -90,7 +99,7 @@ class PopupQuestion extends Phaser.Sprite
         //bad question
         rnd = this.game.rnd.integerInRange(0, 4);
         string = this.checkLang(this.arrayBadRequests[rnd][this.languange], this.languange);
-        this.textBadRequest.text = this.arrayBadRequests[rnd][this.languange];
+        this.textBadRequest.text = string;//this.arrayBadRequests[rnd][this.languange];
         //console.log(this.textBadRequest.precalculateWordWrap(string));
         //random question in up
         let goodQuestionFirst  = (this.game.rnd.frac()>.51)?true:false;
@@ -133,11 +142,12 @@ class PopupQuestion extends Phaser.Sprite
     }
 
     pickGoodQuestion(){
-        console.log("good question");
+        //console.log("good question");
+        this.sndGoodChoice.play();
         this.boxBadChoice.visible = false;
         this.boxGoodChoice.visible = false;
         this.textReply.visible = true;
-        console.log(this.nameItem);
+        //console.log(this.nameItem);
         if(this.nameItem == "wallet"){
             this.arrayAnswer = TALKING_DATA.talkingdata.BringWallet;
         }
@@ -159,6 +169,7 @@ class PopupQuestion extends Phaser.Sprite
     
     pickBadQuestion(){
         this.nameItem = "";
+        this.sndBadhoice.play();
         this.boxBadChoice.visible = false;
         this.boxGoodChoice.visible = false;
         this.textReply.visible = true;

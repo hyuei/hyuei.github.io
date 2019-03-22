@@ -17,7 +17,14 @@ var files = [
     'js/stringsdata.js',
     'js/talker/talker.js',
     'js/endgameoverlay.js',
-    'js/shopgame/shopgame.js',
+    'js/trashgame/Character.js',
+    'js/trashgame/Raccoon.js',
+    'js/trashgame/TrashItem.js',
+    'js/trashgame/TrashBin.js',
+    'js/trashgame/ScoreUI.js',
+    'js/trashgame/TimerUI.js',
+    'js/trashgame/TrashGame.js',
+    'js/trashgame/TrashGameView.js',
     'js/screens/zidoscreen.js',
     'js/screens/zidovideoscreen.js',
     'js/screens/bootscreen.js',
@@ -25,8 +32,8 @@ var files = [
     'js/screens/startscreen.js',
     'js/screens/menuscreen.js',
     'js/screens/gamescreen.js',
-    'js/screens/shopgamescreen.js',
     'js/screens/closingscreen.js',
+    'js/screens/TrashGameScreen.js',
     'js/main.js',
     'js/avatar.js'
 ];
@@ -40,7 +47,7 @@ module.exports = function (grunt) {
             // 2. parameters for the "concat" task to follow here:
             dist: {
                 src: files,
-                dest: 'js/build/ShopGame_concat.min.js'
+                dest: 'js/build/TrashGame_concat.min.js'
             }
         },
         uglify: {
@@ -50,18 +57,18 @@ module.exports = function (grunt) {
                 }
             },
             build: {
-                src: 'js/build/ShopGame_concat.min.js',
-                dest: 'js/build/ShopGame_concat.min.js'
+                src: 'js/build/TrashGame_concat.min.js',
+                dest: 'js/build/TrashGame_concat.min.js'
             }
         },
-        clean: ['../mirror-demo-server/public/games/shopgame', 'build'],
+        clean: ['../mirror-demo-server/public/games/trashgame', 'build'],
         copy: {
             main: {
                 nonull: true,
                 files: [
                     { expand: true, src: ['assets/**'], dest: 'build/' },
                     { expand: true, src: ['css/**'], dest: 'build/' },
-                    { expand: true, src: ['js/build/ShopGame_concat.min.js'], dest: 'build/' },
+                    { expand: true, src: ['js/build/TrashGame_concat.min.js'], dest: 'build/' },
                     {
                         expand: true, src: ['index_build_template.html'], dest: 'build/',
                         rename: function (dest, src) {
@@ -73,7 +80,7 @@ module.exports = function (grunt) {
             folder: {
                 nonull: true,
                 files: [
-                    { expand: true, cwd: 'build', src: ['**'], dest: '../mirror-demo-server/public/games/shopgame' }
+                    { expand: true, cwd: 'build', src: ['**'], dest: '../mirror-demo-server/public/games/trashgame' }
                 ]
             }
         }

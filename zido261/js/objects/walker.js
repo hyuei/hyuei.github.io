@@ -80,7 +80,8 @@ Walker.inherit({
 
 	onClick:function(obj, pointer){
 		if(this.isClicked) return;
-		if(!curState().gameStart || curState().gamePaused || curState().gameOver) return
+		if(!curState().gameStart || curState().gamePaused || curState().gameOver) return;
+		SoundData.sfxPlay('click')
 		this.isClicked = true;
 
 		var bound = this.getBounds();
@@ -208,7 +209,9 @@ Walker.inherit({
 							if(obj.typeId == this.endType){
 								var addScore = 100;
 								curState().score += addScore;
-								
+								curState().gPlay.correctMatch++;
+								SoundData.sfxPlay('match' + curState().gPlay.correctMatch)
+
 								curState().gPlay.particleBurst(this);
 
 								obj.isTweening = true;
@@ -227,12 +230,15 @@ Walker.inherit({
 									tween.yoyo(true);
 								}, obj);
 							} else if(this.endType < 0){
+								SoundData.sfxPlay('fall')
 								obj.isTweening = true;
 								var tween = game.add.tween(obj.scale);
 								tween.to({x:0, y:0}, 300, Phaser.Easing.Quadratic.Out, true);
 								tween.onComplete.add(function(){
 									this.isTweening = false;
 								}, obj);
+							} else {
+								SoundData.sfxPlay('false')
 							}
 
 							if(obj.typeId != this.endType){

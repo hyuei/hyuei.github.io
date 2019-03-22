@@ -1,8 +1,16 @@
 {"frames": [
 
 {
+	"filename": "base-result",
+	"frame": {"x":585,"y":2,"w":578,"h":269},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":578,"h":269},
+	"sourceSize": {"w":578,"h":269}
+},
+{
 	"filename": "congrats-title",
-	"frame": {"x":2,"y":448,"w":437,"h":193},
+	"frame": {"x":931,"y":273,"w":437,"h":193},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":2,"w":437,"h":193},
@@ -10,7 +18,7 @@
 },
 {
 	"filename": "scorebox",
-	"frame": {"x":2,"y":643,"w":438,"h":89},
+	"frame": {"x":491,"y":273,"w":438,"h":89},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":438,"h":89},
@@ -37,8 +45,8 @@
 	"version": "1.0",
 	"image": "endscreen.png",
 	"format": "RGBA8888",
-	"size": {"w":734,"h":734},
+	"size": {"w":1370,"h":468},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:3398c62fc8f378c3a2ba896ae8b1130a:9aabfd5a5337a0d5588f29b5ebc89c10:c2f222e69388c02c4d4d57ecd624d572$"
+	"smartupdate": "$TexturePacker:SmartUpdate:bb5b7e321c6f9282f46baf9a497b68fa:4c15c45104416423419c8f49d65e3c40:c2f222e69388c02c4d4d57ecd624d572$"
 }
 }

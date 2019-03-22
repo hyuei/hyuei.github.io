@@ -24,7 +24,7 @@ var windowHeight = Math.max(document.documentElement.clientHeight, window.innerH
 
 var askThing= {
     languange:"ar",
-    fontGlobal:{font: "27pt vag", fill: "#000000"}
+    fontGlobal:{font: "27pt vag", fill: "#000000"},
 };
 
 //console.log(windowWidth + ":" + windowHeight);

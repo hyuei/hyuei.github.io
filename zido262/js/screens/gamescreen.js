@@ -21,8 +21,11 @@ class GameScreen extends Phaser.State
         this.chars = [];
         this.peoples = [];
         this.gameState = "run";
-        this.timeLimit = 120.3;
+        this.URGENTITEMLIST = ["can", "bottle", "wrapping"];
+        this.urgentName = "";
+        this.timeLimit = 60.3;
         this.score = {can:0, bottle:0, wrapping:0, urgent:0, total:0};
+        this.buffScore = {can:0, bottle:0, wrapping:0, total:0};
 
         //add info
         this.game.input.mouse.capture = true;
@@ -43,6 +46,10 @@ class GameScreen extends Phaser.State
 
         //spawn every half sec
         this.game.time.events.loop(500, this.spawnPedestrian, this);
+
+        //random time urgent item
+        let randomTimer = this.rnd.integerInRange(5, 15);
+        //this.game.time.events.add(randomTimer*Phaser.Timer.SECOND, this.requestUrgent, this);
     }
 
     regroup(){
@@ -230,6 +237,7 @@ class GameScreen extends Phaser.State
     charEndDuty(sprite, tween, char){
         char.busy = false;
         if(char.item){
+            if(char.item.visible == false)return;
             char.item.visible = false;
             //this.score.total += 1;
             if(char.bringItem == "wrapping"){
@@ -244,17 +252,21 @@ class GameScreen extends Phaser.State
                 this.score.can += 1;
                 this.textCanCollect.text = this.score.can;
             }
+            if(char.bringItem == this.urgentName){
+                console.log("urgent");
+                this.score.urgent +=1;
+            }
         }
     }
 
     spawnUI(){
         this.lockUI = {
-            wallet : this.game.add.sprite(800, 70, 'ingame', "item-wallet.png"),
+            //wallet : this.game.add.sprite(800, 70, 'ingame', "item-wallet.png"),
             can : this.game.add.sprite(800, 150, 'ingame', "item-can.png"),
             wrapping : this.game.add.sprite(800, 270, 'ingame', "item-wrapping.png"),
             bottle : this.game.add.sprite(800, 380, 'ingame', "item-bottle.png")
         };
-        this.UIgroup.add(this.lockUI.wallet);
+        //this.UIgroup.add(this.lockUI.wallet);
         this.UIgroup.add(this.lockUI.can);
         this.UIgroup.add(this.lockUI.wrapping);
         this.UIgroup.add(this.lockUI.bottle);
@@ -270,6 +282,10 @@ class GameScreen extends Phaser.State
         this.urgentBoxUI.anchor.set(0.5, 0);
         this.urgentBoxUI.scale.set(.45);
         this.urgentBoxUI.visible = false;
+        this.urgentItem = this.game.add.image(0,this.urgentBoxUI.width*.75, 'ingame', 'item-can.png');
+        this.urgentItem.anchor.set(.5);
+        this.urgentItem.scale.set(3);
+        this.urgentBoxUI.addChild(this.urgentItem);
         this.spawnTimer();
         this.spawnQuestion();
     }
@@ -277,8 +293,8 @@ class GameScreen extends Phaser.State
     spawnTimer(){
         let UIBox = this.game.add.image(20,20, 'uibox', 'scorebox2');
         let iconTimer = this.game.add.image(23, 18, 'uibox', 'icon-timer');
-        let fontStle = {font: "30px vag", fill: "#d6433c"};
-        this.timerText =  this.game.add.text(125, 65, '', fontStle);
+        this.fontStle = {font: "30px vag", fill: "#d6433c"};
+        this.timerText =  this.game.add.text(125, 65, '', this.fontStle);
         this.timerText.text = "00:00";
         this.timerText.anchor.set(.5, .5);
         UIBox.addChild(iconTimer);
@@ -309,9 +325,9 @@ class GameScreen extends Phaser.State
     {
         this.talker = new Talker(game, 10, 530, game.world.width , TALKER_HEIGHT, this);
         this.game.add.existing(this.talker);
-        let totalScore = (this.score.urgent*2+this.score.can+this.score.wrapping+this.score.bottle);//*100;
-        this.score.total = totalScore;
-        if(totalScore > 0){
+        //let totalScore = (this.score.urgent*2+this.score.can+this.score.wrapping+this.score.bottle)*100;
+        //this.score.total = totalScore;
+        if(this.score.total > 0){
             this.talker.loadTalkingArray(TALKING_DATA.talkingdata.EndFinish);
         }
         else{
@@ -324,7 +340,7 @@ class GameScreen extends Phaser.State
             this.endGame();
 
             //add scoreing
-            ZIDO_API.setScore(totalScore);
+            ZIDO_API.setScore(this.score.total);
         }, this);
 
         for(let i=0; i<this.peoples.length; i++){
@@ -362,14 +378,121 @@ class GameScreen extends Phaser.State
         game.state.start("GameScreen");
     }
 
-    update(){
+    requestUrgent(){
         if(this.gameState == "end")return;
+        this.game.time.events.add(5*Phaser.Timer.SECOND, this.removeRequestUrgent, this);
+        this.urgentBoxUI.visible=true;
+        this.urgentName = this.rnd.pick(this.URGENTITEMLIST);
+        let fullFrameName = "item-"+this.urgentName+".png";
+        this.urgentItem.loadTexture('ingame', fullFrameName);
+    }
+
+    removeRequestUrgent(){
+        this.urgentBoxUI.visible = false;
+        this.urgentName = "nourgent";
+        let randomTimer = this.rnd.integerInRange(5, 15);
+        this.game.time.events.add(randomTimer*Phaser.Timer.SECOND, this.requestUrgent, this);
+    }
+
+    showEndScore(){
+        console.log("Endscoring");
+        for(let i=0; i<this.peoples.length; i++){
+            var people = this.peoples[i];
+            people.charTexture.inputEnabled = false;
+            if(!people.pause){
+                //people.tween.pause();
+                people.pause = true;
+            }
+        }
+
+        this.game.tweens.pauseAll();
+        this.questionBox.visible = false;
+        this.questionBox.disableInput();
+        this.endScoring = this.game.add.image(this.game.width*.5, 0, 'endscreen', 'base-result');
+        this.endScoring.y = - (this.endScoring.height*.6);
+        this.endScoring.anchor.set(.5);
+
+        let totalScore = (this.score.urgent*2+this.score.can+this.score.wrapping+this.score.bottle)*100;
+        console.log(this.score);
+        this.score.total = totalScore;
+
+        this.UIgroup.add(this.endScoring);
+
+        this.game.add.tween(this.endScoring).to({y:this.game.height*.4}, 300, Phaser.Easing.Bounce.Out, true).onComplete.add(this.animationScore, this);
+    }
+
+    animationScore(){
+        let  can = this.game.add.sprite(-this.endScoring.width*.4, -40, 'ingame', "item-can.png");
+        can.anchor.set(.5);
+        can.scale.set(0.01, 0.01);
+        let wrapping = this.game.add.sprite(-this.endScoring.width*.051, -40, 'ingame', "item-wrapping.png");
+        wrapping.anchor.set(.5);
+        wrapping.scale.set(0.01, 0.01);
+        let bottle = this.game.add.sprite(this.endScoring.width*.3, -40, 'ingame', "item-bottle.png");
+        bottle.anchor.set(.5);
+        bottle.scale.set(0.01, 0.01);
+        
+        this.endScoring.addChild(can);
+        this.endScoring.addChild(wrapping);
+        this.endScoring.addChild(bottle);
+
+        this.textScore1 = this.game.add.text(-this.endScoring.width*.3, -40, 'x 0', this.fontStle);
+        this.textScore1.anchor.set(.5);
+
+        this.textScore2 = this.game.add.text(this.endScoring.width*.051, -40, 'x 0', this.fontStle);
+        this.textScore2.anchor.set(.5);
+
+        this.textScore3 = this.game.add.text(this.endScoring.width*.4, -40, 'x 0', this.fontStle);
+        this.textScore3.anchor.set(.5);
+
+        this.totalScore = this.game.add.text(0, this.endScoring.height*.4, 'x 0', this.fontStle);
+        this.totalScore.anchor.set(.5);
+
+        this.endScoring.addChild(this.textScore1);
+        this.endScoring.addChild(this.textScore2);
+        this.endScoring.addChild(this.textScore3);
+        this.endScoring.addChild(this.totalScore);
+
+        let tween1 = this.game.add.tween(can.scale).to({x:1.5, y:1.5}, 300, Phaser.Easing.Elastic.Out);
+        let tween1a = this.game.add.tween(this.buffScore).to({can:this.score.can}, 300, Phaser.Easing.Linear.None);
+        let tween2 = this.game.add.tween(wrapping.scale).to({x:1.5, y:1.5}, 300, Phaser.Easing.Elastic.Out);
+        let tween2a = this.game.add.tween(this.buffScore).to({wrapping:this.score.wrapping}, 300, Phaser.Easing.Linear.None);
+        let tween3 = this.game.add.tween(bottle.scale).to({x:1.5, y:1.5}, 300, Phaser.Easing.Elastic.Out);
+        let tween3a = this.game.add.tween(this.buffScore).to({bottle:this.score.bottle}, 300, Phaser.Easing.Linear.None);
+
+        this.game.add.tween(this.buffScore).to({total:this.score.total}, 300, Phaser.Easing.Linear.None, true, 1900).onComplete.add(this.createTalker, this);
+
+        tween1.chain(tween1a);
+        tween1a.chain(tween2);
+        tween2.chain(tween2a);
+        tween2a.chain(tween3);
+        tween3.chain(tween3a);
+        tween1.start();
+    }
+
+    update(){
+        if(this.gameState == "end"){
+            if(this.textScore1){
+                this.textScore1.text = "x "+  Math.floor(this.buffScore.can);
+            }
+            if(this.textScore2){
+                this.textScore2.text = "x "+  Math.floor(this.buffScore.wrapping);
+            }
+            if(this.textScore3){
+                this.textScore3.text = "x "+ Math.floor(this.buffScore.bottle);
+            }
+            if(this.totalScore){
+                this.totalScore.text = STRINGS_DATA.data.totalScore+  Math.floor(this.buffScore.total);
+            }
+            return;
+        }
         this.timeLimit -= this.game.time.physicsElapsed;
         if(this.timeLimit<=0.1){
             this.timeLimit = 0;
             console.log("end");
             this.gameState = "end";
-            this.createTalker();
+            //this.createTalker();
+            this.showEndScore();
 
             //this.endGame();
         }

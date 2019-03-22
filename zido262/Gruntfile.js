@@ -6,6 +6,7 @@ var files= [
     'js/plugins/phaser-state-transition.umd.js',
     'js/ubriframework/transitioncollections.js',
     'js/zidoconnect.js',
+    'js/zido-game-plugin.min.js',
     'js/ubriframework/imageassetsdata.js',
     'js/ubriframework/audioassetsdata.js',
     'js/ubriframework/statescreenmanager.js',
@@ -25,13 +26,9 @@ var files= [
     'js/screens/openingscreen.js',
     'js/screens/gamescreen.js',
     'js/screens/prologuescreen.js',
-    'js/screens/game1screen.js',
-    'js/zido-game-plugin.min.js',
+    'js/objects/popupquestion.js',
+    'js/objects/pedestrian.js',
     'js/main.js',
-    'js/carnavalmarch.js',
-    'js/snakehead.js',
-    'js/snakebody.js',
-    'js/avatar.js'
 ];
 
 
@@ -69,7 +66,7 @@ module.exports = function(grunt) {
                             return dest + 'index.html';
                         }
                     },
-                    {expand: true, cwd: 'build', src: ['**'], dest:'../mirror-demo-server/public/games/carnavalmarch'}
+                    {expand: true, cwd: 'build', src: ['**'], dest:'../mirror-demo-server/public/games/ask-for-things'}
                 ]
             }
         }

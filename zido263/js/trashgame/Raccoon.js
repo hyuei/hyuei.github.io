@@ -20,6 +20,12 @@ class Raccoon extends Phaser.Group {
         this.isHushed = false;
 
         this.broughtTrash = null;
+
+
+        this.stepSound = null;
+        this.smallStepSound = null
+        this.slapSound = null;
+        this.pickedTrashSound = null
     }
 
     create() {
@@ -46,6 +52,11 @@ class Raccoon extends Phaser.Group {
         this.add(this.raccoon01);
         this.add(this.raccoon02);
         this.add(this.hush);
+
+        this.stepSound = this.game.add.sound("jump");
+        this.smallStepSound = this.game.add.sound("pick-up");
+        this.slapSound = this.game.add.sound("slap");
+        this.pickedTrashSound = this.game.add.sound("break-branch");
     }
 
     moveTo(posX, posY, time, delay, onComplete) {
@@ -76,6 +87,8 @@ class Raccoon extends Phaser.Group {
             this.elapsedTime = 0;
 
             this.currentFrame++;
+
+            this.onFrameChanged();
         }
 
         if (this.currentFrame > 1) {
@@ -105,6 +118,7 @@ class Raccoon extends Phaser.Group {
         this.hush.visible = true;
         this.isHushed = true;
         this.onDownSignal.dispatch();
+        this.onHushed();
     }
 
     onUp() {
@@ -119,11 +133,28 @@ class Raccoon extends Phaser.Group {
         this.broughtTrash.scale.set(0.5, 0.1);
         this.game.add.tween(this.broughtTrash.scale).to({ x: 1, y: 1 }, 500, Phaser.Easing.Bounce.Out, true);
 
+        this.pickedTrashSound.play();
     }
 
     destroyBroughtTrash() {
         if (this.broughtTrash != null) {
             this.broughtTrash.destroy();
         }
+    }
+
+    onFrameChanged() {
+        if (!this.isHushed) {
+            this.stepSound.play();
+        } else {
+            this.smallStepSound.play();
+        }
+    }
+
+    onHushed() {
+        this.slapSound.play();
+    }
+
+    reset() {
+        this.isHushed = false;
     }
 }

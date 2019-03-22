@@ -64,6 +64,8 @@ class TrashGame extends Phaser.Sprite {
 
         this.gameWinSignal = new Phaser.Signal();
         this.gameLoseSignal = new Phaser.Signal();
+        this.dropTrashCorrectSignal = new Phaser.Signal();
+        this.dropTrashFalseSignal = new Phaser.Signal();
 
         this.raccoonSpawned = false;
         this.raccoonArrived = false;
@@ -299,6 +301,10 @@ class TrashGame extends Phaser.Sprite {
 
         this.currentScore++;
         this.view.scoreUI.setScore(this.getScoreValue());
+
+        this.view.onDropTrashCorrect();
+
+        this.onDropTrashCorrect.dispatch();
     }
 
     onDropTrashFalse(trashSprite) {
@@ -308,6 +314,10 @@ class TrashGame extends Phaser.Sprite {
 
         this.currentScore--;
         this.view.scoreUI.setScore(this.getScoreValue());
+
+        this.view.onDropTrashFalse();
+
+        this.onDropTrashFalse.dispatch();
     }
 
     removeTrashSprite(trashSprite) {
@@ -416,6 +426,7 @@ class TrashGame extends Phaser.Sprite {
         this.view.raccoon.moveTo(this.game.width + 100, this.view.raccoon.position.y, 1000, 0,
             function () {
                 ref.raccoonSpawned = false;
+                ref.view.raccoon.reset();
             });
     }
 
