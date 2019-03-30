@@ -7,6 +7,7 @@ class Pedestrian extends Phaser.Group{
         this.sleep = true;
         this.pause = false;
         this.called = false;
+        this.requestAsk = false;
         this.init();
     }
     init(){
@@ -51,6 +52,8 @@ class Pedestrian extends Phaser.Group{
         
     }
     stopBecauseChildCall(){
+        if(this.requestAsk || this.settings.parent.isQueueAsking) return;
+        this.requestAsk = true;
         this.settings.parent.runInPeople(this);
         this.charTexture.inputEnabled = false;
         //this.pause = true;
@@ -68,7 +71,7 @@ class Pedestrian extends Phaser.Group{
         super.update();
         if(!this.sleep){
             if(this.pause || this.called)return;
-            this.y -= 3;
+            this.y -= 1.5;
             if(this.y< -100){
                 this.restartCharacter();
             }
@@ -76,6 +79,7 @@ class Pedestrian extends Phaser.Group{
     }
     restartCharacter(){
         this.sleep = true;
+        this.requestAsk = false;
         this.y = 600;
         this.bringThings();
     }

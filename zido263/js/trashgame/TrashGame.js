@@ -44,6 +44,11 @@ class TrashGame extends Phaser.Sprite {
         // {sprite: objectXXX, binType: "a"}
         this.trashBinArr = [];
 
+
+        // model format:
+        // "a":{trashes:["kain-01", "kain-02"]}
+        this.pushedTrashes = {};
+
         this.currentScore = 0;
         this.currentTime = 0;
 
@@ -88,6 +93,10 @@ class TrashGame extends Phaser.Sprite {
 
     create() {
         let ref = this;
+        this.spawnedTrashArr = [];
+        this.pushedTrashes = [];
+        this.hoveredBins = [];
+
         this.view.create();
 
         // setup bin type
@@ -95,6 +104,7 @@ class TrashGame extends Phaser.Sprite {
         this.trashBinArr.push({ sprite: ref.view.binA, binType: "a" });
         this.trashBinArr.push({ sprite: ref.view.binB, binType: "b" });
         this.trashBinArr.push({ sprite: ref.view.binC, binType: "c" });
+
 
         this.view.raccoon.onDownSignal.add(this.onRaccoonClicked, this);
 
@@ -276,6 +286,17 @@ class TrashGame extends Phaser.Sprite {
         let trashBinModel = this.getTrashBinModel(trashBin);
 
         if (trashSprite.model.binType == trashBinModel.binType) {
+
+            console.log(this.pushedTrashes[trashBinModel.binType]);
+            // put data into pushed trashes
+            if (this.pushedTrashes[trashBinModel.binType] === undefined) {
+                this.pushedTrashes[trashBinModel.binType] = {};
+            }
+            if (this.pushedTrashes[trashBinModel.binType].trashes === undefined) {
+                this.pushedTrashes[trashBinModel.binType].trashes = [];
+            }
+            this.pushedTrashes[trashBinModel.binType].trashes.push(trashSprite.key);
+
             this.onDropTrashCorrect(trashSprite);
         } else {
             this.onDropTrashFalse(trashSprite);
@@ -299,12 +320,12 @@ class TrashGame extends Phaser.Sprite {
         this.removeTrashSprite(trashSprite);
         this.updateTrashCollection();
 
-        this.currentScore++;
+        this.addScore();
         this.view.scoreUI.setScore(this.getScoreValue());
 
         this.view.onDropTrashCorrect();
 
-        this.onDropTrashCorrect.dispatch();
+        this.dropTrashCorrectSignal.dispatch();
     }
 
     onDropTrashFalse(trashSprite) {
@@ -312,12 +333,13 @@ class TrashGame extends Phaser.Sprite {
         this.removeTrashSprite(trashSprite);
         this.updateTrashCollection();
 
-        this.currentScore--;
+        this.decreaseScore();
         this.view.scoreUI.setScore(this.getScoreValue());
 
-        this.view.onDropTrashFalse();
+        game.camera.shake(0.01, 200);
 
-        this.onDropTrashFalse.dispatch();
+        this.view.onDropTrashFalse();
+        this.dropTrashFalseSignal.dispatch();
     }
 
     removeTrashSprite(trashSprite) {
@@ -388,16 +410,31 @@ class TrashGame extends Phaser.Sprite {
 
                     console.log("Target Raccoon Bin Type:" + ref.currentRaccoonBinTarget.binType);
 
-                    var trashTargets = ref.getTrashArrayFromBinType(ref.currentRaccoonBinTarget.binType);
-                    var trashTargetIndex = Math.floor(Math.random() * trashTargets.length);
-                    ref.view.raccoon.createBroughtTrash(trashTargets[trashTargetIndex].spriteKey);
+                    let trashTargets = ref.getTrashArrayFromBinType(ref.currentRaccoonBinTarget.binType);
+                    let trashTargetIndex = Math.floor(Math.random() * trashTargets.length);
 
-                    if (ref.IsPlaying) {
-                        // decrease score
-                        ref.currentScore--;
-                        ref.view.scoreUI.setScore(ref.getScoreValue());
+                    let trashKey = "";
+                    // get trash
+                    if (ref.pushedTrashes[ref.currentRaccoonBinTarget.binType] !== undefined) {
+                        let pTrashArr = ref.pushedTrashes[ref.currentRaccoonBinTarget.binType].trashes;
+                        if (pTrashArr !== undefined) {
+                            let pushedTrashIndex = Math.floor(Math.random() * pTrashArr.length);
+                            trashKey = pTrashArr[pushedTrashIndex];
+                            pTrashArr.splice(pushedTrashIndex, 1);
+                        }
                     }
 
+                    // ref.view.raccoon.createBroughtTrash(trashTargets[trashTargetIndex].spriteKey);
+                    if (trashKey !== "") {
+                        ref.view.raccoon.createBroughtTrash(trashKey);
+
+                        if (ref.IsPlaying) {
+                            // decrease score
+                            ref.decreaseScore();
+                            ref.view.scoreUI.setScore(ref.getScoreValue());
+                        }
+
+                    }
                     ref.view.raccoon.scale.x = -1;
                     ref.view.raccoon.moveTo(ref.game.width + 100, ref.view.raccoon.position.y, 1000, 500,
                         function () {
@@ -438,5 +475,15 @@ class TrashGame extends Phaser.Sprite {
             }
         }
         return trashArr;
+    }
+
+    addScore() {
+        this.currentScore++;
+    }
+
+    decreaseScore() {
+        if (this.currentScore > 0) {
+            this.currentScore--;
+        }
     }
 }

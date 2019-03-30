@@ -23,9 +23,11 @@ class GameScreen extends Phaser.State
         this.gameState = "run";
         this.URGENTITEMLIST = ["can", "bottle", "wrapping"];
         this.urgentName = "";
-        this.timeLimit = 60.3;
+        this.timeLimit = 90.3;
         this.score = {can:0, bottle:0, wrapping:0, urgent:0, total:0};
         this.buffScore = {can:0, bottle:0, wrapping:0, total:0};
+        this.queueChar = 0;
+        this.isQueueAsking = false;
 
         //add info
         this.game.input.mouse.capture = true;
@@ -45,11 +47,15 @@ class GameScreen extends Phaser.State
         this.game.add.existing(this.endgameoverlay);
 
         //spawn every half sec
-        this.game.time.events.loop(500, this.spawnPedestrian, this);
+        this.spawnPedestrian();
+        this.game.time.events.loop(1000, this.spawnPedestrian, this);
 
         //random time urgent item
         let randomTimer = this.rnd.integerInRange(5, 15);
         //this.game.time.events.add(randomTimer*Phaser.Timer.SECOND, this.requestUrgent, this);
+
+        this.clingSound = this.game.add.sound('cling');
+        this.clickPass = this.game.add.sound('pass');
     }
 
     regroup(){
@@ -137,6 +143,18 @@ class GameScreen extends Phaser.State
     }
 
     runInPeople(people){
+        let char = this.chars[this.queueChar];
+        this.clickPass.play();
+        this.queueChar += 1;
+        if(this.queueChar > 2)this.queueChar = 0;
+        this.isQueueAsking = true;
+        char.busy = true;
+        people.pause = true;
+        people.called = true;
+        let checkDistance = this.game.math.distance(char.x, char.y, people.x, people.y);
+        let mSpeed = Math.floor(checkDistance*3);
+        let tween = this.game.add.tween(char).to({x:people.x, y:people.y}, mSpeed, Phaser.Easing.Linear.None, true).onComplete.add(this.showQuestion, this, 0, people, char);
+        /*
         for(var i = 0;i < 3; i++){
             let char = this.chars[i];
             if(char.busy){
@@ -154,6 +172,7 @@ class GameScreen extends Phaser.State
                 //char
             }
         }
+        */
     }
 
     showQuestion(sprite, tween, people, char){
@@ -184,6 +203,7 @@ class GameScreen extends Phaser.State
         this.questionBox.visible =false;
         this.questionBox.intAnswer = 0;
         people.called = false;
+        this.isQueueAsking = false;
         if(char.bringItem == "" || char.bringItem == "wallet"){
             //back to your post
             let checkDistance = this.game.math.distance(char.x, char.y, char.fPos.x, char.fPos.y);
@@ -425,16 +445,16 @@ class GameScreen extends Phaser.State
         let  can = this.game.add.sprite(-this.endScoring.width*.4, -40, 'ingame', "item-can.png");
         can.anchor.set(.5);
         can.scale.set(0.01, 0.01);
-        let wrapping = this.game.add.sprite(-this.endScoring.width*.051, -40, 'ingame', "item-wrapping.png");
-        wrapping.anchor.set(.5);
-        wrapping.scale.set(0.01, 0.01);
-        let bottle = this.game.add.sprite(this.endScoring.width*.3, -40, 'ingame', "item-bottle.png");
-        bottle.anchor.set(.5);
-        bottle.scale.set(0.01, 0.01);
+        this.wrappingAnimated = this.game.add.sprite(-this.endScoring.width*.051, -40, 'ingame', "item-wrapping.png");
+        this.wrappingAnimated.anchor.set(.5);
+        this.wrappingAnimated.scale.set(0.01, 0.01);
+        this.bottleAnimated = this.game.add.sprite(this.endScoring.width*.3, -40, 'ingame', "item-bottle.png");
+        this.bottleAnimated.anchor.set(.5);
+        this.bottleAnimated.scale.set(0.01, 0.01);
         
         this.endScoring.addChild(can);
-        this.endScoring.addChild(wrapping);
-        this.endScoring.addChild(bottle);
+        this.endScoring.addChild(this.wrappingAnimated);
+        this.endScoring.addChild(this.bottleAnimated);
 
         this.textScore1 = this.game.add.text(-this.endScoring.width*.3, -40, 'x 0', this.fontStle);
         this.textScore1.anchor.set(.5);
@@ -453,7 +473,8 @@ class GameScreen extends Phaser.State
         this.endScoring.addChild(this.textScore3);
         this.endScoring.addChild(this.totalScore);
 
-        let tween1 = this.game.add.tween(can.scale).to({x:1.5, y:1.5}, 300, Phaser.Easing.Elastic.Out);
+        this.game.add.tween(can.scale).to({x:1.5, y:1.5}, 300, Phaser.Easing.Elastic.Out, true).onComplete.add(this.tweenScore, this, 0, "can");
+        /*
         let tween1a = this.game.add.tween(this.buffScore).to({can:this.score.can}, 300, Phaser.Easing.Linear.None);
         let tween2 = this.game.add.tween(wrapping.scale).to({x:1.5, y:1.5}, 300, Phaser.Easing.Elastic.Out);
         let tween2a = this.game.add.tween(this.buffScore).to({wrapping:this.score.wrapping}, 300, Phaser.Easing.Linear.None);
@@ -462,12 +483,39 @@ class GameScreen extends Phaser.State
 
         this.game.add.tween(this.buffScore).to({total:this.score.total}, 300, Phaser.Easing.Linear.None, true, 1900).onComplete.add(this.createTalker, this);
 
+        /*
         tween1.chain(tween1a);
         tween1a.chain(tween2);
         tween2.chain(tween2a);
         tween2a.chain(tween3);
         tween3.chain(tween3a);
         tween1.start();
+        */
+        this.game.add.tween(this.buffScore).to({total:this.score.total}, 300, Phaser.Easing.Linear.None, true, 1900).onComplete.add(this.createTalker, this);
+    }
+
+    tweenObjScore(objBuffScore, tween, textPass){
+        if(textPass == "wrapping"){
+            this.game.add.tween(this.wrappingAnimated.scale).to({x:1.5, y:1.5}, 300, Phaser.Easing.Elastic.Out, true).onComplete.add(this.tweenScore, this, 0, textPass);
+        }
+        else if(textPass == "bottle"){
+            this.game.add.tween(this.bottleAnimated.scale).to({x:1.5, y:1.5}, 300, Phaser.Easing.Elastic.Out, true).onComplete.add(this.tweenScore, this, 0, textPass);
+        }
+        
+    }
+
+    tweenScore(scale, tween, scoring){
+        this.clingSound.play();
+        if(scoring == "can"){
+            this.game.add.tween(this.buffScore).to({can:this.score.can}, 300, Phaser.Easing.Linear.None, true).onComplete.add(this.tweenObjScore, this, 0, "wrapping");
+        }
+        else if(scoring == "wrapping"){
+            this.game.add.tween(this.buffScore).to({wrapping:this.score.wrapping}, 300, Phaser.Easing.Linear.None, true).onComplete.add(this.tweenObjScore, this, 0, "bottle");
+        }
+        else if(scoring == "bottle"){
+            this.game.add.tween(this.buffScore).to({bottle:this.score.bottle}, 300, Phaser.Easing.Linear.None, true);
+        }
+        
     }
 
     update(){

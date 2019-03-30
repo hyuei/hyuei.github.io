@@ -8,7 +8,7 @@ StringsData = function(){
 
         "start" : "اِبْدَأْ",
         "phase" : "%1 مستوى  ",
-        "taptocontinue":"انْقُرْ لِلْمُتَابَعَةِ.",
+        "taptocontinue":"انْقُرْ لِلْمُتَابَعَةِ",
         "x" : "X %1",
         "totalscore" : "Total Score : %1",
         "target" : "هَدَف  ",
