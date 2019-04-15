@@ -1,0 +1,14 @@
+{
+  "name": "SortNumberGame",
+  "version": "1.0.0",
+  "private": true,
+  "devDependencies": {
+    "grunt": "^1.0.2",
+    "grunt-console-clean": "~0.3.5",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-uglify-es": "^3.3.0",
+    "grunt-legacy-log": "^2.0.0",
+    "grunt-legacy-log-utils": "^2.0.1"
+  }
+}
