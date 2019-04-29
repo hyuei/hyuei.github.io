@@ -168,8 +168,6 @@ Game1Screen.inherit({
 
         this.createLogo();
 
-        // this.prepareTutor();
-
         this.rainCurtain = global.addSprite(this.centerX, this.centerY, 'rain/bg-rain-01');
         this.rainCurtain.anchor.setTo(0.5);
         var sequence = Phaser.Animation.generateFrameNames('rain/bg-rain-0', 1, 2, '', 1);
@@ -180,63 +178,9 @@ Game1Screen.inherit({
         this.gCont.add(this.gInGame);
         this.gCont.add(this.gInFront);
 
+        this.prepareTutor();
         // this.gameStart = true;
-        this.countingDown();
-    },
-
-    createTargetBoard:function(){
-        this.gTarget = game.add.group();
-        this.gInFront.add(this.gTarget);
-
-        this.gTarget.x = this.centerX;
-        this.gTarget.y = this.centerY;
-
-        this.tapTarget = game.time.now + 1000;
-
-        var targetBg = global.addSprite(0, 0, 'ingame/base-result')
-        targetBg.anchor.setTo(0.5);
-        targetBg.scale.y = 0.8;
-        targetBg.inputEnabled = true;
-        targetBg.events.onInputDown.add(function(){
-            if(game.time.now > this.tapTarget){
-                this.countingDown();
-                this.gTarget.destroy();
-            }
-        }, this);
-        this.gTarget.add(targetBg);
-
-        var targetTxt = global.addText(targetBg.width * 0.4, -10, STRINGS_DATA.data.target, 50, global.font2);
-        targetTxt.anchor.setTo(1, 0.5);
-        targetTxt.align = 'right';
-        targetTxt.fill = 'black';
-        this.gTarget.add(targetTxt);
-
-        var branchIcon = global.addSprite(targetTxt.x - (targetTxt.width * 1.3), targetTxt.y - 10, 'ingame/branch');
-        branchIcon.anchor.setTo(1, 0.5);
-        branchIcon.scale.setTo(0.8);
-        this.gTarget.add(branchIcon)
-
-        var twoDots = global.addText(branchIcon.x - (branchIcon.width * 1.2), targetTxt.y, ':', targetTxt.fontSize, global.font2);
-        twoDots.anchor.setTo(1, 0.5);
-        twoDots.fill = "black";
-        twoDots.align = "right";
-        this.gTarget.add(twoDots)
-
-        var showTarget = global.addText(targetBg.width * -0.4, targetTxt.y, this.targetBranch + '', targetTxt.fontSize, global.font2);
-        showTarget.anchor.setTo(0, 0.5);
-        showTarget.fill = '#dd6118';
-        this.gTarget.add(showTarget);
-
-        var tapHere = global.addText(0, targetBg.height * 0.38, STRINGS_DATA.data.taptocontinue, 30, global.font2);
-        tapHere.anchor.setTo(0.5);
-        tapHere.align = 'right';
-        tapHere.fill = 'grey'
-        this.gTarget.add(tapHere)
-        this.gTarget.tapHere = tapHere;
-
-        game.time.events.add(1000, function(){
-            this.tapHere.fill = 'maroon'
-        }, this.gTarget)
+        // this.countingDown();
     },
 
     prepareTutor:function(arg){
@@ -256,14 +200,15 @@ Game1Screen.inherit({
         this.createTalker(data, isUp);
     },
 
-    checkAfterTutor:function(){        
+    checkAfterTutor:function(){      
+        if(this.tutorImg) this.tutorImg.destroy();  
         this.gamePaused = false;
         this.tutorTalker = null;
         if(this.tutorId == 0){
-            // this.countingDown();
-            this.createTargetBoard();
+            this.countingDown();
         } else if(this.tutorId == 1 || this.tutorId == 2){
-            this.gameEnd();
+            // this.gameEnd();
+            this.manageResult();
         }
         // this.tutorId++;
     },
@@ -292,12 +237,14 @@ Game1Screen.inherit({
             SoundData.sfxPlay("vn-cont");
             if(curState().tutorId == 0){
                 if(curState().tutorImg) curState().tutorImg.destroy();
-                if(this.talkIndex == 4){
-                    curState().createTutorImg('ingame/img-2-1');
-                } else if(this.talkIndex == 5 || this.talkIndex == 6){
-                    curState().createTutorImg('ingame/img-2-2');
+                if(this.talkIndex == 6){
+                    curState().createTutorImg('ingame/tutor1');
                 } else if(this.talkIndex == 7){
-                    curState().createTutorImg('ingame/img-2-3');
+                    curState().createTutorImg('ingame/tutor2');
+                } else if(this.talkIndex == 8){
+                    curState().createTutorImg('ingame/tutor3');
+                } else if(this.talkIndex == 9){                    
+                    curState().createTutorImg('ingame/tutor4');
                 }
             } 
         }, talker);
@@ -363,6 +310,16 @@ Game1Screen.inherit({
         if(this.gameOver) return;
         this.gameOver = true;
         if(this.isWin){
+            this.tutorId = 2
+        } else {
+            this.tutorId = 1;
+        }
+
+        this.prepareTutor();
+    },
+
+    manageResult:function(){
+        if(this.isWin){
             var timer = 1000;
             var tween = game.add.tween(this.bg);
             tween.to({alpha:0}, timer);
@@ -401,7 +358,9 @@ Game1Screen.inherit({
         if(this.plTime > 0){
             this.plTime -= countMS;
             if(this.plTime <= 0){
-                this.isWin = true
+                if(this.score > 0){
+                    this.isWin = true
+                }
                 this.plTime = 0;
                 this.gameEnd();
             }

@@ -36,13 +36,15 @@ var files= [
     'js/screens/startscreen.js',
     'js/screens/game1screen.js',
 
-    'js/objects/correct-burst.js',
-    'js/objects/chara.js',
-    'js/objects/endscreen.js',
-    'js/objects/click-btn.js',
-    'js/objects/ground-group.js',
-    'js/objects/runner.js',
-    'js/objects/scoreboard.js',
+    "js/objects/chara.js",
+    "js/objects/click-btn.js",
+    "js/objects/correct-burst.js",
+    "js/objects/endscreen.js",
+    "js/objects/ground-group.js",
+    "js/objects/move-btn.js",
+    "js/objects/runner.js",
+    "js/objects/trash.js",
+    "js/objects/tutorial.js",
     
     'js/main.js'
 ];
@@ -81,7 +83,7 @@ module.exports = function(grunt) {
                             return dest + 'index.html';
                         }
                     },
-                    {expand: true, cwd: 'build', src: ['**'], dest:'../integration_demo/public/games/branch-collecting'}
+                    {expand: true, cwd: 'build', src: ['**'], dest:'../integration_demo/public/games/storm-attack'}
                 ]
             }
         }

@@ -8,7 +8,7 @@ MoveBtn = function(x, y, frameName, btnType){
 
 	this.isClicked = false;
 	this.inputEnabled = true;
-	this.activePointer  = null;
+	this.activePointer  = game.input.activePointer;
 
 	this.events.onInputDown.add(this.clicked, this)
 	this.events.onInputOver.add(this.clicked, this);
@@ -18,8 +18,9 @@ MoveBtn = function(x, y, frameName, btnType){
 
 MoveBtn.inherit({
 	clicked:function(obj, pointer){
-		console.log(pointer)
+		// console.log(this.btnType, pointer.id)
 		this.activePointer = pointer;
+
         this.isClicked = true;
         if(this.btnType == 'left'){        	
 	        this.frameName = 'ingame/btn-left-down'
@@ -30,6 +31,7 @@ MoveBtn.inherit({
 
 	released:function(obj, pointer){		
         this.isClicked = false;
+        this.activePointer = null;
         if(this.btnType == 'left'){
 	        this.frameName = 'ingame/btn-left'
         } else {
@@ -38,12 +40,28 @@ MoveBtn.inherit({
 	},
 
 	update:function(){
-		// Phaser.Sprite.prototype.update.call(this)
+		// var bound = this.getBounds();
+		// if(this.btnType == 'left' && !this.isClicked && curState().rightBtn.isClicked){
+		// 	var rightBtn = curState().rightBtn
+		// 	var contain = Phaser.Rectangle.contains(bound, rightBtn.activePointer.x, rightBtn.activePointer.y);
+		// 	if(contain){
+		// 		this.clicked(this, game.input['pointer' + rightBtn.activePointer.id]);
+		// 		// rightBtn.released();
+		// 	}
+		// } else if(this.btnType == 'right' && !this.isClicked && curState().leftBtn.isClicked){
+		// 	var leftBtn = curState().leftBtn;
+		// 	var contain = Phaser.Rectangle.contains(bound, leftBtn.activePointer.x, leftBtn.activePointer.y)
+		// 	if(contain){
+		// 		this.clicked(this, game.input['pointer' + leftBtn.activePointer.id]);
+		// 		// leftBtn.released();
+		// 	}
+		// }
+
 		if(this.activePointer && !this.activePointer.isDown){
 			if(this.isClicked){
 				this.released();
 				// this.isClicked = false;
 			}
-		}
+		}		
 	},
 }, Phaser.Sprite)
