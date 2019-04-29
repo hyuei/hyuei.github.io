@@ -1,0 +1,28 @@
+{"frames": [
+
+{
+	"filename": "rain/bg-rain-01",
+	"frame": {"x":1,"y":543,"w":960,"h":509},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":960,"h":509},
+	"sourceSize": {"w":960,"h":509}
+},
+{
+	"filename": "rain/bg-rain-02",
+	"frame": {"x":1,"y":1,"w":960,"h":540},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":960,"h":540},
+	"sourceSize": {"w":960,"h":540}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "rain.png",
+	"format": "RGBA8888",
+	"size": {"w":962,"h":1053},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:250a596030e6326d6b2cd5e464faa99f:81975bf0f8ec90f65a67d824565ec0c4:e8cfc8249e9bc780202c75b53a681322$"
+}
+}
