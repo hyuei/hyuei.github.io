@@ -1,0 +1,116 @@
+{"frames": [
+
+{
+	"filename": "bin-ferti",
+	"frame": {"x":2,"y":117,"w":98,"h":129},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":98,"h":129},
+	"sourceSize": {"w":98,"h":129}
+},
+{
+	"filename": "bin-recycle",
+	"frame": {"x":2,"y":2,"w":174,"h":113},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":174,"h":113},
+	"sourceSize": {"w":174,"h":113}
+},
+{
+	"filename": "brownbar",
+	"frame": {"x":2,"y":401,"w":101,"h":7},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":101,"h":7},
+	"sourceSize": {"w":101,"h":7}
+},
+{
+	"filename": "fert-01",
+	"frame": {"x":102,"y":117,"w":58,"h":65},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":58,"h":65},
+	"sourceSize": {"w":58,"h":65}
+},
+{
+	"filename": "fert-02",
+	"frame": {"x":101,"y":284,"w":96,"h":70},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":96,"h":70},
+	"sourceSize": {"w":96,"h":70}
+},
+{
+	"filename": "greenbar",
+	"frame": {"x":105,"y":400,"w":101,"h":7},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":101,"h":7},
+	"sourceSize": {"w":101,"h":7}
+},
+{
+	"filename": "icon-ready",
+	"frame": {"x":102,"y":184,"w":38,"h":41},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":38,"h":41},
+	"sourceSize": {"w":38,"h":41}
+},
+{
+	"filename": "plant",
+	"frame": {"x":142,"y":187,"w":87,"h":95},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":87,"h":95},
+	"sourceSize": {"w":87,"h":95}
+},
+{
+	"filename": "timebar-base",
+	"frame": {"x":83,"y":356,"w":142,"h":42},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":142,"h":42},
+	"sourceSize": {"w":142,"h":42}
+},
+{
+	"filename": "trash-01",
+	"frame": {"x":2,"y":320,"w":79,"h":79},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":79,"h":79},
+	"sourceSize": {"w":79,"h":79}
+},
+{
+	"filename": "trash-02",
+	"frame": {"x":178,"y":113,"w":60,"h":72},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":60,"h":72},
+	"sourceSize": {"w":60,"h":72}
+},
+{
+	"filename": "trash-03",
+	"frame": {"x":178,"y":2,"w":61,"h":109},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":61,"h":109},
+	"sourceSize": {"w":61,"h":109}
+},
+{
+	"filename": "trash-04",
+	"frame": {"x":2,"y":248,"w":97,"h":70},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":97,"h":70},
+	"sourceSize": {"w":97,"h":70}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "ingame.png",
+	"format": "RGBA8888",
+	"size": {"w":241,"h":410},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:b4ac72378da03cd1eae4395ec265703f:9cf105c8aa6b2d817d430f924ebb8d6b:a0a7aae19725baf1127883d8cc485c4f$"
+}
+}

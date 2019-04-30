@@ -1,0 +1,52 @@
+{"frames": [
+
+{
+	"filename": "base-result",
+	"frame": {"x":585,"y":2,"w":578,"h":269},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":578,"h":269},
+	"sourceSize": {"w":578,"h":269}
+},
+{
+	"filename": "congrats-title",
+	"frame": {"x":931,"y":273,"w":437,"h":193},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":2,"w":437,"h":193},
+	"sourceSize": {"w":438,"h":195}
+},
+{
+	"filename": "scorebox",
+	"frame": {"x":491,"y":273,"w":438,"h":89},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":438,"h":89},
+	"sourceSize": {"w":438,"h":89}
+},
+{
+	"filename": "toobad",
+	"frame": {"x":2,"y":207,"w":487,"h":239},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":1,"w":487,"h":239},
+	"sourceSize": {"w":487,"h":240}
+},
+{
+	"filename": "trio-cheers",
+	"frame": {"x":2,"y":2,"w":581,"h":203},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":581,"h":203},
+	"sourceSize": {"w":581,"h":203}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "endscreen.png",
+	"format": "RGBA8888",
+	"size": {"w":1370,"h":468},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:bb5b7e321c6f9282f46baf9a497b68fa:4c15c45104416423419c8f49d65e3c40:c2f222e69388c02c4d4d57ecd624d572$"
+}
+}
