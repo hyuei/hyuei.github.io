@@ -242,6 +242,10 @@ class GameScreen extends Phaser.State
         }, this);
 
         this.game.tweens.pauseAll();
+
+        this.wasteGroup.forEach((wasteItem)=>{
+            wasteItem.inputEnabled =false;
+        }, this);
     }
 
     nextTalker(){
@@ -259,7 +263,6 @@ class GameScreen extends Phaser.State
         this.endgameoverlay.setTextScore(score);
         this.endgameoverlay.show(windcondition);
 
-        //stop all movement
     }
 
     onRetryButtonDown(){
