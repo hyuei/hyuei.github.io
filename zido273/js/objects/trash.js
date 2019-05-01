@@ -70,6 +70,7 @@ Trash.inherit({
 			tween.to({x:0, y:0}, 100);
 
 			if(this.isTrash){
+				SoundData.sfxPlay('pick')
 				this.catched();
 
 				tween.onComplete.add(function(){
@@ -77,16 +78,19 @@ Trash.inherit({
 					this.destroy();
 				}, this);
 			} else {
+				SoundData.sfxPlay('crash')
 				curState().runner.petrified = true;
 				curState().runner.body.setZeroVelocity();
 				curState().runner.body.moveDown(this.speed)
 				curState().showTime.oriFill = curState().showTime.fill;
 				curState().showTime.fill = 'red';
-				curState().plLife--;
-				if(curState().plTime > 1){
-					curState().plTime -= 10;
-					if(curState().plTime <= 0){
-						curState().plTime = 0.1;
+				if(!curState().gameOver){
+					curState().plLife--;
+					if(curState().plTime > 1){
+						curState().plTime -= 10;
+						if(curState().plTime <= 0){
+							curState().plTime = 0.1;
+						}
 					}
 				}
 

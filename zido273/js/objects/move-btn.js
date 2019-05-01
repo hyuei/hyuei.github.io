@@ -20,6 +20,7 @@ MoveBtn.inherit({
 	clicked:function(obj, pointer){
 		// console.log(this.btnType, pointer.id)
 		this.activePointer = pointer;
+		curState().movePointer = pointer;
 
         this.isClicked = true;
         if(this.btnType == 'left'){        	
@@ -40,28 +41,43 @@ MoveBtn.inherit({
 	},
 
 	update:function(){
-		// var bound = this.getBounds();
-		// if(this.btnType == 'left' && !this.isClicked && curState().rightBtn.isClicked){
-		// 	var rightBtn = curState().rightBtn
-		// 	var contain = Phaser.Rectangle.contains(bound, rightBtn.activePointer.x, rightBtn.activePointer.y);
-		// 	if(contain){
-		// 		this.clicked(this, game.input['pointer' + rightBtn.activePointer.id]);
-		// 		// rightBtn.released();
-		// 	}
-		// } else if(this.btnType == 'right' && !this.isClicked && curState().leftBtn.isClicked){
-		// 	var leftBtn = curState().leftBtn;
-		// 	var contain = Phaser.Rectangle.contains(bound, leftBtn.activePointer.x, leftBtn.activePointer.y)
-		// 	if(contain){
-		// 		this.clicked(this, game.input['pointer' + leftBtn.activePointer.id]);
-		// 		// leftBtn.released();
+		// if(curState().movePointer && curState().movePointer.isDown){
+		// 	// console.log(curState().movePointer.circle)
+		// 	var bound = this.getBounds();
+		// 	if(this.btnType == 'left' && !this.isClicked && curState().rightBtn.isClicked){
+		// 		var rightBtn = curState().rightBtn
+		// 		// var contain = Phaser.Rectangle.contains(bound, rightBtn.activePointer.x, rightBtn.activePointer.y);
+		// 		var contain = Phaser.Circle.intersectsRectangle(curState().movePointer.circle, bound)
+		// 		if(contain){
+		// 			this.clicked(this, curState().movePointer);
+		// 			rightBtn.released();
+		// 		}
+		// 	} else if(this.btnType == 'right' && !this.isClicked && curState().leftBtn.isClicked){
+		// 		var leftBtn = curState().leftBtn;
+		// 		// var contain = Phaser.Rectangle.contains(bound, leftBtn.activePointer.x, leftBtn.activePointer.y)
+		// 		var contain = Phaser.Circle.intersectsRectangle(curState().movePointer.circle, bound)
+		// 		if(contain){
+		// 			this.clicked(this, curState().movePointer);
+		// 			leftBtn.released();
+		// 		}
 		// 	}
 		// }
 
-		if(this.activePointer && !this.activePointer.isDown){
-			if(this.isClicked){
-				this.released();
-				// this.isClicked = false;
+		if(this.activePointer){
+			if(!this.activePointer.isDown){
+				if(this.isClicked){
+					this.released();
+					// this.isClicked = false;
+				}
+			} else {
+				var bound = this.getBounds();
+				var contains = Phaser.Rectangle.contains(bound, this.activePointer.x, this.activePointer.y)
+				if(!contains){
+					if(this.isClicked){
+						this.released();
+					}
+				}
 			}
-		}		
+		}
 	},
 }, Phaser.Sprite)

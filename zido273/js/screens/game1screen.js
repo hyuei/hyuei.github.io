@@ -17,6 +17,8 @@ Game1Screen.inherit({
     
     create:function(){
         GameScreen.prototype.create.call(this);
+
+        SoundData.bgmPlay('rain')
         var offsetY = 200
         game.world.setBounds(0, -offsetY, this.gw, this.gh + offsetY);
         // console.log("game 1 screen");
@@ -92,6 +94,7 @@ Game1Screen.inherit({
 
         if(!Phaser.Device.desktop){
             game.input.maxPointers = 2;
+            this.movePointer = game.input.pointer;
 
             this.leftBtn = new MoveBtn(0, this.gh, 'ingame/btn-left', 'left');
             this.leftBtn.anchor.setTo(0.5);
@@ -99,13 +102,13 @@ Game1Screen.inherit({
             this.leftBtn.y -= this.leftBtn.height * 0.6;
             this.gInFront.add(this.leftBtn)
 
-            this.rightBtn = new MoveBtn(this.leftBtn.x + (this.leftBtn.width * 1.2), this.leftBtn.y, 'ingame/btn-right', 'right');
+            this.rightBtn = new MoveBtn(this.leftBtn.x + (this.leftBtn.width * 1.4), this.leftBtn.y, 'ingame/btn-right', 'right');
             this.rightBtn.anchor.setTo(0.5);
             this.gInFront.add(this.rightBtn)
 
-            this.jumpBtn = global.addSprite(this.gw, this.leftBtn.y, 'ingame/btn-jump');
+            this.jumpBtn = global.addSprite(this.gw - (this.leftBtn.x - (this.leftBtn.width * 0.5)), this.leftBtn.y, 'ingame/btn-jump');
             this.jumpBtn.anchor.setTo(0.5);
-            this.jumpBtn.x -= this.jumpBtn.width * 0.6
+            this.jumpBtn.x -= this.jumpBtn.width * 0.5
             this.jumpBtn.inputEnabled = true;
             this.jumpBtn.isClicked = false;
             this.jumpBtn.events.onInputDown.add(function(){
@@ -122,7 +125,12 @@ Game1Screen.inherit({
             }, this)
             this.gInFront.add(this.jumpBtn)
 
+            var dist = (this.jumpBtn.x - (this.jumpBtn.width * 0.5)) - (this.rightBtn.x + (this.rightBtn.width * 0.5));
+            center = dist * 0.5;
+            var x = (this.rightBtn.x + (this.rightBtn.width * 0.5)) + center
+
             this.scoreBox.y = this.leftBtn.y + (this.leftBtn.height * 0.5) - (this.scoreBox.height * 0.5)
+            this.scoreBox.x = x + (this.scoreBox.width * 0.55);
         }
 
 
@@ -312,6 +320,8 @@ Game1Screen.inherit({
         if(this.isWin){
             this.tutorId = 2
         } else {
+            this.runnerImg.animations.currentAnim.stop();
+            this.runnerImg.frameName = 'ingame/chara-fail';
             this.tutorId = 1;
         }
 
@@ -326,18 +336,31 @@ Game1Screen.inherit({
             tween.onComplete.add(function(){
                 this.bg.destroy();
                 this.runnerImg.animations.stop(this.runnerImg.animations.currentAnim.name);
-                this.runnerImg.frameName = 'ingame/chara-01'
+                this.runnerImg.frameName = 'ingame/chara-hurray'
 
                 game.time.events.add(2000, this.createResult, this)
             }, this);
             tween.start();
 
+            this.bgmVol = SoundData.bgmVolume
+            var tweenVol = game.add.tween(this)
+            tweenVol.to({bgmVol:0}, timer);
+            tweenVol.onUpdateCallback(function(){
+                SoundData.bgmObj[SoundData.idx].volume = this.bgmVol;
+            }, this);
+            tweenVol.onComplete.add(function(){
+                SoundData.bgmObj[SoundData.idx].volume = SoundData.bgmVolume;
+                SoundData.bgmStop();
+                SoundData.idx = "";
+            }, this);
+            tweenVol.start();
+
             var tweenRain = game.add.tween(this.rainCurtain);
             tweenRain.to({alpha:0}, timer);
             tweenRain.start();
         } else {
-            this.runnerImg.animations.currentAnim.stop();
-            this.runnerImg.frameName = 'ingame/chara-fail';
+            // this.runnerImg.animations.currentAnim.stop();
+            // this.runnerImg.frameName = 'ingame/chara-fail';
             game.time.events.add(1000, this.createResult, this)
         }
     },

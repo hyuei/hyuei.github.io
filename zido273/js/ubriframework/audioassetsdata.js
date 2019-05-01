@@ -33,6 +33,11 @@ SoundData = {
     sfxObj : {},
     bgmObj : {},
     mobileSFX : true,
+    idx:-1,
+    ready:false,
+    sfxMute:false,
+    bgmMute:false,
+    isPlaying:true,
 
     sfxPlay:function(name, volume) {
         volume = volume ? volume : 1;
@@ -43,5 +48,32 @@ SoundData = {
 
         if(!SoundData.sfxObj[name]) return;
         SoundData.sfxObj[name].play("",0,SoundData.sfxVolume);
-    }
+    },
+
+    bgmPlay:function(idx, forcePlay) {
+        if( typeof idx == 'undefined' || idx == null) {
+            idx = 0;
+        }
+
+        if( typeof forcePlay == 'undefined' || forcePlay == null) {
+            forcePlay = false;
+        }
+
+        if (idx != SoundData.idx || forcePlay) {
+            if (SoundData.bgmObj[SoundData.idx])
+                if (SoundData.bgmObj[SoundData.idx].isPlaying)
+                    SoundData.bgmObj[SoundData.idx].stop();
+
+            SoundData.idx = idx;
+            SoundData.isPlaying = true;
+            
+            if(SoundData.bgmMute) return;
+
+            SoundData.bgmObj[SoundData.idx].play("",0,SoundData.bgmVolume,true,false);
+        }
+    },
+
+    bgmStop:function(){
+        SoundData.bgmObj[SoundData.idx].stop();
+    },
 }
