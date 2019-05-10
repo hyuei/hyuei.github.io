@@ -13,11 +13,15 @@ class PrologueScreen extends Phaser.State
     create(){
         //declare
         console.log("Prologue screen");
+        this.ITEMLIST = ["trash-01", "trash-02", "trash-03", "trash-04", "fert-01", "fert-02"];
+        this.FERTILIST = ["fert-01", "fert-02"];
         this.contrainer = this.game.add.group();
         this.BGGroup = this.game.add.group();
         this.objGroup = this.game.add.group();
         this.UIgroup = this.game.add.group();
         this.frontUIgroup = this.game.add.group();
+        game.global = {};
+        game.global.wasteObjs = [];
 
         //add info
         game.input.mouse.capture = true;
@@ -93,7 +97,26 @@ class PrologueScreen extends Phaser.State
             bin.fullLimit = this.FULL_LIMIT;
         }
 
-        let inorganicBin = this.game.add.sprite(this.game.width*.62, this.game.height*.75, 'ingame', 'bin-recycle');
+        for(let j =0; j<10; j++){
+            let nameItem = this.rnd.pick(this.ITEMLIST);
+            let randomPosibilityTrash = Math.random();
+            if(randomPosibilityTrash < .6){
+                nameItem = this.rnd.pick(this.FERTILIST);
+            }
+            let randomPos = {x:this.game.rnd.between(180, 450), y:this.game.rnd.between(250, 400)};
+            let waste = this.game.add.sprite(randomPos.x, randomPos.y, 'ingame', nameItem, this.objGroup);
+            waste.anchor.set(0.5);
+            waste.flagCollide = false;
+            waste.fName = nameItem;
+            //console.log(waste.frameName);
+            game.global.wasteObjs.push(waste);
+            //waste.inputEnabled =true;
+            //waste.input.enableDrag(false, true);
+            //waste.events.onInputUp.add(this.releaseWaste, this);
+            //waste.events.onInputDown.add(this.clickWaste, this);
+        }
+
+        let inorganicBin = this.game.add.sprite(this.game.width*.62, this.game.height*.5, 'ingame', 'bin-recycle');
         this.objGroup.add(inorganicBin);
     }
 

@@ -48,6 +48,9 @@ class PopGameScreen extends GameScreen {
         this.tut04 = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY - 20, "2-7-1-04");
         this.tut04.anchor.set(0.5);
         this.tut04.visible = false;
+        this.tut05 = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY - 20, "2-7-1-05");
+        this.tut05.anchor.set(0.5);
+        this.tut05.visible = false;
 
         this.talker.loadTalkingArray(TALKING_DATA.talkingdata.PopGame_Prolog);
         this.talker.startTalk();
@@ -120,6 +123,11 @@ class PopGameScreen extends GameScreen {
                     this.tut04.visible = true;
                 }
                 break;
+            case "showtut_05":
+                {
+                    this.tut05.visible = true;
+                }
+                break;
             case "hidetut_01":
                 {
                     this.tut01.visible = false;
@@ -138,6 +146,11 @@ class PopGameScreen extends GameScreen {
             case "hidetut_04":
                 {
                     this.tut04.visible = false;
+                }
+                break;
+            case "hidetut_05":
+                {
+                    this.tut05.visible = false;
                 }
                 break;
         }

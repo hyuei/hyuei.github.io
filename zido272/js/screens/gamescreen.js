@@ -146,14 +146,18 @@ class GameScreen extends Phaser.State
         }
 
         //spawn waste
-        for(let j =0; j<10; j++){
+        for(let j =0; j<game.global.wasteObjs.length; j++){
+            /*
             let nameItem = this.rnd.pick(this.ITEMLIST);
             let randomPosibilityTrash = Math.random();
             if(randomPosibilityTrash < .5){
                 nameItem = this.rnd.pick(this.FERTILIST);
             }
             let randomPos = {x:this.game.rnd.between(180, 450), y:this.game.rnd.between(250, 400)};
-            let waste = this.game.add.sprite(randomPos.x, randomPos.y, 'ingame', nameItem, this.wasteGroup);
+            */
+            let wasteB = game.global.wasteObjs[j];
+            let waste = this.game.add.sprite(wasteB.x, wasteB.y, 'ingame', wasteB.fName, this.wasteGroup);
+
             waste.body.setSize(65, 65,( waste.width-65)*.5, (waste.height-65)*.5);
             waste.anchor.set(0.5);
             waste.flagCollide = false;
@@ -330,7 +334,8 @@ class GameScreen extends Phaser.State
             this.score +=100;
         }
         else{
-            
+            waste.position.x = waste.posBefore.x;
+            waste.position.y = waste.posBefore.y;
         }
         if(binName == "recycle" && wasteName  == "trash"){
             console.log("recyle waste");

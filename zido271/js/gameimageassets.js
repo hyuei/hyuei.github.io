@@ -50,6 +50,7 @@ class GameImageAssets extends ImageAssetsData {
                 { id: "2-7-1-02", file: "assets/veggie/2-7-1-02.png" },
                 { id: "2-7-1-03", file: "assets/veggie/2-7-1-03.png" },
                 { id: "2-7-1-04", file: "assets/veggie/2-7-1-04.png" },
+                { id: "2-7-1-05", file: "assets/veggie/2-7-1-05.png" },
 
                 { id: "veg-01", file: "assets/veggie/veg-01.png" },
                 { id: "veg-02", file: "assets/veggie/veg-02.png" },

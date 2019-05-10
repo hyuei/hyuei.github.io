@@ -47,12 +47,8 @@ Talker.inherit({
         var textOption = {font: font, fill: "#834711", align: "right", boundsAlignH: "right", wordWrap:true, wordWrapWidth:textAreaWidth};
         this.content = this.game.add.text(x, y, "test",  textOption);
         this.content.anchor.setTo(1, 0);
-        // this.content.setTextBounds(0,0, this.bgWidth - (leftPadding/2), this.bgHeight);
         this.addChild(this.content);
 
-        // draw button
-        // this.nextButton = game.add.button(this.bgWidth - 50, this.bgHeight - 50, 'next-btn', this.nextButtonOnClick, this);
-        // this.addChild(this.nextButton);
         var x = (this.width * 0.5) - 50;
         var y = (this.height * 0.5) - 70
         var arrowPos = {x:x, y:y};
@@ -61,26 +57,13 @@ Talker.inherit({
         this.addChild(nextArrow);
         this.game.add.tween(nextArrow).to(arrowPosOffset, 500, Phaser.Easing.Exponential.Out, true).loop(true).yoyo(true);
 
-        var tapTxt = global.addText((-this.width * 0.5) + 50, nextArrow.y, STRINGS_DATA.data.taptocontinue, 20, global.font1);
-        tapTxt.anchor.setTo(1, 0);
-        tapTxt.x += tapTxt.width;
-        tapTxt.fill = 'maroon'
-        this.addChild(tapTxt)
-
-        // this.inputEnabled = true;
-        // this.events.onInputOver.add(function(){
-        //     // console.log('hover')
-        //     this.oriScale = this.scale.x;
-        //     var toScale = this.oriScale + 0.02;
-        //     this.scale.setTo(toScale)
-        // }, this);
-        // this.events.onInputOut.add(function(){
-        //     this.scale.setTo(this.oriScale);
-        // }, this)
+        // var tapTxt = global.addText((-this.width * 0.5) + 50, nextArrow.y, STRINGS_DATA.data.taptocontinue, 20, global.font1);
+        // tapTxt.anchor.setTo(1, 0);
+        // tapTxt.x += tapTxt.width;
+        // tapTxt.fill = 'maroon'
+        // this.addChild(tapTxt)
         
         this.game.input.onDown.add(this.onDown, this);
-        // this.inputEnabled = true;
-        // this.events.onInputDown.add(this.onDown, this);
     },
 
     onDown:function()
