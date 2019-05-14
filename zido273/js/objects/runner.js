@@ -79,7 +79,7 @@ Runner.inherit({
 		game.physics.p2.enable(this, curState().debugPhysic);
 	    this.body.fixedRotation = true;
 	    this.body.damping = 0.2;
-	    this.body.setRectangle(this.width, this.height + 8)
+	    this.body.setRectangle(this.width * 0.4, this.height + 8)
 	    this.body.setMaterial(curState().playerMaterial);
 	    this.body.setCollisionGroup(curState().runnerGroup)
 	    this.body.collides(curState().objectGroup)
