@@ -66,6 +66,9 @@ class GameScreen extends Phaser.State
 
         this.clingSound = this.game.add.sound('cling');
         this.clickPass = this.game.add.sound('pass');
+        this.soundRight = this.game.add.sound('choice-right');
+        this.soundFalse = this.game.add.sound('choice-wrong');
+        this.cringSound = this.game.add.sound('cring');
     }
 
     regroup(){
@@ -296,6 +299,7 @@ class GameScreen extends Phaser.State
             plant.scale.setTo(0.01, 0.01);
             this.objGroup.add(plant);
             this.game.add.tween(plant.scale).to({x:1, y:1}, 700, Phaser.Easing.Linear.None, true);
+            this.cringSound.play();
         }
 
         sprite.x = sprite.firstPos.x;
@@ -332,10 +336,13 @@ class GameScreen extends Phaser.State
             tweenTall.chain(tweenBackScale);
             tweenBump.start();
             this.score +=100;
+            
+            this.soundRight.play();
         }
         else{
             waste.position.x = waste.posBefore.x;
             waste.position.y = waste.posBefore.y;
+            //this.soundFalse.play();
         }
         if(binName == "recycle" && wasteName  == "trash"){
             console.log("recyle waste");
@@ -347,11 +354,13 @@ class GameScreen extends Phaser.State
             tweenBump.chain(tweenTall);
             tweenTall.chain(tweenBackScale);
             tweenBump.start();
+            this.soundRight.play();
         }
         if(binName == "recycle" && wasteName == "fert" ||binName == "ferti" && wasteName == "trash" ){
             waste.position.x = waste.posBefore.x;
             waste.position.y = waste.posBefore.y;
             this.wasteRedTint(waste);
+            this.soundFalse.play();
         }
         //console.log(waste.frameName);
         //console.log(bin.frameName);
