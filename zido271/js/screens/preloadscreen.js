@@ -32,6 +32,7 @@ class PreloadScreen {
         // game.load.audio("BUYER_WRONG_ITEM", "assets/voice/shop-05.mp3");
         // game.load.audio("TOO_LONG_TIME", "assets/voice/shop-06.mp3");
 
+
         game.load.bitmapFont('arabnumbers', 'assets/fonts/arabnumber.png', 'assets/fonts/arabnumber.fnt');
 
         this.game.add.text(0, 0, "fix", { font: "1px Harmattan", fill: "#FFFFFF" });
