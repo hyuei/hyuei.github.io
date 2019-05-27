@@ -12,7 +12,7 @@ class TalkingData {
                         { char: "", en: "Tap on vegetables which has 3 or more same vegetables connected", talk: "اضْغَطْ لِتُشَكِّلَ مَجْمُوعَاتٍ مُكَوَّنَةً مِنْ ثَلَاثَةِ أَنْوَاعٍ  أَوْ أَكْثَرَ مِنَ الْخُضْرَواتِ الْمُتَشَابِهَةِ", premeta: "showtut_02", postmeta: "hidetut_02", voice:"08.mp3" },
                         { char: "", en: "Larger chain will results in larger scores", talk: "كُلَّمَا كَانَتِ السِّلْسِلَةُ أَطْوَلَ كُلَّمَا ازْدَادَ عَدَدُ نِقَاطِ الرَّصيدِ", premeta: "showtut_03", postmeta: "hidetut_03", voice:"09.mp3" },
                         { char: "", en: "Try to get the largest score within the time limit", talk: "حَاوِلْ أَنْ تَجْمَعَ أكْبَرَ عَدَدٍ مُمْكِنٍ مِنَ النِّقَاطِ قَبْلَ انْتِهَاءِ الْمُدَّةِ الزَّمَنِيَّةِ الْمُحَدَّدَةِ", premeta: "showtut_04", postmeta: "hidetut_04", voice:"10.mp3" },
-                        { char: "", en: "When you see this shiny vegetable, tap on it to get a special effect!", talk: "عِنْدَ رُؤْيَةِ هَذِهِ الخُضْرَوَاتِ  المُضِيئَةِ، انْقُرْ عَلَيْهَا وَسَتَحْصُلُ عَلَى التَّأْثِيرِ الْخَاصِّ!", premeta: "showtut_05", postmeta: "hidetut_05" },
+                        { char: "", en: "When you see this shiny vegetable, tap on it to get a special effect!", talk: "عِنْدَ رُؤْيَةِ هَذِهِ الخُضْرَوَاتِ  المُضِيئَةِ، انْقُرْ عَلَيْهَا وَسَتَحْصُلُ عَلَى التَّأْثِيرِ الْخَاصِّ!", premeta: "showtut_05", postmeta: "hidetut_05", voice:"additional_vo.mp3" },
                         { char: "", en: "Start", talk: "ابْدَأْ", postmeta: "show_start_button", voice: "11.mp3" },
                     ],
 
