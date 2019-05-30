@@ -14,7 +14,8 @@ class GameAudioAssets extends AudioAssetsData
             {id:"break-branch", file:"assets/sfx/break-branch.mp3"},
             {id:"slap", file:"assets/sfx/slap.mp3"},
             {id:"pick-up", file:"assets/sfx/pick-up.mp3"},
-            {id:"mouth-pop", file:"assets/sfx/mouth-pop.mp3"}
+            {id:"mouth-pop", file:"assets/sfx/mouth-pop.mp3"},
+            {id:"tiny-rocket", file:"assets/sfx/tiny-rocket.mp3"}
         ];
     }
 }

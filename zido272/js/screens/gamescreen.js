@@ -27,7 +27,7 @@ class GameScreen extends Phaser.State
         this.frontUIgroup.name = "frontUI";
         this.wasteGroup.name = "waste-group";
         this.binsGroup.name = "bin-group";
-
+        this.plantingPlant = 0;
 
         this.FULL_LIMIT = 5;
         this.FONTSTYLE_H1 = {
@@ -265,8 +265,8 @@ class GameScreen extends Phaser.State
 
     endGame(){
         //let score = this.carnavalMarchGame.score;
-        let score = this.score;
-        let windcondition = (score > 0)?true:false;
+        let score = this.plantingPlant;
+        let windcondition = (score > 2)?true:false;
         this.endgameoverlay.setTextScore(score);
         this.endgameoverlay.show(windcondition);
 
@@ -299,6 +299,7 @@ class GameScreen extends Phaser.State
             plant.scale.setTo(0.01, 0.01);
             this.objGroup.add(plant);
             this.game.add.tween(plant.scale).to({x:1, y:1}, 700, Phaser.Easing.Linear.None, true);
+            this.plantingPlant += 1;
             this.cringSound.play();
         }
 

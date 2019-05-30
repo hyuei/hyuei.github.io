@@ -33,6 +33,7 @@ class PopBoard extends Phaser.Sprite {
         this.isDestroying = false;
 
         this.onItemPopped = new Phaser.Signal();
+        this.onBombPopped = new Phaser.Signal();
 
         this.popItemGroup = this.game.add.group();
         this.particleGroup = this.game.add.group();
@@ -380,6 +381,7 @@ class PopBoard extends Phaser.Sprite {
     }
 
     popBomb(popItem) {
+        this.onBombPopped.dispatch();
         var ref = this;
         this.isDestroying = true;
 

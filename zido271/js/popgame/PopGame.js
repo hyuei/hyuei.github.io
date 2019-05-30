@@ -22,6 +22,7 @@ class PopGame extends Phaser.Sprite {
         this.gameLoseSignal = new Phaser.Signal();
 
         this.popSound =null;
+        this.tinyRocketSound = null;
     }
 
     create() {
@@ -31,10 +32,12 @@ class PopGame extends Phaser.Sprite {
         this.view.create();
 
         this.view.board.onItemPopped.add(this.onItemPopped, this);
+        this.view.board.onBombPopped.add(this.onBombPopped, this);
         this.view.board.scoreMultiplier = this.SCORE_MULTIPLIER;
         this.startGame();
 
         this.popSound = this.game.add.audio("mouth-pop", true);
+        this.tinyRocketSound = this.game.add.audio("tiny-rocket", true);
     }
 
     startGame() {
@@ -68,6 +71,10 @@ class PopGame extends Phaser.Sprite {
         console.log(this.currentScore);
 
         this.popSound.play();
+    }
+
+    onBombPopped() {
+        this.tinyRocketSound.play();
     }
 
     getScoreValue() {
