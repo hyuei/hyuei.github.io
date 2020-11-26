@@ -1,0 +1,4 @@
+{
+  "purchases" : "[{\"id\":6,\"name\":\"Microsoft Surface\",\"price\":55000,\"qty\":1},{\"id\":5,\"name\":\"Play Station 4\",\"price\":60000,\"qty\":1},{\"id\":2,\"name\":\"Iphone\",\"price\":60000,\"qty\":1},{\"id\":3,\"name\":\"MacBook Pro\",\"price\":130000,\"qty\":1}]",
+  "products" : "[{\"id\":1,\"name\":\"Google Pixel\",\"price\":45000},{\"id\":2,\"name\":\"Iphone\",\"price\":60000},{\"id\":3,\"name\":\"MacBook Pro\",\"price\":130000},{\"id\":4,\"name\":\"Sony Headphones\",\"price\":12000},{\"id\":5,\"name\":\"Play Station 4\",\"price\":60000},{\"id\":6,\"name\":\"Microsoft Surface\",\"price\":55000}]"
+}
