@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "devDependencies": {
-    "grunt": "^1.0.2",
+    "grunt": "^1.3.0",
     "grunt-console-clean": "~0.3.5",
     "grunt-contrib-concat": "^1.0.1",
     "grunt-contrib-copy": "^1.0.0",
